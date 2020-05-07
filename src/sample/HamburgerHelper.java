@@ -11,22 +11,23 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class HamburgerHelper implements Spawnable, Killable {
     public ImageView sprite = new ImageView();
-    private Image leftForward = new Image("Resources/handy forwards left.png");
-    private Image rightForward = new Image("Resources/handy forwards right.png");
-    private Image leftBack = new Image("Resources/backwardshandleft.png");
-    private Image rightBack = new Image("Resources/backwardshandright.png");
+    private Image leftForward = new Image("handy forwards left.png");
+    private Image rightForward = new Image("handy forwards right.png");
+    private Image leftBack = new Image("backwardshandleft.png");
+    private Image rightBack = new Image("backwardshandright.png");
     public int lives;
-    public double ySpeed =0;
-    public double xSpeed =0;
+    public double ySpeed = 0;
+    public double xSpeed = 0;
     public int score;
     public ArrayList powerups;
-    public Timeline timeline= new Timeline();
-    public double xpos=0;
-    public double ypos=0;
+    public Timeline timeline = new Timeline();
+    public double xpos = 0;
+    public double ypos = 0;
     int imageOffsetCorrectY = 142;
     int imageOffsetCorrectX = 115;
     UserInput userInput;
@@ -36,9 +37,9 @@ public class HamburgerHelper implements Spawnable, Killable {
     boolean relativeDown;
     boolean relativeUp;
 
-    public HamburgerHelper(Group root,UserInput userInput, Stage primaryStage){
-        this.userInput=userInput;
-        this.primaryStage=primaryStage;
+    public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage, ArrayList<Obstacle> obstacle) {
+        this.userInput = userInput;
+        this.primaryStage = primaryStage;
         sprite.setScaleY(.3);
         sprite.setScaleX(.3);
         sprite.setY(300);
@@ -49,6 +50,8 @@ public class HamburgerHelper implements Spawnable, Killable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
+                        for (int i = 0; i < 9; i++) {
+                        }
                         move();
                     }
                 });

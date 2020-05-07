@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class MainScene extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -19,11 +21,14 @@ public class MainScene extends Application {
         primaryStage.show();
         primaryStage.getX();
         primaryStage.setResizable(false);
+        ArrayList<Obstacle> obstacles = new ArrayList<>();
 
-        UserInput inputs = new UserInput(scene,primaryStage);
+        UserInput inputs = new UserInput(scene, primaryStage);
 
-        HamburgerHelper handy = new HamburgerHelper(root,inputs,primaryStage);
-        handy.spawn(handy.sprite,root);
+        HamburgerHelper handy = new HamburgerHelper(root, inputs, primaryStage, obstacles);
+        MapMaker mapMaker = new MapMaker();
+        mapMaker.initSpawn(root);
+        handy.spawn(handy.sprite, root);
 
         ScoreManager scoreManager = new ScoreManager();
         scoreManager.loadProfiles();
