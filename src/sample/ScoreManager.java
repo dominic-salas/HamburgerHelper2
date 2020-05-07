@@ -1,6 +1,9 @@
 package sample;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
@@ -85,7 +88,7 @@ public class ScoreManager {
                         bw.write("\n"+scoreProfile.highscore);
                         bw.write("\n"+scoreProfile.dateCreated);
                         bw.write("\n"+scoreProfile.customMessage);
-                        bw.write("\n"+scoreProfile.credits);
+                        bw.write("\n"+scoreProfile.credits+"\n");
                     }catch (Exception e){
                         System.out.println(e);
                     }
@@ -98,7 +101,24 @@ public class ScoreManager {
 
     }
 
-    private void readScores() {
+    public void loadProfiles() {
+        try{
+            long lineTotal = Files.lines(scoreFile.toPath()).count();
+            for(int lineNumber =0;lineNumber<lineTotal;lineNumber++){
+                if (lineNumber%5==0){
+                    String name = br.readLine();
+                    int highscore = Integer.parseInt(br.readLine());
+                    String createdOn = br.readLine();
+                    String customMessage = br.readLine();
+                    int credits = Integer.parseInt(br.readLine());
+                    profiles.add(new ScoreProfile(name,highscore,createdOn,customMessage,credits));
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
     }
 
     private void printScores() {

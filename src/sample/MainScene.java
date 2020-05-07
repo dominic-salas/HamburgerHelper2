@@ -26,7 +26,7 @@ public class MainScene extends Application {
         handy.spawn(handy.sprite,root);
 
         ScoreManager scoreManager = new ScoreManager();
-        scoreManager.createNewAccount();
+        scoreManager.loadProfiles();
         scoreManager.selectAccount();
         scoreManager.storeProfiles();
     }
