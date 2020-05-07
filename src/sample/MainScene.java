@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class MainScene extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Doodle Jump");
+        primaryStage.setTitle("Hamburger Helper 2: Electric Boogaloo");
         Group root = new Group();
         Scene scene = new Scene(root, 600, 600);
         scene.setFill(Color.WHITE); //color of the scene
@@ -24,6 +24,11 @@ public class MainScene extends Application {
 
         HamburgerHelper handy = new HamburgerHelper(root,inputs,primaryStage);
         handy.spawn(handy.sprite,root);
+
+        ScoreManager scoreManager = new ScoreManager();
+        scoreManager.createNewAccount();
+        scoreManager.selectAccount();
+        scoreManager.storeProfiles();
     }
 
 
