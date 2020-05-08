@@ -9,27 +9,26 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MainScene extends Application {
+    static GameInitializer initializer;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //scene primaryStage starts out as GUI
+        Parent GUI = FXMLLoader.load(getClass().getResource("main.fxml"));
+        primaryStage.setScene(new Scene(GUI,600,600));
         primaryStage.setTitle("Hamburger Helper 2: Electric Boogaloo");
         Group root = new Group();
         Scene scene = new Scene(root, 600, 600);
         scene.setFill(Color.WHITE); //color of the scene
-        primaryStage.setScene(scene);
+
         primaryStage.show();
         primaryStage.getX();
         primaryStage.setResizable(false);
 
-        UserInput inputs = new UserInput(scene,primaryStage);
+       initializer= new GameInitializer(scene,primaryStage,root);
 
-        HamburgerHelper handy = new HamburgerHelper(root,inputs,primaryStage);
-        handy.spawn(handy.sprite,root);
-
-        ScoreManager scoreManager = new ScoreManager();
-        scoreManager.loadProfiles();
-        scoreManager.selectAccount();
-        scoreManager.storeProfiles();
     }
+
 
 
     public static void main(String[] args) {
