@@ -22,23 +22,11 @@ public class MainScene extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 600, 600);
         scene.setFill(Color.WHITE); //color of the scene
-        primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.getX();
         primaryStage.setResizable(false);
 
-       initializer= new GameInitializer(scene,primaryStage,root);
-        UserInput inputs = new UserInput(scene, primaryStage);
-
-        HamburgerHelper handy = new HamburgerHelper(root, inputs, primaryStage, obstacles);
-        MapMaker mapMaker = new MapMaker();
-        mapMaker.initSpawn(root);
-        handy.spawn(handy.sprite, root);
-
-        ScoreManager scoreManager = new ScoreManager();
-        scoreManager.loadProfiles();
-        scoreManager.selectAccount();
-        scoreManager.storeProfiles();
+        initializer = new GameInitializer(scene, primaryStage, root);
     }
 
 

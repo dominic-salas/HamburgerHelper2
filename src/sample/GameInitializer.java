@@ -15,11 +15,12 @@ public class GameInitializer {
         this.root = root;
     }
     public void startGame(){
-        UserInput inputs = new UserInput(scene,primaryStage);
+        UserInput inputs = new UserInput(scene, primaryStage);
 
-        HamburgerHelper handy = new HamburgerHelper(root,inputs,primaryStage);
-        handy.spawn(handy.sprite,root);
-
+        MapMaker mapMaker = new MapMaker();
+        mapMaker.initSpawn(root);
+        HamburgerHelper handy = new HamburgerHelper(root, inputs, primaryStage, mapMaker.obstacles);
+        handy.spawn(handy.sprite, root);
 
         primaryStage.setScene(scene); //changes scene from gui to game
     }

@@ -50,9 +50,10 @@ public class HamburgerHelper implements Spawnable, Killable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        for (int i = 0; i < 9; i++) {
-                        }
                         move();
+                        for (int i = 0; i < obstacle.size(); i++) {
+                            obstacle.get(i).checkIntersect(HamburgerHelper.this);
+                        }
                     }
                 });
         timeline.getKeyFrames().add(action);
