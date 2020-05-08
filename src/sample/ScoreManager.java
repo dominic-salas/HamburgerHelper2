@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ScoreManager {
     private LinkedList<ScoreProfile> profiles = new LinkedList<>();
-    private ScoreProfile activeProfile;
+    public ScoreProfile activeProfile = null;
     private int score;
     Scanner scanner = new Scanner(System.in);
 
@@ -35,31 +35,25 @@ public class ScoreManager {
     public void createNewAccount(){
         System.out.println("please enter a name");
         String name = scanner.nextLine();
-        System.out.println("please enter custom message");
-        String custom =scanner.nextLine();
 
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.now();
         String date = dateformatter.format(dateTime);
         System.out.println("Account: '"+name+"' created at: "+date);
 
-        profiles.add(new ScoreProfile(name,0,date,custom,0));
+        profiles.add(new ScoreProfile(name,0,date,0));
     }
     public void createNewAccount(String name){ //method overload for if name is already created
-        System.out.println("please enter custom message");
-        String custom =scanner.nextLine();
-
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.now();
         String date = dateformatter.format(dateTime);
         System.out.println("Account: '"+name+"' created at: "+date);
-
-        profiles.add(new ScoreProfile(name,0,date,custom,0));
+        profiles.add(new ScoreProfile(name,0,date,0));
+        activeProfile = profiles.getLast();
+        storeProfiles();
     }
 
-    public void selectAccount(){
-        System.out.println("please enter account name");
-        String accountCheckName= scanner.nextLine();
+    public void selectAccount(String accountCheckName){
         AtomicBoolean found = new AtomicBoolean(false);
         profiles.forEach(scoreProfile -> {
             if(scoreProfile.playerName.equals(accountCheckName)){
@@ -68,7 +62,7 @@ public class ScoreManager {
             }
         });
         if(found.get()){
-            System.out.println("Account Found!\nHere are your stats:\n    Account Name: "+activeProfile.playerName+"\n    Highscore: "+activeProfile.highscore+"\n    Credits: "+activeProfile.credits+"\n    Custom Message: "+activeProfile.customMessage+"\n    Created on: "+activeProfile.dateCreated);
+            System.out.println("Account Found!\nHere are your stats:\n    Account Name: "+activeProfile.playerName+"\n    Highscore: "+activeProfile.highscore+"\n    Credits: "+activeProfile.credits+"\n    Created on: "+activeProfile.dateCreated);
         }else{
             System.out.println("no account found, we've created you new one!");
             createNewAccount(accountCheckName);
@@ -87,7 +81,6 @@ public class ScoreManager {
                         bw.write(scoreProfile.playerName);
                         bw.write("\n"+scoreProfile.highscore);
                         bw.write("\n"+scoreProfile.dateCreated);
-                        bw.write("\n"+scoreProfile.customMessage);
                         bw.write("\n"+scoreProfile.credits+"\n");
                     }catch (Exception e){
                         System.out.println(e);
@@ -105,13 +98,12 @@ public class ScoreManager {
         try{
             long lineTotal = Files.lines(scoreFile.toPath()).count();
             for(int lineNumber =0;lineNumber<lineTotal;lineNumber++){
-                if (lineNumber%5==0){
+                if (lineNumber%4==0){
                     String name = br.readLine();
                     int highscore = Integer.parseInt(br.readLine());
                     String createdOn = br.readLine();
-                    String customMessage = br.readLine();
                     int credits = Integer.parseInt(br.readLine());
-                    profiles.add(new ScoreProfile(name,highscore,createdOn,customMessage,credits));
+                    profiles.add(new ScoreProfile(name,highscore,createdOn,credits));
                 }
             }
         }catch (Exception e){
