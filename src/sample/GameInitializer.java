@@ -16,10 +16,9 @@ public class GameInitializer {
     }
     public void startGame(){
         UserInput inputs = new UserInput(scene, primaryStage);
-
-        MapMaker mapMaker = new MapMaker();
+        HamburgerHelper handy = new HamburgerHelper(root, inputs, primaryStage);
+        MapMaker mapMaker = new MapMaker(handy);
         mapMaker.initSpawn(root);
-        HamburgerHelper handy = new HamburgerHelper(root, inputs, primaryStage, mapMaker.obstacles);
         handy.spawn(handy.sprite, root);
 
         primaryStage.setScene(scene); //changes scene from gui to game

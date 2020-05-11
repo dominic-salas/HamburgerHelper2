@@ -16,18 +16,18 @@ import java.util.ArrayList;
 
 public class HamburgerHelper implements Spawnable, Killable {
     public ImageView sprite = new ImageView();
-    private Image leftForward = new Image("handy forwards left.png");
-    private Image rightForward = new Image("handy forwards right.png");
-    private Image leftBack = new Image("backwardshandleft.png");
-    private Image rightBack = new Image("backwardshandright.png");
+    private Image leftForward = new Image("Resources/handy forwards left.png");
+    private Image rightForward = new Image("Resources/handy forwards right.png");
+    private Image leftBack = new Image("Resources/backwardshandleft.png");
+    private Image rightBack = new Image("Resources/backwardshandright.png");
     public int lives;
     public double ySpeed = 0;
     public double xSpeed = 0;
     public int score;
     public ArrayList powerups;
     public Timeline timeline = new Timeline();
-    public double xpos = 0;
-    public double ypos = 0;
+    public double xpos = 170;
+    public double ypos = 150;
     int imageOffsetCorrectY = 142;
     int imageOffsetCorrectX = 115;
     UserInput userInput;
@@ -37,7 +37,7 @@ public class HamburgerHelper implements Spawnable, Killable {
     boolean relativeDown;
     boolean relativeUp;
 
-    public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage, ArrayList<Obstacle> obstacle) {
+    public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage) {
         this.userInput = userInput;
         this.primaryStage = primaryStage;
         sprite.setScaleY(.3);
@@ -45,15 +45,13 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setY(300);
         sprite.setX(300);
         sprite.setImage(leftForward);
+        sprite.relocate(xpos,ypos);
         timeline.setCycleCount(Animation.INDEFINITE);
 
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         move();
-                        for (int i = 0; i < obstacle.size(); i++) {
-                            obstacle.get(i).checkIntersect(HamburgerHelper.this);
-                        }
                     }
                 });
         timeline.getKeyFrames().add(action);
@@ -105,7 +103,7 @@ public class HamburgerHelper implements Spawnable, Killable {
             }
             xSpeed+=.15;
         }if(!userInput.leftPress&&!userInput.rightPress||(userInput.rightPress&&userInput.leftPress)){xSpeed=0;} //set to zero speed if nothing pressed
-        xpos+=xSpeed;
+        //xpos+=xSpeed;
 
         if(userInput.upPress&&ySpeed>-5){ //update y speed
             if(ySpeed>0){
@@ -118,9 +116,8 @@ public class HamburgerHelper implements Spawnable, Killable {
             }
             ySpeed+=.15;
         }if(!userInput.upPress&&!userInput.downPress||(userInput.upPress&&userInput.downPress)){ySpeed=0;} //set to zero speed if nothing pressed
-        ypos+=ySpeed;
+        //ypos+=ySpeed;
 
-        sprite.relocate(xpos,ypos); //implements movement
         updateImage();
     }
 

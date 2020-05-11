@@ -19,6 +19,11 @@ public class MapMaker {
     private Random rand = new Random();
     private Obstacle[][] mapSpread = new Obstacle[6][6];
     public ArrayList<Obstacle> obstacles = new ArrayList<>();
+    private HamburgerHelper handy;
+
+    public MapMaker(HamburgerHelper handy){
+        this.handy = handy;
+    }
 
     private void spreadMap() {
         for (int x = 0; x < 6; x++) {
@@ -36,7 +41,7 @@ public class MapMaker {
         for (int i = 0; i < obstacles.size(); i++) {
             if (obstacles.get(i).sprite.getX() < 200 && obstacles.get(i).sprite.getY() < 200) { //gets rid of obstacles that spawn inside of handy
                 //System.out.println("spawnkill removed at " + obstacles.get(i).sprite.getX() + "," + obstacles.get(i).sprite.getY() + ", at " + i);
-                obstacles.set(i, new Obstacle(1000, 1000));
+                obstacles.set(i, new Obstacle(1000, 1000, handy));
             } else {
                 obstacles.get(i).spawn(obstacles.get(i).sprite, root);
             }
@@ -61,7 +66,7 @@ public class MapMaker {
         if (rand.nextInt(4) == 1) {
             xRand = rand.nextInt(8);
             yRand = rand.nextInt(8);
-            mapSpread[x][y] = new Obstacle((x * 100) + xRand, (y * 100) + yRand);
+            mapSpread[x][y] = new Obstacle((x * 100) + xRand, (y * 100) + yRand,handy);
             if (rand.nextInt(3) == 0) { //chance for a platform to take up two spaces of mapSpread
                 if (expandInt == 0) { //platform spreads at x integer.
                     mapSpread[x][y].sprite.setFitWidth(rand.nextInt(50) + 150);
