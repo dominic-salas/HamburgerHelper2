@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class HamburgerHelper implements Spawnable, Killable {
     public ImageView sprite = new ImageView();
-    private Image leftForward = new Image("Resources/handy forwards left.png");
-    private Image rightForward = new Image("Resources/handy forwards right.png");
-    private Image leftBack = new Image("Resources/backwardshandleft.png");
-    private Image rightBack = new Image("Resources/backwardshandright.png");
+    private Image leftForward = new Image("handy forwards left.png");
+    private Image rightForward = new Image("handy forwards right.png");
+    private Image leftBack = new Image("backwardshandleft.png");
+    private Image rightBack = new Image("backwardshandright.png");
     public int lives;
     public double ySpeed = 0;
     public double xSpeed = 0;

@@ -13,9 +13,11 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
+import static sample.GameInitializer.mapMaker;
+
 public class Obstacle implements Spawnable {
     public ImageView sprite = new ImageView();
-    private Image image = new Image("Resources/brick_wall.png");
+    private Image image = new Image("brick_wall.png");
     private double xPos;
     private double yPos;
     private double xSize;
@@ -23,14 +25,12 @@ public class Obstacle implements Spawnable {
     private Random rand = new Random();
     private Timeline timeline;
     private HamburgerHelper handy;
+    private boolean deleted;
 
-    public Obstacle(double xPos, double yPos, HamburgerHelper handy) {
-        /*xPos = rand.nextInt(560) + rand.nextDouble();
-        yPos = rand.nextInt(560) + rand.nextDouble();
-        xSize = rand.nextInt(100);
-        ySize = rand.nextInt(100);*/
+
+    public Obstacle(double xPos, double yPos, HamburgerHelper handy, Group root) {
         this.handy = handy;
-        timeline= new Timeline();
+        timeline = new Timeline();
         this.xPos = xPos;
         this.yPos = yPos;
         sprite.setX(xPos);
@@ -44,8 +44,20 @@ public class Obstacle implements Spawnable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        convertMotion();
-                        checkIntersect();
+                        if (sprite != null) {
+                            convertMotion();
+                            checkIntersect();
+                            checkPos(root);
+                            if ((rand.nextInt(300) == 1 && root.getChildren().contains(sprite)) && mapMaker.obstacles.size() <= 30) {
+                                mapMaker.spawnNewColumn(root);
+                                mapMaker.spawnNewRow(root);
+                            }
+                            if (mapMaker.obstacles.isEmpty()) {
+                                mapMaker.spawnNewColumn(root);
+                                mapMaker.spawnNewRow(root);
+                            }
+                        }
+                        //mapMaker.avoidLag(root);
                     }
                 });
         timeline.getKeyFrames().add(action);
@@ -59,9 +71,20 @@ public class Obstacle implements Spawnable {
         }
     }
 
-    public void convertMotion(){
-        yPos-=handy.ySpeed;
-        xPos-=handy.xSpeed;
-        sprite.relocate(xPos,yPos);
+    public void convertMotion() {
+        yPos -= handy.ySpeed;
+        xPos -= handy.xSpeed;
+        sprite.relocate(xPos, yPos);
     }
+
+    private void checkPos(Group root) {
+        if ((xPos >= 660 || xPos <= (-60 - sprite.getFitWidth()) || yPos >= 660 || yPos <= (-60 - sprite.getFitHeight())) && !deleted) {
+            System.out.println("before delete: " + mapMaker.obstacles.size());
+            mapMaker.obstacles.remove(this);
+            System.out.println("after delete: " + mapMaker.obstacles.size());
+            despawn(sprite, root);
+            sprite = null;
+        }
+    }
+
 }

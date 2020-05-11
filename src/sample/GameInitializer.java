@@ -8,6 +8,7 @@ public class GameInitializer {
     Scene scene;
     Stage primaryStage;
     Group root;
+    public static MapMaker mapMaker;
 
     public GameInitializer(Scene scene, Stage primaryStage, Group root){
         this.scene = scene;
@@ -17,7 +18,7 @@ public class GameInitializer {
     public void startGame(){
         UserInput inputs = new UserInput(scene, primaryStage);
         HamburgerHelper handy = new HamburgerHelper(root, inputs, primaryStage);
-        MapMaker mapMaker = new MapMaker(handy);
+        mapMaker = new MapMaker(handy);
         mapMaker.initSpawn(root);
         handy.spawn(handy.sprite, root);
 
