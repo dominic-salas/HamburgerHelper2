@@ -20,12 +20,14 @@ public class Obstacle implements Spawnable {
     private Image image = new Image("brick_wall.png");
     private double xPos;
     private double yPos;
+    public static double xSpeed;
+    public static double ySpeed;
+    public static boolean collision=false;
     private double xSize;
     private double ySize;
     private Random rand = new Random();
     private Timeline timeline;
     private HamburgerHelper handy;
-    private boolean deleted;
 
 
     public Obstacle(double xPos, double yPos, HamburgerHelper handy, Group root) {
@@ -45,8 +47,6 @@ public class Obstacle implements Spawnable {
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         if (sprite != null) {
-                            convertMotion();
-                            checkIntersect();
                             checkPos(root);
                             if ((rand.nextInt(300) == 1 && root.getChildren().contains(sprite)) && mapMaker.obstacles.size() <= 30) {
                                 mapMaker.spawnNewColumn(root);
@@ -65,16 +65,25 @@ public class Obstacle implements Spawnable {
     }
 
 
-    public void checkIntersect() {
-        if (handy.sprite.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
-            System.out.println("collision");
+    public void predictIntersect() {
+        handy.hitbox.relocate(handy.xpos+92+xSpeed,handy.ypos+88); //move hitbox to predicted x position
+        if(handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())){
+            xSpeed =0;
         }
-    }
+        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88); //return hitbox to og position
 
-    public void convertMotion() {
-        yPos -= handy.ySpeed;
-        xPos -= handy.xSpeed;
-        sprite.relocate(xPos, yPos);
+
+        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88+ySpeed); //move hitbox to predicted y position
+        if(handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())){
+            ySpeed =0;
+        }
+        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88); //return to og position
+
+    }
+    public void convertMotion(){
+        xPos-=xSpeed;
+        yPos-=ySpeed;
+        sprite.relocate(xPos,yPos);
     }
 
     private void checkPos(Group root) {

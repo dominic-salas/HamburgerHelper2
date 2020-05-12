@@ -1,6 +1,12 @@
 package sample;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,9 +26,25 @@ public class MapMaker {
     private Obstacle[][] mapSpread = new Obstacle[6][6];
     public ArrayList<Obstacle> obstacles = new ArrayList<>();
     private HamburgerHelper handy;
+    private Timeline timeline;
 
     public MapMaker(HamburgerHelper handy){
+        timeline = new Timeline();
         this.handy = handy;
+        timeline.setCycleCount(Animation.INDEFINITE);
+
+        KeyFrame action = new KeyFrame(Duration.seconds(.0080),
+                new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event) { //this is my pride and joy please don't break this. It took me 4 hours to get collisions working
+                        handy.convertInput(); //get inputs
+                        obstacles.forEach(Obstacle::predictIntersect); //check if inputs will cause collision and set to 0 if they will
+                        obstacles.forEach(Obstacle::convertMotion); //implement movement
+
+                    }
+                });
+        timeline.getKeyFrames().add(action);
+        timeline.play();
+
     }
 
     private void spreadMap(Group root) {
