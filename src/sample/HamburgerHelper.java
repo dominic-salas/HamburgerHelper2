@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -21,8 +22,6 @@ public class HamburgerHelper implements Spawnable, Killable {
     private Image leftBack = new Image("Resources/backwardshandleft.png");
     private Image rightBack = new Image("Resources/backwardshandright.png");
     public int lives;
-    public double ySpeed = 0;
-    public double xSpeed = 0;
     public int score;
     public ArrayList powerups;
     public Timeline timeline = new Timeline();
@@ -36,8 +35,11 @@ public class HamburgerHelper implements Spawnable, Killable {
     boolean relativeRight;
     boolean relativeDown;
     boolean relativeUp;
+    public Rectangle hitbox;
 
     public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage) {
+        hitbox = new Rectangle(xpos+92,ypos+88,40,50);
+        root.getChildren().add(hitbox); // for hitbox testing
         this.userInput = userInput;
         this.primaryStage = primaryStage;
         sprite.setScaleY(.3);
@@ -51,7 +53,6 @@ public class HamburgerHelper implements Spawnable, Killable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        move();
                     }
                 });
         timeline.getKeyFrames().add(action);
@@ -91,31 +92,19 @@ public class HamburgerHelper implements Spawnable, Killable {
         }
     }
 
-    public void move() {
-        if(userInput.leftPress&&xSpeed>-5){ //update x speed
-            if(xSpeed>0){
-                xSpeed=0;
-            }
-            xSpeed-=.15;
-        }else if(userInput.rightPress&&xSpeed<5){
-            if(xSpeed<0){
-                xSpeed=0;
-            }
-            xSpeed+=.15;
-        }if(!userInput.leftPress&&!userInput.rightPress||(userInput.rightPress&&userInput.leftPress)){xSpeed=0;} //set to zero speed if nothing pressed
+    public void convertInput() {
+        if(userInput.leftPress){ //update x speed
+            Obstacle.xSpeed=-4;
+        }else if(userInput.rightPress){
+            Obstacle.xSpeed=+4;
+        }if(!userInput.leftPress&&!userInput.rightPress||(userInput.rightPress&&userInput.leftPress)){Obstacle.xSpeed=0;} //set to zero speed if nothing pressed
         //xpos+=xSpeed;
 
-        if(userInput.upPress&&ySpeed>-5){ //update y speed
-            if(ySpeed>0){
-                ySpeed=0;
-            }
-            ySpeed-=.15;
-        }else if(userInput.downPress&&ySpeed<5){
-            if(ySpeed<0){
-                ySpeed=0;
-            }
-            ySpeed+=.15;
-        }if(!userInput.upPress&&!userInput.downPress||(userInput.upPress&&userInput.downPress)){ySpeed=0;} //set to zero speed if nothing pressed
+        if(userInput.upPress){ //update y speed
+            Obstacle.ySpeed=-4;
+        }else if(userInput.downPress){
+            Obstacle.ySpeed=+4;
+        }if(!userInput.upPress&&!userInput.downPress||(userInput.upPress&&userInput.downPress)){Obstacle.ySpeed=0;} //set to zero speed if nothing pressed
         //ypos+=ySpeed;
 
         updateImage();

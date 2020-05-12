@@ -18,11 +18,15 @@ public class Obstacle implements Spawnable {
     private Image image = new Image("Resources/brick_wall.png");
     private double xPos;
     private double yPos;
+    public static double xSpeed;
+    public static double ySpeed;
+    public static boolean collision=false;
     private double xSize;
     private double ySize;
     private Random rand = new Random();
     private Timeline timeline;
     private HamburgerHelper handy;
+    private MapMaker mapMaker;
 
     public Obstacle(double xPos, double yPos, HamburgerHelper handy) {
         /*xPos = rand.nextInt(560) + rand.nextDouble();
@@ -44,24 +48,33 @@ public class Obstacle implements Spawnable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        convertMotion();
-                        checkIntersect();
+
                     }
                 });
-        timeline.getKeyFrames().add(action);
-        timeline.play();
+        //timeline.getKeyFrames().add(action);
+        //timeline.play();
     }
 
 
-    public void checkIntersect() {
-        if (handy.sprite.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
-            System.out.println("collision");
+    public void predictIntersect() {
+        handy.hitbox.relocate(handy.xpos+92+xSpeed,handy.ypos+88); //move hitbox to predicted x position
+        if(handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())){
+            xSpeed =0;
         }
-    }
+        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88); //return hitbox to og position
 
+
+        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88+ySpeed); //move hitbox to predicted y position
+        if(handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())){
+            ySpeed =0;
+        }
+        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88); //return to og position
+
+    }
     public void convertMotion(){
-        yPos-=handy.ySpeed;
-        xPos-=handy.xSpeed;
+        xPos-=xSpeed;
+        yPos-=ySpeed;
         sprite.relocate(xPos,yPos);
     }
+
 }
