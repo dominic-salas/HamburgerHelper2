@@ -79,14 +79,14 @@ public class MapMaker {
     public void spawnNewColumn(Group root) {
         int platformNum = rand.nextInt(2) + 3;
         Obstacle newObs;
-        if (handy.xSpeed >= 1) {
+        if (Obstacle.xSpeed >= -1) {
             for (int i = 0; i < platformNum; i++) {
                 newObs = new Obstacle(650, rand.nextInt(500) + 100, handy, root);
                 obstacles.add(newObs);
                 newObs.spawn(newObs.sprite, root);
             }
         }
-        if (handy.xSpeed <= -1) {
+        if (Obstacle.xSpeed <= 1) {
             for (int i = 0; i < platformNum; i++) {
                 newObs = new Obstacle(-50, rand.nextInt(500) + 100, handy, root);
                 obstacles.add(newObs);
@@ -99,14 +99,14 @@ public class MapMaker {
     public void spawnNewRow(Group root) {
         int platformNum = rand.nextInt(2) + 3;
         Obstacle newObs;
-        if (handy.ySpeed >= 1) {
+        if (Obstacle.ySpeed >= -1) {
             for (int i = 0; i < platformNum; i++) {
                 newObs = new Obstacle(rand.nextInt(500) + 100, 650, handy, root);
                 obstacles.add(newObs);
                 newObs.spawn(newObs.sprite, root);
             }
         }
-        if (handy.ySpeed <= -1) {
+        if (Obstacle.ySpeed <= 1) {
             for (int i = 0; i < platformNum; i++) {
                 newObs = new Obstacle(rand.nextInt(500) + 100, -50, handy, root);
                 obstacles.add(newObs);

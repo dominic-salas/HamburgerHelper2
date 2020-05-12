@@ -48,7 +48,7 @@ public class Obstacle implements Spawnable {
                     public void handle(ActionEvent event) {
                         if (sprite != null) {
                             checkPos(root);
-                            if ((rand.nextInt(300) == 1 && root.getChildren().contains(sprite)) && mapMaker.obstacles.size() <= 30) {
+                            if ((rand.nextInt(1000) == 1 && root.getChildren().contains(sprite)) && mapMaker.obstacles.size() <= 30) {
                                 mapMaker.spawnNewColumn(root);
                                 mapMaker.spawnNewRow(root);
                             }
@@ -87,7 +87,7 @@ public class Obstacle implements Spawnable {
     }
 
     private void checkPos(Group root) {
-        if ((xPos >= 660 || xPos <= (-60 - sprite.getFitWidth()) || yPos >= 660 || yPos <= (-60 - sprite.getFitHeight())) && !deleted) {
+        if ((xPos >= 660 || xPos <= (-60 - sprite.getFitWidth()) || yPos >= 660 || yPos <= (-60 - sprite.getFitHeight()))) {
             System.out.println("before delete: " + mapMaker.obstacles.size());
             mapMaker.obstacles.remove(this);
             System.out.println("after delete: " + mapMaker.obstacles.size());
