@@ -17,16 +17,16 @@ import java.util.ArrayList;
 
 public class HamburgerHelper implements Spawnable, Killable {
     public ImageView sprite = new ImageView();
-    private Image leftForward = new Image("handy forwards left.png");
-    private Image rightForward = new Image("handy forwards right.png");
-    private Image leftBack = new Image("backwardshandleft.png");
-    private Image rightBack = new Image("backwardshandright.png");
-    public int lives;
-    public int score;
+    private Image leftForward = new Image("Resources/handy forwards left.png");
+    private Image rightForward = new Image("Resources/handy forwards right.png");
+    private Image leftBack = new Image("Resources/backwardshandleft.png");
+    private Image rightBack = new Image("Resources/backwardshandright.png");
+    public int lives =3;
     public ArrayList powerups;
+    public static Weapon weapon;
     public Timeline timeline = new Timeline();
-    public double xpos = 170;
-    public double ypos = 150;
+    public static double xpos = 170;
+    public static double ypos = 150;
     int imageOffsetCorrectY = 142;
     int imageOffsetCorrectX = 115;
     UserInput userInput;
@@ -39,7 +39,7 @@ public class HamburgerHelper implements Spawnable, Killable {
 
     public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage) {
         hitbox = new Rectangle(xpos+92,ypos+88,40,50);
-        root.getChildren().add(hitbox); // for hitbox testing
+        //root.getChildren().add(hitbox); // for hitbox testing
         this.userInput = userInput;
         this.primaryStage = primaryStage;
         sprite.setScaleY(.3);
@@ -48,6 +48,7 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setX(300);
         sprite.setImage(leftForward);
         sprite.relocate(xpos,ypos);
+        weapon= new BasicGun(root);
         timeline.setCycleCount(Animation.INDEFINITE);
 
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
@@ -61,7 +62,7 @@ public class HamburgerHelper implements Spawnable, Killable {
 
     private void updateImage(){
         //mouse to left or right of handy
-        if(userInput.mousePosX>xpos+imageOffsetCorrectX){
+        if(UserInput.mousePosX >xpos+imageOffsetCorrectX){
             relativeRight=true;
             relativeLeft=false;
         }else{
@@ -69,7 +70,7 @@ public class HamburgerHelper implements Spawnable, Killable {
             relativeRight=false;
         }
         //mouse above or below handy
-        if(userInput.mousePosY>ypos+imageOffsetCorrectY){
+        if(UserInput.mousePosY >ypos+imageOffsetCorrectY){
             relativeUp=false;
             relativeDown=true;
         }else{
@@ -98,14 +99,12 @@ public class HamburgerHelper implements Spawnable, Killable {
         }else if(userInput.rightPress){
             Obstacle.xSpeed=+4;
         }if(!userInput.leftPress&&!userInput.rightPress||(userInput.rightPress&&userInput.leftPress)){Obstacle.xSpeed=0;} //set to zero speed if nothing pressed
-        //xpos+=xSpeed;
 
         if(userInput.upPress){ //update y speed
             Obstacle.ySpeed=-4;
         }else if(userInput.downPress){
             Obstacle.ySpeed=+4;
         }if(!userInput.upPress&&!userInput.downPress||(userInput.upPress&&userInput.downPress)){Obstacle.ySpeed=0;} //set to zero speed if nothing pressed
-        //ypos+=ySpeed;
 
         updateImage();
     }

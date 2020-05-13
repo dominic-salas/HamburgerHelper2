@@ -18,8 +18,8 @@ public class UserInput {
     public boolean rightPress;
     public boolean upPress;
     public boolean downPress;
-    public double mousePosX;
-    public double mousePosY;
+    public static double mousePosX;
+    public static double mousePosY;
     public boolean enterPress;
     private Timeline timeline = new Timeline();
     private Scene scene;
@@ -89,30 +89,38 @@ public class UserInput {
                 }
             }
         });
+
+        scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            HamburgerHelper.weapon.shoot();
+            }
+        });
     }
 
+
     private void checkMouseHover() {
-        mousePosX = MouseInfo.getPointerInfo().getLocation().x;
-        mousePosY = MouseInfo.getPointerInfo().getLocation().y;
+        double mousePosXRough = MouseInfo.getPointerInfo().getLocation().x;
+        double mousePosYRough = MouseInfo.getPointerInfo().getLocation().y;
 
 
 
-        if(mousePosX>primaryStage.getX()+600){
+        if(mousePosXRough>primaryStage.getX()+600){
             mousePosX=600;
         }
-        else if(mousePosX<primaryStage.getX()){
+        else if(mousePosXRough<primaryStage.getX()){
             mousePosX=0;
         }else{
-            mousePosX-=primaryStage.getX();
+            mousePosX=mousePosXRough-primaryStage.getX();
         }
 
-        if(mousePosY>primaryStage.getY()+600){
+        if(mousePosYRough>primaryStage.getY()+600){
             mousePosY=600;
         }
-        else if(mousePosY<primaryStage.getY()){
+        else if(mousePosYRough<primaryStage.getY()){
             mousePosY=0;
         } else{
-            mousePosY-=primaryStage.getY();
+            mousePosY=mousePosYRough-primaryStage.getY();
         }
 
 

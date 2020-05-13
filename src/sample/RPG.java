@@ -11,14 +11,18 @@ public class RPG extends Weapon {
     public double spawnChance;
     public double bulletSpeed;
 
-    @Override
+    public RPG(Group root) {
+        super(root);
+    }
+
+
     public void spawn(ImageView sprite, Group root) {
     }
 
-    private void shoot() {
+    public void shoot() {
     }
 
-    private void pickup() {
+    public void pickup() {
     }
 
 }

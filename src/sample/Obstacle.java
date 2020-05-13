@@ -17,7 +17,7 @@ import static sample.GameInitializer.mapMaker;
 
 public class Obstacle implements Spawnable {
     public ImageView sprite = new ImageView();
-    private Image image = new Image("brick_wall.png");
+    private Image image = new Image("Resources/brick_wall.png");
     private double xPos;
     private double yPos;
     public static double xSpeed;

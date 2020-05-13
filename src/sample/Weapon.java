@@ -1,8 +1,25 @@
 package sample;
 
-public abstract class Weapon implements Spawnable {
-    private void shoot() {
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+
+public abstract class Weapon {
+    protected Group root;
+    public Weapon(Group root){
+        this.root =root;
+
     }
+    public void shoot() {
+    }
+    protected Point2D slopeGenerator(double projectileSpeed) {
+        double xdiff = (UserInput.mousePosX-(HamburgerHelper.xpos+115));
+        double ydiff = (UserInput.mousePosY-(HamburgerHelper.ypos+142));
+        double slopeMultiplier = (projectileSpeed)/Math.sqrt(Math.pow(xdiff,2)+Math.pow(ydiff,2));
+        xdiff=xdiff*slopeMultiplier;
+        ydiff=ydiff*slopeMultiplier;
+        return new Point2D(xdiff,ydiff);
+    }
+
 
     private void pickup() {
     }
