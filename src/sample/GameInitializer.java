@@ -18,7 +18,7 @@ public class GameInitializer {
     public void startGame(){
         UserInput inputs = new UserInput(scene, primaryStage);
         HamburgerHelper handy = new HamburgerHelper(root, inputs, primaryStage);
-        EnemyFactory enemy = new EnemyFactory(root);
+        EnemyFactory enemy = new EnemyFactory(root, handy);
         mapMaker = new MapMaker(handy);
         mapMaker.initSpawn(root);
         handy.spawn(handy.sprite, root);

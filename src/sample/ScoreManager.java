@@ -20,7 +20,7 @@ public class ScoreManager {
     BufferedReader br;
     FileWriter fw;
     BufferedWriter bw;
-    File scoreFile = new File("/highscores.txt");
+    File scoreFile = new File("Resources/highscores.txt");
 
     public ScoreManager(){
         try {

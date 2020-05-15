@@ -20,7 +20,7 @@ public class BasicEnemy extends Enemy {
     private double ypos;
     public Timeline timeline = new Timeline();
 
-    public BasicEnemy(Group root, double xpos, double ypos) {
+    public BasicEnemy(Group root, HamburgerHelper handy, double xpos, double ypos) {
         lives = 3;
         sprite = new ImageView();
         sprite.setFitWidth(67.158);
@@ -46,6 +46,7 @@ public class BasicEnemy extends Enemy {
                                         Weapon.projectiles.get(i).despawn();
                                     }
                                 }
+                                checkAttack(handy, root);
                                 xSpeed = 0;
                                 ySpeed = 0;
                                 hitbox.setX(sprite.getX() + 12.5);
@@ -60,7 +61,12 @@ public class BasicEnemy extends Enemy {
         timeline.play();
     }
 
-    private void attack() {
+    private void checkAttack(HamburgerHelper handy, Group root) {
+        if (hitbox.getBoundsInParent().intersects(handy.sprite.getBoundsInParent())) {
+            handy.dropHealth(5, root);
+            lives = 0;
+            die(root, BasicEnemy.this);
+        }
     }
 
     private void shoot() {
@@ -91,8 +97,12 @@ public class BasicEnemy extends Enemy {
         sprite.relocate(xpos, ypos);
     }
 
-    public void dropHealth(double damage, Group root, Enemy enemy) {
+    public void dropHealth(double damage, Group root, Enemy enemy) { //put this in an abstract class or something
         enemy.lives -= damage;
+        die(root, enemy);
+    }
+
+    private void die(Group root, Enemy enemy) {
         if (enemy.lives <= 0) {
             despawn(enemy.sprite, root);
             root.getChildren().remove(hitbox);
