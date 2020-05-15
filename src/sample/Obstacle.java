@@ -69,25 +69,25 @@ public class Obstacle implements Spawnable {
 
 
     public void predictIntersectHandy() {
-        handy.hitbox.relocate(handy.xpos + 92 + xSpeed, handy.ypos + 88); //move hitbox to predicted x position
+        handy.hitbox.relocate(HamburgerHelper.xpos + 92 + xSpeed, HamburgerHelper.ypos + 88); //move hitbox to predicted x position
         if (handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
             xSpeed = 0;
         }
-        handy.hitbox.relocate(handy.xpos + 92, handy.ypos + 88); //return hitbox to og position
+        handy.hitbox.relocate(HamburgerHelper.xpos + 92, HamburgerHelper.ypos + 88); //return hitbox to og position
 
 
-        handy.hitbox.relocate(handy.xpos + 92, handy.ypos + 88 + ySpeed); //move hitbox to predicted y position
+        handy.hitbox.relocate(HamburgerHelper.xpos + 92, HamburgerHelper.ypos + 88 + ySpeed); //move hitbox to predicted y position
         if (handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
             ySpeed = 0;
         }
-        handy.hitbox.relocate(handy.xpos + 92, handy.ypos + 88); //return to og position
+        handy.hitbox.relocate(HamburgerHelper.xpos + 92, HamburgerHelper.ypos + 88); //return to og position
     }
 
     public static void predictIntersectEnemies(Rectangle hitbox, Enemy enemy) {
         hitbox.relocate(hitbox.getX() + 12.5 + enemy.xSpeed, hitbox.getY() + 1); //move hitbox to predicted x position
         if (hitbox.getBoundsInParent().intersects(enemy.sprite.getBoundsInParent())) {
             if (enemy.xSpeed > 0) {
-                enemy.xSpeed -= enemy.ySpeed;
+                enemy.xSpeed -= enemy.ySpeed; // are these backwards?
             } else if (enemy.xSpeed < 0) {
                 enemy.xSpeed += enemy.ySpeed;
             }

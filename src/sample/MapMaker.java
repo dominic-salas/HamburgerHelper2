@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MapMaker {
-    static Image obsImage = new Image("/brick_wall.png");
+    static Image obsImage = new Image("Resources/brick_wall.png");
     public double ySpeed;
     public double xSpeed;
 
@@ -22,7 +22,7 @@ public class MapMaker {
     private int yRand;
     private Random rand = new Random();
     private Obstacle[][] mapSpread = new Obstacle[6][6];
-    public ArrayList<Obstacle> obstacles = new ArrayList<>();
+    public static ArrayList<Obstacle> obstacles = new ArrayList<>();
     private HamburgerHelper handy;
     private Timeline timeline;
 
@@ -33,10 +33,10 @@ public class MapMaker {
 
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent event) { //this is my pride and joy please don't break this. It took me 4 hours to get collisions working
+                    public void handle(ActionEvent event) { //this is my pride and joy please don't break this. It took me 3 hours to get collisions working
                         handy.convertInput(); //get inputs
                         obstacles.forEach(Obstacle::predictIntersectHandy); //check if inputs will cause collision and set to 0 if they will
-
+                        obstacles.forEach(Obstacle::convertMotion); //implement movement
                         /*
                         for (int i = 0; i < obstacles.size(); i++){
                             for (int e = 0; e < EnemyFactory.enemies.size(); e++){
@@ -45,7 +45,7 @@ public class MapMaker {
                         }
                         */
 
-                        obstacles.forEach(Obstacle::convertMotion); //implement movement
+
 
                     }
                 });

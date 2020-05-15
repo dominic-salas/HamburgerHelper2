@@ -16,7 +16,7 @@ public class basicBullet extends Projectile{
     public basicBullet(double xpos, double ypos, double xSpeed, double ySpeed, Group root) {
         super(xpos, ypos, xSpeed, ySpeed, root);
         this.root = root;
-        Image image = new Image("/projectile.png");
+        Image image = new Image("Resources/projectile.png");
         sprite.setImage(image);
         sprite.setY(ypos);
         sprite.setX(xpos);
@@ -29,9 +29,20 @@ public class basicBullet extends Projectile{
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
+                        checkObstacleIntersect();
                     }
                 });
         timeline.getKeyFrames().add(action);
         timeline.play();
+    }
+
+    public void checkObstacleIntersect(){
+        MapMaker.obstacles.forEach(obstacle -> {
+            if(sprite.getBoundsInParent().intersects(obstacle.sprite.getBoundsInParent())){
+                despawn();
+                this.timeline.pause();
+            }
+        });
+
     }
 }

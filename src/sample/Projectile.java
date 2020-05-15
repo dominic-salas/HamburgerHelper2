@@ -40,7 +40,7 @@ public abstract class Projectile implements Spawnable {
         timeline.play();
     }
 
-    public void move() {
+    public void move() {  //TODO movement also has to also include relative handy movement
         xpos += xSpeed;
         ypos += ySpeed;
         sprite.relocate(xpos, ypos);
