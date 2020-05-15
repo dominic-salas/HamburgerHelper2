@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MapMaker {
-    static Image obsImage = new Image("Resources/brick_wall.png");
+    static Image obsImage = new Image("/brick_wall.png");
     public double ySpeed;
     public double xSpeed;
 

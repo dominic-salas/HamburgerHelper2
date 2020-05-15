@@ -10,14 +10,15 @@ import javafx.util.Duration;
 
 import java.io.File;
 
+import static sample.Weapon.basicBulletImg;
+
 public class basicBullet extends Projectile{
     public Group root;
 
     public basicBullet(double xpos, double ypos, double xSpeed, double ySpeed, Group root) {
         super(xpos, ypos, xSpeed, ySpeed, root);
         this.root = root;
-        Image image = new Image("Resources/projectile.png"); // move this to somewhere more efficient
-        sprite.setImage(image);
+        sprite.setImage(basicBulletImg);
         sprite.setY(ypos);
         sprite.setX(xpos);
         sprite.setFitHeight(20);
