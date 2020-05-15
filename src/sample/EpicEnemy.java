@@ -21,13 +21,5 @@ public class EpicEnemy extends Enemy {
     private void chase() {
     }
 
-    @Override
-    public void spawn(ImageView sprite, Group root) {
 
-    }
-
-    @Override
-    public void dropHealth(double damage) {
-
-    }
 }

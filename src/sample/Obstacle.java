@@ -8,16 +8,19 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import org.w3c.dom.css.Rect;
 
+import java.awt.*;
 import java.util.Random;
 
 import static sample.GameInitializer.mapMaker;
+import static sample.MapMaker.obsImage;
 
 public class Obstacle implements Spawnable {
     public ImageView sprite = new ImageView();
-    private Image image = new Image("Resources/brick_wall.png");
     private double xPos;
     private double yPos;
     public static double xSpeed;
@@ -39,7 +42,7 @@ public class Obstacle implements Spawnable {
         sprite.setY(yPos);
         sprite.setFitWidth(rand.nextInt(50) + 50);
         sprite.setFitHeight(rand.nextInt(50) + 50);
-        sprite.setImage(image);
+        sprite.setImage(obsImage);
 
         timeline.setCycleCount(Animation.INDEFINITE);
 
@@ -65,32 +68,56 @@ public class Obstacle implements Spawnable {
     }
 
 
-    public void predictIntersect() {
-        handy.hitbox.relocate(handy.xpos+92+xSpeed,handy.ypos+88); //move hitbox to predicted x position
-        if(handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())){
-            xSpeed =0;
+    public void predictIntersectHandy() {
+        handy.hitbox.relocate(handy.xpos + 92 + xSpeed, handy.ypos + 88); //move hitbox to predicted x position
+        if (handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
+            xSpeed = 0;
         }
-        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88); //return hitbox to og position
+        handy.hitbox.relocate(handy.xpos + 92, handy.ypos + 88); //return hitbox to og position
 
 
-        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88+ySpeed); //move hitbox to predicted y position
-        if(handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())){
-            ySpeed =0;
+        handy.hitbox.relocate(handy.xpos + 92, handy.ypos + 88 + ySpeed); //move hitbox to predicted y position
+        if (handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
+            ySpeed = 0;
         }
-        handy.hitbox.relocate(handy.xpos+92,handy.ypos+88); //return to og position
-
+        handy.hitbox.relocate(handy.xpos + 92, handy.ypos + 88); //return to og position
     }
-    public void convertMotion(){
-        xPos-=xSpeed;
-        yPos-=ySpeed;
-        sprite.relocate(xPos,yPos);
+
+    public static void predictIntersectEnemies(Rectangle hitbox, Enemy enemy) {
+        hitbox.relocate(hitbox.getX() + 12.5 + enemy.xSpeed, hitbox.getY() + 1); //move hitbox to predicted x position
+        if (hitbox.getBoundsInParent().intersects(enemy.sprite.getBoundsInParent())) {
+            if (enemy.xSpeed > 0) {
+                enemy.xSpeed -= enemy.ySpeed;
+            } else if (enemy.xSpeed < 0) {
+                enemy.xSpeed += enemy.ySpeed;
+            }
+
+            System.out.println("intersect");
+        }
+        hitbox.relocate(hitbox.getX() + 12.5, hitbox.getY() + 1); //return hitbox to og position
+
+
+        hitbox.relocate(hitbox.getX() + 12.5, hitbox.getY() + 1 + enemy.ySpeed); //move hitbox to predicted y position
+        if (hitbox.getBoundsInParent().intersects(enemy.sprite.getBoundsInParent())) {
+            if (enemy.ySpeed > 0) {
+                enemy.ySpeed -= enemy.ySpeed;
+            } else if (enemy.ySpeed < 0) {
+                enemy.ySpeed += enemy.ySpeed;
+            }
+            System.out.println("intersect");
+        }
+        hitbox.relocate(hitbox.getX() + 12.5, hitbox.getY() + 1); //return to og position
+    }
+
+    public void convertMotion() {
+        xPos -= xSpeed;
+        yPos -= ySpeed;
+        sprite.relocate(xPos, yPos);
     }
 
     private void checkPos(Group root) {
         if ((xPos >= 660 || xPos <= (-60 - sprite.getFitWidth()) || yPos >= 660 || yPos <= (-60 - sprite.getFitHeight()))) {
-            System.out.println("before delete: " + mapMaker.obstacles.size());
             mapMaker.obstacles.remove(this);
-            System.out.println("after delete: " + mapMaker.obstacles.size());
             despawn(sprite, root);
             sprite = null;
         }

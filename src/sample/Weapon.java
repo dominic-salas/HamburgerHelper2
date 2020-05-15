@@ -3,12 +3,17 @@ package sample;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 
+import java.util.ArrayList;
+
 public abstract class Weapon {
     protected Group root;
-    public Weapon(Group root){
-        this.root =root;
+    static ArrayList<Projectile> projectiles = new ArrayList<>();
+
+    public Weapon(Group root) {
+        this.root = root;
 
     }
+
     public void shoot() {
     }
     protected Point2D slopeGenerator(double projectileSpeed) {

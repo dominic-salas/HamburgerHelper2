@@ -6,16 +6,14 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class MapMaker {
-    public double exploredXMax;
-    public double exploredXMin;
-    public double exploredYMax;
-    public double exploredYMin;
+    static Image obsImage = new Image("/brick_wall.png");
     public double ySpeed;
     public double xSpeed;
 
@@ -37,7 +35,16 @@ public class MapMaker {
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) { //this is my pride and joy please don't break this. It took me 4 hours to get collisions working
                         handy.convertInput(); //get inputs
-                        obstacles.forEach(Obstacle::predictIntersect); //check if inputs will cause collision and set to 0 if they will
+                        obstacles.forEach(Obstacle::predictIntersectHandy); //check if inputs will cause collision and set to 0 if they will
+
+                        /*
+                        for (int i = 0; i < obstacles.size(); i++){
+                            for (int e = 0; e < EnemyFactory.enemies.size(); e++){
+                                Obstacle.predictIntersectEnemies(EnemyFactory.enemies.get(e).hitbox,EnemyFactory.enemies.get(e));
+                            }
+                        }
+                        */
+
                         obstacles.forEach(Obstacle::convertMotion); //implement movement
 
                     }

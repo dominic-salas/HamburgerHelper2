@@ -15,6 +15,7 @@ public abstract class Projectile implements Spawnable {
     double xSpeed;
     double ySpeed;
     public ImageView sprite;
+    public int damage;
     protected Timeline timeline;
     protected Group root;
 
@@ -47,9 +48,13 @@ public abstract class Projectile implements Spawnable {
 
     private void checkDespawn() {
         if (xpos > 700 || xpos < -100 || ypos > 700 | ypos < -100) {
-            despawn(sprite, root);
-            timeline.stop();
-
+            despawn();
         }
+    }
+
+    public void despawn() {
+        despawn(sprite, root);
+        timeline.stop();
+        Weapon.projectiles.remove(this);
     }
 }
