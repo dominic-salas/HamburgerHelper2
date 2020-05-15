@@ -48,7 +48,7 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setX(300);
         sprite.setImage(leftForward);
         sprite.relocate(xpos,ypos);
-        weapon= new BasicGun(root);
+        weapon= new ShotGun(root);
         timeline.setCycleCount(Animation.INDEFINITE);
 
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),

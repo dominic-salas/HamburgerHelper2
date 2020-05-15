@@ -16,7 +16,7 @@ public class basicBullet extends Projectile{
     public basicBullet(double xpos, double ypos, double xSpeed, double ySpeed, Group root) {
         super(xpos, ypos, xSpeed, ySpeed, root);
         this.root = root;
-        Image image = new Image("Resources/projectile.png");
+        Image image = new Image("Resources/projectile.png"); // move this to somewhere more efficient
         sprite.setImage(image);
         sprite.setY(ypos);
         sprite.setX(xpos);
