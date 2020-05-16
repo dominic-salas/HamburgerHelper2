@@ -22,16 +22,23 @@ import java.util.ResourceBundle;
  */
 
 public class Controller implements Initializable {
-    ScoreManager scoreManager = new ScoreManager();
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun","Shotgun","Laser Gun","Laser Shotgun","Minigun");
+    static ScoreManager scoreManager = new ScoreManager();
+    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun");
 
-    @FXML Button searchButton;
-    @FXML TextField profileInput;
-    @FXML Label profileNameDisplay = new Label();
-    @FXML Label highScoreDisplay = new Label();
-    @FXML Label creditsDisplay = new Label();
-    @FXML Label dateCreatedDisplay = new Label();
-    @FXML ChoiceBox weaponSelect = new ChoiceBox();
+    @FXML
+    Button searchButton;
+    @FXML
+    TextField profileInput;
+    @FXML
+    Label profileNameDisplay = new Label();
+    @FXML
+    Label highScoreDisplay = new Label();
+    @FXML
+    Label creditsDisplay = new Label();
+    @FXML
+    Label dateCreatedDisplay = new Label();
+    @FXML
+    ChoiceBox weaponSelect = new ChoiceBox();
 
 
     /**

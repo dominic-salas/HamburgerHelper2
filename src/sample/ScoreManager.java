@@ -22,26 +22,30 @@ public class ScoreManager {
     BufferedWriter bw;
     File scoreFile = new File("Resources/highscores.txt");
 
-    public ScoreManager(){
+    public ScoreManager() {
         try {
             fr = new FileReader(scoreFile);
             br = new BufferedReader(fr);
-
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    public void createNewAccount(){
+    public void addScore(int score) {
+        activeProfile.highscore += score;
+        activeProfile.credits += score;
+    }
+
+    public void createNewAccount() {
         System.out.println("please enter a name");
         String name = scanner.nextLine();
 
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.now();
         String date = dateformatter.format(dateTime);
-        System.out.println("Account: '"+name+"' created at: "+date);
+        System.out.println("Account: '" + name + "' created at: " + date);
 
-        profiles.add(new ScoreProfile(name,0,date,0));
+        profiles.add(new ScoreProfile(name, 0, date, 0));
     }
     public void createNewAccount(String name){ //method overload for if name is already created
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss");

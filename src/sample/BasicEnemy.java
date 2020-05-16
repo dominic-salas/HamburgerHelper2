@@ -15,13 +15,26 @@ import java.util.ArrayList;
 
 import static sample.EnemyFactory.basicImage;
 
+/**
+ * BasicEnemy object that spawns in a standard enemy with 15 health.
+ * by Dominic Salas
+ */
 public class BasicEnemy extends Enemy {
-    private double xpos;
-    private double ypos;
     public Timeline timeline = new Timeline();
 
-    public BasicEnemy(Group root, HamburgerHelper handy, double xpos, double ypos) {
+    /**
+     * BasicEnemy object that initializes all of the sprite, hitbox and lives properties.
+     * Also includes a timeline to constantly check collisions and if it is dead
+     *
+     * @param root  to print object to group
+     * @param handy to know what registers a hit to handy
+     * @param xpos  where to spawn on x axis
+     * @param ypos  where to spawn on y axis
+     */
+    public BasicEnemy(Group root, HamburgerHelper handy, double xpos, double ypos, ScoreManager scoreManager) {
         lives = 3;
+        damage = 5;
+        speed = 1;
         sprite = new ImageView();
         sprite.setFitWidth(67.158);
         sprite.setFitHeight(45.162);
@@ -37,21 +50,22 @@ public class BasicEnemy extends Enemy {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        if (sprite != null && hitbox != null) {
+                        if (sprite != null && hitbox != null && !handy.dead) {
                             try {
-                                chase();
+                                chase(speed);
                                 for (int i = 0; i < Weapon.projectiles.size(); i++) {
                                     if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
-                                        dropHealth(Weapon.projectiles.get(i).damage, root, BasicEnemy.this);
+                                        dropHealth(Weapon.projectiles.get(i).damage, root, BasicEnemy.this, true, scoreManager);
                                         Weapon.projectiles.get(i).despawn();
                                     }
                                 }
-                                checkAttack(handy, root);
+                                checkAttack(handy, root, BasicEnemy.this);
                                 xSpeed = 0;
                                 ySpeed = 0;
                                 hitbox.setX(sprite.getX() + 12.5);
                                 hitbox.setY(sprite.getY() + 1);
                                 hitbox.relocate(sprite.getX() + 12.5, sprite.getY() + 1);
+                                checkBounds(root, BasicEnemy.this);
                             } catch (java.lang.NullPointerException ignore) {
                             }
                         }
@@ -61,33 +75,28 @@ public class BasicEnemy extends Enemy {
         timeline.play();
     }
 
-    private void checkAttack(HamburgerHelper handy, Group root) {
-        if (hitbox.getBoundsInParent().intersects(handy.sprite.getBoundsInParent())) {
-            handy.dropHealth(5, root);
-            lives = 0;
-            die(root, BasicEnemy.this);
-        }
-    }
-
-    private void shoot() {
-    }
-
+    /**
+     * makes sure BasicEnemy moves with the map
+     */
     public void convertMotion() {
         xpos -= Obstacle.xSpeed;
         ypos -= Obstacle.ySpeed;
     }
 
-    private void chase() {
+    /**
+     * chases "handy"'s position, at 237.5, 237.5
+     */
+    private void chase(double speed) {
         convertMotion();
         if (sprite.getX() - 16.7895 < 237.5) {
-            xSpeed += 1;
+            xSpeed += speed;
         } else if (sprite.getX() - 16.7895 > 237.5) {
-            xSpeed -= 1;
+            xSpeed -= speed;
         }
         if (sprite.getY() - 22.581 < 217.5) {
-            ySpeed += 1;
+            ySpeed += speed;
         } else if (sprite.getY() - 22.581 > 217.5) {
-            ySpeed -= 1;
+            ySpeed -= speed;
         }
 
         xpos += xSpeed;
@@ -97,18 +106,5 @@ public class BasicEnemy extends Enemy {
         sprite.relocate(xpos, ypos);
     }
 
-    public void dropHealth(double damage, Group root, Enemy enemy) { //put this in an abstract class or something
-        enemy.lives -= damage;
-        die(root, enemy);
-    }
 
-    private void die(Group root, Enemy enemy) {
-        if (enemy.lives <= 0) {
-            despawn(enemy.sprite, root);
-            root.getChildren().remove(hitbox);
-            isDead = true;
-            sprite = null;
-            hitbox = null;
-        }
-    }
 }
