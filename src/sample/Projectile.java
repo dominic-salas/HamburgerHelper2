@@ -9,6 +9,12 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/**
+ * projectile object that is spawned by weapon, and then managed by itself until it either collides with something or moves off map
+ * then despawns
+ * each projectile child has unique bullet damage, and image, and other special abilities
+ * By David Rogers
+ */
 public abstract class Projectile implements Spawnable {
     double xpos;
     double ypos;
@@ -40,18 +46,28 @@ public abstract class Projectile implements Spawnable {
         timeline.play();
     }
 
+    /**
+     * takes in slope when spawned, and then follows x and y speed until despawned
+     */
     public void move() {  //TODO movement also has to also include relative handy movement
         xpos += xSpeed;
         ypos += ySpeed;
         sprite.relocate(xpos, ypos);
     }
 
+    /**
+     * remove if its gone off the map
+     */
     private void checkDespawn() {
         if (xpos > 700 || xpos < -100 || ypos > 700 | ypos < -100) {
             despawn();
         }
     }
 
+    /**
+     * implementation of spawnable
+     * removes from root, stops timeline, and removes from projectiles arraylist
+     */
     public void despawn() {
         despawn(sprite, root);
         timeline.stop();

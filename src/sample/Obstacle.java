@@ -19,6 +19,9 @@ import java.util.Random;
 import static sample.GameInitializer.mapMaker;
 import static sample.MapMaker.obsImage;
 
+/**
+ * By Dominic Salas
+ */
 public class Obstacle implements Spawnable {
     public ImageView sprite = new ImageView();
     private double xPos;
@@ -67,7 +70,11 @@ public class Obstacle implements Spawnable {
         timeline.play();
     }
 
-
+    /**
+     * Predicts obstacle collision from handy x and y speeds
+     * prevents individual x and y motion if thinks it will cause collision
+     * By David Rogers
+     */
     public void predictIntersectHandy() {
         handy.hitbox.relocate(HamburgerHelper.xpos + 92 + xSpeed, HamburgerHelper.ypos + 88); //move hitbox to predicted x position
         if (handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())) {

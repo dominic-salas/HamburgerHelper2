@@ -1,12 +1,13 @@
 package sample;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
+
+
+/**
+ * projectile extension with medium bullet damage,small hitbox, a redish cube image
+ * can travel through obstacles
+ * By David Rogers
+ */
 
 public class Laser extends Projectile implements Spawnable {
     public Group root;
@@ -17,11 +18,11 @@ public class Laser extends Projectile implements Spawnable {
         sprite.setImage(LaserGun.laserImg);
         sprite.setY(ypos);
         sprite.setX(xpos);
-        sprite.setFitHeight(20);
-        sprite.setFitWidth(20);
+        sprite.setFitHeight(10);
+        sprite.setFitWidth(10);
         spawn(sprite, root);
 
-        damage = 1;
+        damage = 2;
     }
 
 }

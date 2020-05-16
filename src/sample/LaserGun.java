@@ -5,6 +5,12 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * child of weapon abstract class
+ * spawns laser projectile with relatively high bullet speed
+ * also used to store laser.png for spawning efficiency
+ * By David Rogers
+ */
 public class LaserGun extends Weapon {
     public ImageView sprite;
     private Image weaponImage;
@@ -16,6 +22,12 @@ public class LaserGun extends Weapon {
         super(root);
     }
 
+    /**
+     * same as other shoot methods, just spawns laser projectile instead
+     * generates slope
+     * spawns laser at handy location with returned slope
+     * adds new laser to projectile arraylist in weapon superclass
+     */
     @Override
     public void shoot() {
         Point2D slope = super.slopeGenerator(bulletSpeed);

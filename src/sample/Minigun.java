@@ -11,6 +11,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/**
+ * fullauto weapon that spawns highspeed basic bullets
+ * shoots bullets @ 100 per seconds while mouse is held down
+ * has internal timeline for bullet spawn rate
+ * By David Rogers
+ */
 public class Minigun extends Weapon {
     Timeline timeline = new Timeline();
     public ImageView sprite;
@@ -30,6 +36,12 @@ public class Minigun extends Weapon {
         timeline.getKeyFrames().add(action);
         timeline.play();
     }
+
+    /**
+     * checks from userInput if mouse click is held down
+     * spawns basic bullet along generated slope
+     * adds bullets to projectiles arraylist
+     */
     @Override
     public void shoot(){
         if(UserInput.mouseHeld){
@@ -38,6 +50,4 @@ public class Minigun extends Weapon {
             projectiles.add(bullet);
         }
     }
-
-
 }

@@ -17,6 +17,9 @@ import javafx.util.Duration;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * By Dominic and David
+ */
 public class HamburgerHelper implements Spawnable, Killable {
     public ImageView sprite = new ImageView();
     private Image leftForward = new Image("handy forwards left.png");
@@ -82,6 +85,10 @@ public class HamburgerHelper implements Spawnable, Killable {
         timeline.play();
     }
 
+    /**
+     * updates hand image to always be facing cursor
+     * By David Rogers
+     */
     private void updateImage(){
         //mouse to left or right of handy
         if(UserInput.mousePosX >xpos+imageOffsetCorrectX){
@@ -115,6 +122,11 @@ public class HamburgerHelper implements Spawnable, Killable {
         }
     }
 
+    /**
+     * uses userinput to convert into hand motion
+     * hand motion is actually just obstacle motion relative to stationary hand
+     * By David Rogers
+     */
     public void convertInput() {
         if (!dead) {
             if (userInput.leftPress) { //update x speed

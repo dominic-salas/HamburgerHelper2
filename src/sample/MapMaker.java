@@ -12,6 +12,9 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * By Dominic Salas
+ */
 public class MapMaker {
     static Image obsImage = new Image("Resources/brick_wall.png");
     public double ySpeed;
@@ -30,7 +33,12 @@ public class MapMaker {
         timeline = new Timeline();
         this.handy = handy;
         timeline.setCycleCount(Animation.INDEFINITE);
-
+/**
+ * timeline for moving all obstacles according to handy movement
+ * have to keep all obstacles in central timeline because they dont stay coordinated in movement otherwise
+ * checks motion input, determines if it will cause collision, permits movement that wont cause collision
+ * By David Rogers
+ */
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) { //this is my pride and joy please don't break this. It took me 3 hours to get collisions working

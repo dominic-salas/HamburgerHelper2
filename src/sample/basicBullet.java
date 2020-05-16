@@ -4,13 +4,14 @@ import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.io.File;
-
-
+/**
+ * bullet projectile
+ * low damage, large hitbox, stopped by obstacles
+ * has internal timeline for managing obstacle intersections
+ * By David Rogers
+ */
 
 public class basicBullet extends Projectile{
     public Group root;
@@ -24,7 +25,6 @@ public class basicBullet extends Projectile{
         sprite.setFitHeight(20);
         sprite.setFitWidth(20);
         spawn(sprite, root);
-
         damage = 1;
 
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
@@ -37,11 +37,15 @@ public class basicBullet extends Projectile{
         timeline.play();
     }
 
+    /**
+     * if it collides with obstacle, remove from root, stop timeline, remove from projectiles arraylist
+     */
     public void checkObstacleIntersect(){
         MapMaker.obstacles.forEach(obstacle -> {
             if(sprite.getBoundsInParent().intersects(obstacle.sprite.getBoundsInParent())){
                 despawn();
-                this.timeline.pause();
+                this.timeline.stop();
+                Weapon.projectiles.remove(this);
             }
         });
 

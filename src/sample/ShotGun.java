@@ -4,13 +4,22 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
+/**
+ * semi-auto weapon with slow bullets
+ * shoots three basicBullets at a time
+ * By David Rogers
+ */
 public class ShotGun extends Weapon {
     private double bulletSpeed=4;
-    static Image basicBulletImg = new Image("projectile.png");
     public ShotGun(Group root) {
         super(root);
     }
 
+    /**
+     * generates slope from bulletspeed
+     * spawns 3 basicBullets using addBullets method
+     * adds them to projectiles arraylist
+     */
     @Override
     public void shoot() {
         Point2D slope = super.slopeGenerator(bulletSpeed);
@@ -19,6 +28,12 @@ public class ShotGun extends Weapon {
         addBullets(slope);
 
     }
+
+    /**
+     * spawns two additional bullets along the perpendicular axis to tradjectory as bullet
+     * essentially shoots all three bullets in a line
+     * @param slope
+     */
     private void addBullets(Point2D slope){
         Point2D perpSlope = new Point2D(-slope.getY(),slope.getX());
         Point2D origin1 = new Point2D(HamburgerHelper.xpos+105 +perpSlope.getX()*10,HamburgerHelper.ypos+105+perpSlope.getY()*10);

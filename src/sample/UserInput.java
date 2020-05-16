@@ -3,7 +3,6 @@ package sample;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,6 +12,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.awt.*;
 
+/**
+ * manages all user inputs through keyevents and mouse events
+ * uses a little feature from AWT that allows constant tracking of mouse hover position
+ * looked on stackoverflow and apparently this is one of the only option for mousetracking in javafx
+ * By David Rogers
+ */
 public class UserInput {
     public boolean leftPress;
     public boolean rightPress;
@@ -31,7 +36,7 @@ public class UserInput {
         this.scene=scene;
         this.primaryStage = primaryStage;
         timeline.setCycleCount(Animation.INDEFINITE);
-
+//timeline for checking inputs at given frequency
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
@@ -43,6 +48,12 @@ public class UserInput {
         timeline.play();
     }
 
+    /**
+     * checks WASD, and ENTER for both pressed and released
+     * checks for mouse clicked for semi-auto weapons
+     * checks for mouse pressed and released for full-auto weapons
+     * stores current value as boolean
+     */
     public void checkInputs() {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -66,9 +77,6 @@ public class UserInput {
                 }
             }
         });
-        /**
-         * check for key releases to update hand movements
-         */
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -90,7 +98,6 @@ public class UserInput {
                 }
             }
         });
-
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -111,12 +118,14 @@ public class UserInput {
         });
     }
 
-
+    /**
+     * constantly tracks x and y position of cursor
+     * automotically adjusts values for when mouse is off scene, or window is moved around
+     * using just a wee bit of AWT because it works
+     */
     private void checkMouseHover() {
         double mousePosXRough = MouseInfo.getPointerInfo().getLocation().x;
         double mousePosYRough = MouseInfo.getPointerInfo().getLocation().y;
-
-
 
         if(mousePosXRough>primaryStage.getX()+600){
             mousePosX=600;
@@ -135,7 +144,6 @@ public class UserInput {
         } else{
             mousePosY=mousePosYRough-primaryStage.getY();
         }
-
 
     }
 }

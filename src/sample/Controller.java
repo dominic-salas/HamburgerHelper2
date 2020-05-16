@@ -2,18 +2,24 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
+
+/**
+ * Manages GUI actions
+ * calls scoreManager methods to load, store, and search scoreprofiles
+ * displays profile info
+ * displays highscores and passes sorting criteria to scoreManager to sort them
+ * weaopn shop section
+ * launches game
+ * By David Rogers
+ */
 
 public class Controller implements Initializable {
     ScoreManager scoreManager = new ScoreManager();
@@ -28,7 +34,12 @@ public class Controller implements Initializable {
     @FXML ChoiceBox weaponSelect = new ChoiceBox();
 
 
-
+    /**
+     * makes scoremanager load profiles in when GUI starts up
+     * fills weapon choicebox
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         scoreManager.loadProfiles();
@@ -36,6 +47,10 @@ public class Controller implements Initializable {
         weaponSelect.setItems(weaponOptions);
     }
 
+    /**
+     * when start game button is pressed, set handy's weapon selection
+     * makes scene initializer change scene to game map
+     */
     public void changeScene() {
         MainScene.initializer.startGame();
         switch (weaponSelect.getValue().toString()){
@@ -63,6 +78,9 @@ public class Controller implements Initializable {
 
     }
 
+    /**
+     * displays text on GUI including all profile fields
+     */
     public void setProfile(){
         scoreManager.selectAccount(profileInput.getText());
         profileNameDisplay.setText("Profile Name: "+scoreManager.activeProfile.playerName);
@@ -71,6 +89,5 @@ public class Controller implements Initializable {
         dateCreatedDisplay.setText("Created On: "+scoreManager.activeProfile.dateCreated);
 
     }
-
 
 }

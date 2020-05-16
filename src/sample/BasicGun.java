@@ -7,6 +7,11 @@ import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
+/**
+ * basic semi-auto weapon with low bullet speed, that spawns basicBullet
+ * stores projectile.png for more efficient projectile spawning
+ * By David Rogers
+ */
 public class BasicGun extends Weapon {
     public ImageView sprite;
     private Image weaponImage;
@@ -17,6 +22,11 @@ public class BasicGun extends Weapon {
         super(root);
     }
 
+    /**
+     *generates slope from bulletspeed
+     * spawn new basicBullet projectile at that location with slope as x and y speeds
+     * add basicbullet to projectiles arraylist
+     */
     @Override
     public void shoot() {
         Point2D slope = super.slopeGenerator(bulletSpeed);
