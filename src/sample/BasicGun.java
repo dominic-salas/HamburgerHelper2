@@ -17,7 +17,7 @@ public class BasicGun extends Weapon {
     private Image weaponImage;
     public double spawnChance;
     public double bulletSpeed = 5;
-    static Image basicBulletImg = new Image("Resources/projectile.png");
+    static Image basicBulletImg = new Image("projectile.png");
     public BasicGun(Group root) {
         super(root);
     }

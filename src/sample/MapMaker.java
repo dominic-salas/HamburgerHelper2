@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * By Dominic Salas
+ * Mapmaker for spawning in obstacles in the map
+ * by Dominic Salas
  */
 public class MapMaker {
-    static Image obsImage = new Image("Resources/brick_wall.png");
+    static Image obsImage = new Image("brick_wall.png");
     public double ySpeed;
     public double xSpeed;
 
@@ -29,7 +30,12 @@ public class MapMaker {
     private HamburgerHelper handy;
     private Timeline timeline;
 
-    public MapMaker(HamburgerHelper handy){
+    /**
+     * Mapmaker object.
+     *
+     * @param handy to prevent handy from passing through obstacles
+     */
+    public MapMaker(HamburgerHelper handy) {
         timeline = new Timeline();
         this.handy = handy;
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -54,7 +60,6 @@ public class MapMaker {
                         */
 
 
-
                     }
                 });
         timeline.getKeyFrames().add(action);
@@ -62,6 +67,11 @@ public class MapMaker {
 
     }
 
+    /**
+     * creates a grid for the initial spawning of obstacles
+     *
+     * @param root to spawn obstacles to group
+     */
     private void spreadMap(Group root) {
         for (int x = 0; x < 6; x++) {
             for (int y = 0; y < 6; y++) {
@@ -73,6 +83,11 @@ public class MapMaker {
         }
     }
 
+    /**
+     * initially spawns random obstacles throughout the grid of the map
+     *
+     * @param root to spawn obstacles to group
+     */
     public void initSpawn(Group root) {
         spreadMap(root);
         for (int i = 0; i < obstacles.size(); i++) {
@@ -91,6 +106,11 @@ public class MapMaker {
         }
     }
 
+    /**
+     * spawns a random amount of obstacles on the right of left sides of the map
+     *
+     * @param root to spawn obstacles to map
+     */
     public void spawnNewColumn(Group root) {
         int platformNum = rand.nextInt(2) + 3;
         Obstacle newObs;
@@ -110,7 +130,11 @@ public class MapMaker {
         }
     }
 
-
+    /**
+     * spawns a new row of obstacles on the bottom and top portions of the screen.
+     *
+     * @param root to spawn obstacles to the map
+     */
     public void spawnNewRow(Group root) {
         int platformNum = rand.nextInt(2) + 3;
         Obstacle newObs;
@@ -130,6 +154,13 @@ public class MapMaker {
         }
     }
 
+    /**
+     * makes it possible to spawn double platforms initially
+     *
+     * @param x    where obstacles should be spawned
+     * @param y    where obstacles should be spawned
+     * @param root to spawn obstacles to group
+     */
     private void initMapSpawn(int x, int y, Group root) {
         int expandInt = rand.nextInt(4);
         if (rand.nextInt(4) == 1) {
