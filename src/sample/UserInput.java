@@ -20,6 +20,7 @@ public class UserInput {
     public boolean downPress;
     public static double mousePosX;
     public static double mousePosY;
+    public static boolean mouseHeld;
     public boolean enterPress;
     private Timeline timeline = new Timeline();
     private Scene scene;
@@ -93,7 +94,19 @@ public class UserInput {
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            HamburgerHelper.weapon.shoot();
+                HamburgerHelper.weapon.shoot();
+            }
+        });
+        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                mouseHeld=true;
+            }
+        });
+        scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                mouseHeld=false;
             }
         });
     }

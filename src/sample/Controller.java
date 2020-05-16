@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     ScoreManager scoreManager = new ScoreManager();
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun","Shotgun","Laser Gun","Laser Shotgun");
+    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun","Shotgun","Laser Gun","Laser Shotgun","Minigun");
 
     @FXML Button searchButton;
     @FXML TextField profileInput;
@@ -53,6 +53,10 @@ public class Controller implements Initializable {
             }
             case "Laser Shotgun":{
                 HamburgerHelper.weapon = new LaserShotGun(MainScene.root);
+                break;
+            }
+            case "Minigun":{
+                HamburgerHelper.weapon = new Minigun(MainScene.root);
                 break;
             }
         }
