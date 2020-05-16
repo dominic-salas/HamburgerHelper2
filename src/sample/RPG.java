@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 public class RPG extends Weapon {
     public ImageView sprite;
     private Image weaponImage;
-    public Bullet bulletType;
     public double spawnChance;
     public double bulletSpeed;
 

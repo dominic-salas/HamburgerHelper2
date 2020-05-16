@@ -10,10 +10,9 @@ import java.util.ArrayList;
 public class BasicGun extends Weapon {
     public ImageView sprite;
     private Image weaponImage;
-    public Bullet bulletType;
     public double spawnChance;
     public double bulletSpeed = 5;
-
+    static Image basicBulletImg = new Image("Resources/projectile.png");
     public BasicGun(Group root) {
         super(root);
     }

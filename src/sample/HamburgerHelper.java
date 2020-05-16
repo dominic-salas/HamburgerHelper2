@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 public class HamburgerHelper implements Spawnable, Killable {
     public ImageView sprite = new ImageView();
-    private Image leftForward = new Image("/handy forwards left.png");
-    private Image rightForward = new Image("/handy forwards right.png");
-    private Image leftBack = new Image("/backwardshandleft.png");
-    private Image rightBack = new Image("/backwardshandright.png");
+    private Image leftForward = new Image("Resources/handy forwards left.png");
+    private Image rightForward = new Image("Resources/handy forwards right.png");
+    private Image leftBack = new Image("Resources/backwardshandleft.png");
+    private Image rightBack = new Image("Resources/backwardshandright.png");
     public int lives = 100;
     public ArrayList powerups;
     public static Weapon weapon;
@@ -44,7 +44,7 @@ public class HamburgerHelper implements Spawnable, Killable {
     private Text zeroText = new Text("Health: DEAD lol");
 
     public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage) {
-        hitbox = new Rectangle(xpos + 92, ypos + 88, 40, 50);
+        hitbox = new Rectangle(xpos+92,ypos+88,40,50);
         //root.getChildren().add(hitbox); // for hitbox testing
         this.userInput = userInput;
         this.primaryStage = primaryStage;
@@ -54,7 +54,7 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setX(300);
         sprite.setImage(leftForward);
         sprite.relocate(xpos, ypos);
-        weapon = new ShotGun(root);
+        weapon = new LaserGun(root);
 
         liveText.setX(0);
         liveText.setY(10);

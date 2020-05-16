@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class Weapon {
     protected Group root;
-    static Image basicBulletImg = new Image("projectile.png");
+
     static ArrayList<Projectile> projectiles = new ArrayList<>();
 
     public Weapon(Group root) {
