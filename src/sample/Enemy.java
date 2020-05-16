@@ -37,11 +37,11 @@ public abstract class Enemy implements Spawnable, Killable {
      * @param handy to check if handy is hit
      * @param root  to kill BasicEnemy and delete from group when hit
      */
-    public void checkAttack(HamburgerHelper handy, Group root, Enemy enemy) {
+    public void checkAttack(HamburgerHelper handy, Group root, Enemy enemy, ScoreManager scoreManager) {
         if (hitbox.getBoundsInParent().intersects(handy.sprite.getBoundsInParent())) {
             handy.dropHealth(damage, root);
             lives = 0;
-            die(root, enemy);
+            die(root, enemy, false, scoreManager);
         }
     }
 
@@ -52,13 +52,9 @@ public abstract class Enemy implements Spawnable, Killable {
      * @param root   to be passed into die()
      * @param enemy  to list which enemy dies
      */
-    public void dropHealth(double damage, Group root, Enemy enemy, boolean shot, ScoreManager scoreManager) { //put this in an abstract class or something
-        if (shot) {
-            scoreManager.addScore(scoreAdd);
-            scoreManager.storeProfiles();
-        }
+    public void dropHealth(double damage, Group root, Enemy enemy, boolean shot, ScoreManager scoreManager) {
         enemy.lives -= damage;
-        die(root, enemy);
+        die(root, enemy, shot, scoreManager);
     }
 
     /**
@@ -67,13 +63,17 @@ public abstract class Enemy implements Spawnable, Killable {
      * @param root  to remove from group
      * @param enemy to know which enemy should die
      */
-    public void die(Group root, Enemy enemy) {
+    public void die(Group root, Enemy enemy, boolean shot, ScoreManager scoreManager) {
         if (enemy.lives <= 0) {
             despawn(enemy.sprite, root);
             root.getChildren().remove(hitbox);
             isDead = true;
             sprite = null;
             hitbox = null;
+            if (shot) {
+                scoreManager.addScore(scoreAdd);
+                scoreManager.storeProfiles();
+            }
         }
     }
 
@@ -82,10 +82,10 @@ public abstract class Enemy implements Spawnable, Killable {
      *
      * @param root to remove from group
      */
-    public void checkBounds(Group root, Enemy enemy) {
+    public void checkBounds(Group root, Enemy enemy, ScoreManager scoreManager) {
         if (xpos > 900 || xpos < -300 || ypos > 900 || ypos < -300) {
             lives = 0;
-            die(root, enemy);
+            die(root, enemy, false, scoreManager);
         }
     }
 }
