@@ -46,8 +46,15 @@ public class HamburgerHelper implements Spawnable, Killable {
     private Text liveText = new Text("Health: " + lives);
     private Text zeroText = new Text("Health: DEAD lol");
 
+    /**
+     * hamburger helper object that initializes everything and handles what handy does
+     *
+     * @param root         to spawn to group
+     * @param userInput    to handle inputs from handy
+     * @param primaryStage to manage primary stage
+     */
     public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage) {
-        hitbox = new Rectangle(xpos+92,ypos+88,40,50);
+        hitbox = new Rectangle(xpos + 92, ypos + 88, 40, 50);
         //root.getChildren().add(hitbox); // for hitbox testing
         this.userInput = userInput;
         this.primaryStage = primaryStage;
@@ -154,15 +161,15 @@ public class HamburgerHelper implements Spawnable, Killable {
         }
     }
 
-    public void shoot(boolean mouseHover) {
-    }
-
-    public void checkIntersect() {
-    }
-
     public void pickupWeapon() {
     }
 
+    /**
+     * drops the health of handy
+     *
+     * @param damage to show how much damage should be subtracted
+     * @param root   to add text
+     */
     public void dropHealth(double damage, Group root) {
         liveText.setText("Health: " + lives);
         lives -= damage;
@@ -174,6 +181,11 @@ public class HamburgerHelper implements Spawnable, Killable {
         }
     }
 
+    /**
+     * kill handy/ freezes the screen and forces the player to restart the game
+     *
+     * @param root to add text
+     */
     private void die(Group root) {
         dedLmao.setTextAlignment(TextAlignment.CENTER);
         dedLmao.maxWidth(200);

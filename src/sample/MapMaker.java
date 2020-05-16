@@ -132,7 +132,6 @@ public class MapMaker {
 
     /**
      * spawns a new row of obstacles on the bottom and top portions of the screen.
-     *
      * @param root to spawn obstacles to the map
      */
     public void spawnNewRow(Group root) {
@@ -176,14 +175,6 @@ public class MapMaker {
                     //System.out.println("Double y spawned at " + mapSpread[x][y].sprite.getX() + ", " + mapSpread[x][y].sprite.getY());
                 }
             }
-        }
-    }
-
-    public void avoidLag(Group root) {
-        int random = rand.nextInt(obstacles.size());
-        if (obstacles.size() >= 35) {
-            obstacles.get(random).despawn(obstacles.get(random).sprite, root);
-            obstacles.remove(random);
         }
     }
 }

@@ -20,6 +20,7 @@ import static sample.GameInitializer.mapMaker;
 import static sample.MapMaker.obsImage;
 
 /**
+ * Obstacle class for specific obstacle objects
  * By Dominic Salas
  */
 public class Obstacle implements Spawnable {
@@ -28,14 +29,21 @@ public class Obstacle implements Spawnable {
     private double yPos;
     public static double xSpeed;
     public static double ySpeed;
-    public static boolean collision=false;
+    public static boolean collision = false;
     private double xSize;
     private double ySize;
     private Random rand = new Random();
     private Timeline timeline;
     private HamburgerHelper handy;
 
-
+    /**
+     * obstacle object
+     *
+     * @param xPos  where it should be spawned
+     * @param yPos  where it should be spawned
+     * @param handy to check collisions and speed with handy
+     * @param root  to spawn and remove obstacles
+     */
     public Obstacle(double xPos, double yPos, HamburgerHelper handy, Group root) {
         this.handy = handy;
         timeline = new Timeline();
@@ -90,40 +98,22 @@ public class Obstacle implements Spawnable {
         handy.hitbox.relocate(HamburgerHelper.xpos + 92, HamburgerHelper.ypos + 88); //return to og position
     }
 
-    public static void predictIntersectEnemies(Rectangle hitbox, Enemy enemy) {
-        hitbox.relocate(hitbox.getX() + 12.5 + enemy.xSpeed, hitbox.getY() + 1); //move hitbox to predicted x position
-        if (hitbox.getBoundsInParent().intersects(enemy.sprite.getBoundsInParent())) {
-            if (enemy.xSpeed > 0) {
-                enemy.xSpeed -= enemy.ySpeed; // are these backwards?
-            } else if (enemy.xSpeed < 0) {
-                enemy.xSpeed += enemy.ySpeed;
-            }
-
-            System.out.println("intersect");
-        }
-        hitbox.relocate(hitbox.getX() + 12.5, hitbox.getY() + 1); //return hitbox to og position
-
-
-        hitbox.relocate(hitbox.getX() + 12.5, hitbox.getY() + 1 + enemy.ySpeed); //move hitbox to predicted y position
-        if (hitbox.getBoundsInParent().intersects(enemy.sprite.getBoundsInParent())) {
-            if (enemy.ySpeed > 0) {
-                enemy.ySpeed -= enemy.ySpeed;
-            } else if (enemy.ySpeed < 0) {
-                enemy.ySpeed += enemy.ySpeed;
-            }
-            System.out.println("intersect");
-        }
-        hitbox.relocate(hitbox.getX() + 12.5, hitbox.getY() + 1); //return to og position
-    }
-
+    /**
+     * gets handy's motion to create artificial movement with platforms
+     */
     public void convertMotion() {
         xPos -= xSpeed;
         yPos -= ySpeed;
         sprite.relocate(xPos, yPos);
     }
 
+    /**
+     * Checks the position of the obstacle to know if it should despawn or not
+     *
+     * @param root
+     */
     private void checkPos(Group root) {
-        if ((xPos >= 660 || xPos <= (-60 - sprite.getFitWidth()) || yPos >= 660 || yPos <= (-60 - sprite.getFitHeight()))) {
+        if ((xPos >= 760 || xPos <= (-160 - sprite.getFitWidth()) || yPos >= 760 || yPos <= (-160 - sprite.getFitHeight()))) {
             mapMaker.obstacles.remove(this);
             despawn(sprite, root);
             sprite = null;
