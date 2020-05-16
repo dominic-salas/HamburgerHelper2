@@ -72,6 +72,7 @@ public abstract class Enemy implements Spawnable, Killable {
             hitbox = null;
             if (shot) {
                 scoreManager.addScore(scoreAdd);
+                System.out.println(ScoreManager.activeProfile.score);
                 scoreManager.storeProfiles();
             }
         }

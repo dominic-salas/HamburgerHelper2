@@ -32,6 +32,7 @@ public class BasicEnemy extends Enemy {
      * @param ypos  where to spawn on y axis
      */
     public BasicEnemy(Group root, HamburgerHelper handy, double xpos, double ypos, ScoreManager scoreManager) {
+        scoreAdd=100;
         lives = 3;
         damage = 5;
         speed = 1;

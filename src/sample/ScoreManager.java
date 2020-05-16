@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ScoreManager {
     private LinkedList<ScoreProfile> profiles = new LinkedList<>();
-    public ScoreProfile activeProfile;
+    public static ScoreProfile activeProfile;
     Scanner scanner = new Scanner(System.in);
 
     FileReader fr;
@@ -31,8 +31,11 @@ public class ScoreManager {
     }
 
     public void addScore(int score) {
-        activeProfile.highscore += score;
+        activeProfile.score += score;
         activeProfile.credits += score;
+        if(activeProfile.score>activeProfile.highscore){ //update highscore if score is greater than it
+            activeProfile.highscore=activeProfile.score;
+        }
     }
 
     public void createNewAccount() {

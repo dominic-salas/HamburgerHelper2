@@ -2,7 +2,7 @@ package sample;
 
 
 public class ScoreProfile {
-
+    public int score;
     public String playerName;
     public int highscore;
     public String dateCreated;
