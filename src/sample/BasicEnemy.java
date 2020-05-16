@@ -59,13 +59,13 @@ public class BasicEnemy extends Enemy {
                                         Weapon.projectiles.get(i).despawn();
                                     }
                                 }
-                                checkAttack(handy, root, BasicEnemy.this);
+                                checkAttack(handy, root, BasicEnemy.this, scoreManager);
                                 xSpeed = 0;
                                 ySpeed = 0;
                                 hitbox.setX(sprite.getX() + 12.5);
                                 hitbox.setY(sprite.getY() + 1);
                                 hitbox.relocate(sprite.getX() + 12.5, sprite.getY() + 1);
-                                checkBounds(root, BasicEnemy.this);
+                                checkBounds(root, BasicEnemy.this, scoreManager);
                             } catch (java.lang.NullPointerException ignore) {
                             }
                         }
