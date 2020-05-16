@@ -16,7 +16,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class EnemyFactory {
-    static Image basicImage = new Image("Resources/Grimace.png");
+    static Image basicImage = new Image("Grimace.png");
 
     public int lives;
     public double ySpeed;

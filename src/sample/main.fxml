@@ -28,5 +28,11 @@
       <Label fx:id="dateCreatedDisplay" layoutX="50.0" layoutY="300.0" text="Created On:" />
       <TextField fx:id="profileInput" layoutX="144.0" layoutY="80.0" promptText="Select Profile" />
       <Button fx:id="searchButton" layoutX="308.0" layoutY="80.0" mnemonicParsing="false" onAction="#setProfile" text="Search/Create" />
+      <ChoiceBox fx:id="weaponSelect" layoutX="50.0" layoutY="424.0" prefWidth="150.0" />
+      <Label layoutX="83.0" layoutY="397.0" text="Weapon Select" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

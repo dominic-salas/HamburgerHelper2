@@ -12,14 +12,14 @@ import java.util.ArrayList;
 
 public class MainScene extends Application {
     static GameInitializer initializer;
-
+    static Group root = new Group();
     @Override
     public void start(Stage primaryStage) throws Exception {
         //scene primaryStage starts out as GUI
         Parent GUI = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setScene(new Scene(GUI,600,600));
         primaryStage.setTitle("Hamburger Helper 2: Electric Boogaloo");
-        Group root = new Group();
+
         Scene scene = new Scene(root, 600, 600);
         scene.setFill(Color.WHITE); //color of the scene
         primaryStage.show();

@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 public class ShotGun extends Weapon {
     private double bulletSpeed=4;
-    static Image basicBulletImg = new Image("Resources/projectile.png");
+    static Image basicBulletImg = new Image("projectile.png");
     public ShotGun(Group root) {
         super(root);
     }

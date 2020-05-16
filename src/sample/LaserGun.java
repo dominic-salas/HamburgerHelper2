@@ -10,7 +10,7 @@ public class LaserGun extends Weapon {
     private Image weaponImage;
     public double spawnChance;
     public double bulletSpeed = 10;
-    static Image laserImg = new Image("Resources/laser.png");
+    static Image laserImg = new Image("laser.png");
 
     public LaserGun(Group root) {
         super(root);

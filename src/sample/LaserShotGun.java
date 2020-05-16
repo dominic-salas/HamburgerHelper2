@@ -4,9 +4,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
+//lasershotgun lmao
+
 public class LaserShotGun extends Weapon {
     private double bulletSpeed=10;
-    static Image laserImage = new Image("Resources/laser.png");
+    static Image laserImage = new Image("laser.png");
 
     public LaserShotGun(Group root) {
         super(root);
