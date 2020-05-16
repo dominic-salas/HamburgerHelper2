@@ -54,7 +54,7 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setX(300);
         sprite.setImage(leftForward);
         sprite.relocate(xpos, ypos);
-        weapon = new LaserGun(root);
+        weapon = new LaserShotGun(root);
 
         liveText.setX(0);
         liveText.setY(10);
