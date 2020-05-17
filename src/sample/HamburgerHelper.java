@@ -40,8 +40,9 @@ public class HamburgerHelper implements Spawnable, Killable {
     boolean relativeRight;
     boolean relativeDown;
     boolean relativeUp;
+    public static boolean waitRestart = true;
     public Rectangle hitbox;
-    boolean dead = false;
+    public static boolean dead = false;
     private Text dedLmao = new Text("u ded lol, just press enter to retry for now");
     private Text liveText = new Text("Health: " + lives);
     private Text zeroText = new Text("Health: DEAD lol");
@@ -53,7 +54,7 @@ public class HamburgerHelper implements Spawnable, Killable {
      * @param userInput    to handle inputs from handy
      * @param primaryStage to manage primary stage
      */
-    public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage) {
+    public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage, GameInitializer gameInitializer) {
         hitbox = new Rectangle(xpos + 92, ypos + 88, 40, 50);
         //root.getChildren().add(hitbox); // for hitbox testing
         this.userInput = userInput;
@@ -78,13 +79,17 @@ public class HamburgerHelper implements Spawnable, Killable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        if (userInput.enterPress && dead) {
+                        if (dead) {
+                            root.getChildren().removeAll();
                             lives = 100;
                             liveText.setText("Health: " + lives);
                             root.getChildren().remove(dedLmao);
                             root.getChildren().remove(zeroText);
-                            root.getChildren().add(liveText);
-                            dead = false;
+                            gameInitializer.restartGame();
+                            if (waitRestart) {
+                                root.getChildren().add(liveText);
+                                waitRestart = false;
+                            }
                         }
                     }
                 });
@@ -192,5 +197,6 @@ public class HamburgerHelper implements Spawnable, Killable {
         dedLmao.setX(200);
         dedLmao.setY(200);
         root.getChildren().add(dedLmao);
+
     }
 }
