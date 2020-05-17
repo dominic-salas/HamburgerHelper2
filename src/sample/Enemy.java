@@ -25,10 +25,35 @@ public abstract class Enemy implements Spawnable, Killable {
     public double speed;
     public boolean isDead = false;
 
-    private void attack() {
+    /**
+     * makes sure Enemy moves with the map
+     */
+    private void convertMotion() {
+        xpos -= Obstacle.xSpeed;
+        ypos -= Obstacle.ySpeed;
     }
 
-    private void chase() {
+    /**
+     * chases "handy"'s position, at 237.5, 237.5
+     */
+    public void chase(double speed) {
+        convertMotion();
+        if (sprite.getX() - 16.7895 < 237.5) {
+            xSpeed += speed;
+        } else if (sprite.getX() - 16.7895 > 237.5) {
+            xSpeed -= speed;
+        }
+        if (sprite.getY() - 22.581 < 217.5) {
+            ySpeed += speed;
+        } else if (sprite.getY() - 22.581 > 217.5) {
+            ySpeed -= speed;
+        }
+
+        xpos += xSpeed;
+        ypos += ySpeed;
+        sprite.setX(xpos);
+        sprite.setY(ypos);
+        sprite.relocate(xpos, ypos);
     }
 
     /**

@@ -13,38 +13,43 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-import static sample.EnemyFactory.basicImage;
+
+import static sample.EnemyFactory.silentImageClosed;
+import static sample.EnemyFactory.silentImageOpen;
+import static sample.UserInput.mouseHeld;
 
 /**
- * BasicEnemy object that spawns in a standard enemy with 15 health.
+ * SilentEnemy is a very quick, low health enemy that attacks the player
+ * only if the player shot his weapon.
  * by Dominic Salas
  */
-public class BasicEnemy extends Enemy {
+public class SilentEnemy extends Enemy {
     public Timeline timeline = new Timeline();
+    public boolean awake = false;
 
     /**
-     * BasicEnemy object that initializes all of the sprite, hitbox and lives properties.
-     * Also includes a timeline to constantly check collisions and if it is dead
+     * SilentEnemy object that initializes all of the sprite, hitbox and lives properties.
+     * includes a timeline and manages the sprite's activites when the player shoots.
      *
      * @param root  to print object to group
      * @param handy to know what registers a hit to handy
      * @param xpos  where to spawn on x axis
      * @param ypos  where to spawn on y axis
      */
-    public BasicEnemy(Group root, HamburgerHelper handy, double xpos, double ypos, ScoreManager scoreManager) {
-        scoreAdd=100;
-        lives = 3;
-        damage = 5;
-        speed = 1;
+    public SilentEnemy(Group root, HamburgerHelper handy, double xpos, double ypos, ScoreManager scoreManager) {
+        scoreAdd = 150;
+        lives = 1;
+        damage = 3;
+        speed = 0;
         sprite = new ImageView();
-        sprite.setFitWidth(67.158);
-        sprite.setFitHeight(45.162);
+        sprite.setFitWidth(40);
+        sprite.setFitHeight(46.34);
         this.xpos = xpos;
         this.ypos = ypos;
         sprite.setY(ypos);
         sprite.setX(xpos);
-        sprite.setImage(basicImage);
-        hitbox = new Rectangle(sprite.getX() + 12.5, sprite.getY() + 1, 45.5, 43);
+        sprite.setImage(silentImageClosed);
+        hitbox = new Rectangle(sprite.getX(), sprite.getY(), 40, 46.34);
         root.getChildren().add(sprite);
         timeline.setCycleCount(Animation.INDEFINITE);
 
@@ -53,20 +58,27 @@ public class BasicEnemy extends Enemy {
                     public void handle(ActionEvent event) {
                         if (sprite != null && hitbox != null && !handy.dead) {
                             try {
+                                checkSleeping();
+                                if (awake) {
+                                    speed = 2.75;
+                                    root.getChildren().remove(sprite);
+                                    sprite.setImage(silentImageOpen);
+                                    root.getChildren().add(sprite);
+                                }
                                 chase(speed);
                                 for (int i = 0; i < Weapon.projectiles.size(); i++) {
                                     if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
-                                        dropHealth(Weapon.projectiles.get(i).damage, root, BasicEnemy.this, true, scoreManager);
+                                        dropHealth(Weapon.projectiles.get(i).damage, root, SilentEnemy.this, true, scoreManager);
                                         Weapon.projectiles.get(i).despawn();
                                     }
                                 }
-                                checkAttack(handy, root, BasicEnemy.this, scoreManager);
+                                checkAttack(handy, root, SilentEnemy.this, scoreManager);
                                 xSpeed = 0;
                                 ySpeed = 0;
-                                hitbox.setX(sprite.getX() + 12.5);
-                                hitbox.setY(sprite.getY() + 1);
-                                hitbox.relocate(sprite.getX() + 12.5, sprite.getY() + 1);
-                                checkBounds(root, BasicEnemy.this, scoreManager);
+                                hitbox.setX(sprite.getX());
+                                hitbox.setY(sprite.getY());
+                                hitbox.relocate(sprite.getX(), sprite.getY());
+                                checkBounds(root, SilentEnemy.this, scoreManager);
                             } catch (java.lang.NullPointerException ignore) {
                             }
                         }
@@ -76,4 +88,9 @@ public class BasicEnemy extends Enemy {
         timeline.play();
     }
 
+    private void checkSleeping() {
+        if (mouseHeld && !awake) {
+            awake = true;
+        }
+    }
 }

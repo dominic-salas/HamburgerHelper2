@@ -13,38 +13,38 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-import static sample.EnemyFactory.basicImage;
+import static sample.EnemyFactory.fatImage;
 
 /**
- * BasicEnemy object that spawns in a standard enemy with 15 health.
+ * FatEnemy that has a lot of health but is very slow. Enemy takes off a lot of damage.
  * by Dominic Salas
  */
-public class BasicEnemy extends Enemy {
+public class FatEnemy extends Enemy {
     public Timeline timeline = new Timeline();
 
     /**
-     * BasicEnemy object that initializes all of the sprite, hitbox and lives properties.
-     * Also includes a timeline to constantly check collisions and if it is dead
+     * FatEnemy object that initializes all of the sprite, hitbox and lives properties.
+     * timeline behaves completely similar to BasicEnemy
      *
      * @param root  to print object to group
      * @param handy to know what registers a hit to handy
      * @param xpos  where to spawn on x axis
      * @param ypos  where to spawn on y axis
      */
-    public BasicEnemy(Group root, HamburgerHelper handy, double xpos, double ypos, ScoreManager scoreManager) {
-        scoreAdd=100;
-        lives = 3;
-        damage = 5;
-        speed = 1;
+    public FatEnemy(Group root, HamburgerHelper handy, double xpos, double ypos, ScoreManager scoreManager) {
+        scoreAdd = 300;
+        lives = 10;
+        damage = 20;
+        speed = 0.5;
         sprite = new ImageView();
-        sprite.setFitWidth(67.158);
-        sprite.setFitHeight(45.162);
+        sprite.setFitWidth(68);
+        sprite.setFitHeight(68);
         this.xpos = xpos;
         this.ypos = ypos;
         sprite.setY(ypos);
         sprite.setX(xpos);
-        sprite.setImage(basicImage);
-        hitbox = new Rectangle(sprite.getX() + 12.5, sprite.getY() + 1, 45.5, 43);
+        sprite.setImage(fatImage);
+        hitbox = new Rectangle(sprite.getX() + 10, sprite.getY() + 4, 51.5, 63);
         root.getChildren().add(sprite);
         timeline.setCycleCount(Animation.INDEFINITE);
 
@@ -56,17 +56,17 @@ public class BasicEnemy extends Enemy {
                                 chase(speed);
                                 for (int i = 0; i < Weapon.projectiles.size(); i++) {
                                     if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
-                                        dropHealth(Weapon.projectiles.get(i).damage, root, BasicEnemy.this, true, scoreManager);
+                                        dropHealth(Weapon.projectiles.get(i).damage, root, FatEnemy.this, true, scoreManager);
                                         Weapon.projectiles.get(i).despawn();
                                     }
                                 }
-                                checkAttack(handy, root, BasicEnemy.this, scoreManager);
+                                checkAttack(handy, root, FatEnemy.this, scoreManager);
                                 xSpeed = 0;
                                 ySpeed = 0;
-                                hitbox.setX(sprite.getX() + 12.5);
-                                hitbox.setY(sprite.getY() + 1);
-                                hitbox.relocate(sprite.getX() + 12.5, sprite.getY() + 1);
-                                checkBounds(root, BasicEnemy.this, scoreManager);
+                                hitbox.setX(sprite.getX() + 10);
+                                hitbox.setY(sprite.getY() + 4);
+                                hitbox.relocate(sprite.getX() + 10, sprite.getY() + 4);
+                                checkBounds(root, FatEnemy.this, scoreManager);
                             } catch (java.lang.NullPointerException ignore) {
                             }
                         }
@@ -75,5 +75,4 @@ public class BasicEnemy extends Enemy {
         timeline.getKeyFrames().add(action);
         timeline.play();
     }
-
 }

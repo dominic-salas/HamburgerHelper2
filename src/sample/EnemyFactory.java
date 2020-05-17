@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 
 import java.util.Random;
 
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -20,6 +19,9 @@ import java.util.ArrayList;
  */
 public class EnemyFactory {
     static Image basicImage = new Image("Grimace.png");
+    static Image silentImageClosed = new Image("hamburglar_closed.png");
+    static Image silentImageOpen = new Image("hamburglar_open.png");
+    static Image fatImage = new Image("fatEnemy.png");
 
     public int lives;
     public double ySpeed;
@@ -40,13 +42,6 @@ public class EnemyFactory {
                                 spawnNew(root, handy, scoreManager);
                                 enemies.remove(i);
                             }
-                            /*try {
-                                noOverlap(enemies.get(i), enemies.get(i+1));
-                            }catch (java.lang.IndexOutOfBoundsException e){
-                                noOverlap(enemies.get(i), enemies.get(0));
-                            }
-
-                             */
                         }
                     }
                 });
@@ -71,7 +66,19 @@ public class EnemyFactory {
         }
         int xrand = rand.nextInt(100) + randomup;
         int yrand = rand.nextInt(100) + randomright;
-        enemies.add(new BasicEnemy(root, handy, xrand, yrand, scoreManager));
+        switch (rand.nextInt(5)) {
+            case 0:
+            case 1:
+                enemies.add(new BasicEnemy(root, handy, xrand, yrand, scoreManager));
+                break;
+            case 2:
+            case 3:
+                enemies.add(new SilentEnemy(root, handy, xrand, yrand, scoreManager));
+                break;
+            case 4:
+                enemies.add(new FatEnemy(root, handy, xrand, yrand, scoreManager));
+                break;
+        }
     }
 
     /**
@@ -81,7 +88,7 @@ public class EnemyFactory {
      * @param handy to chase handy
      */
     private void spawnInit(Group root, HamburgerHelper handy, ScoreManager scoreManager) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             spawnNew(root, handy, scoreManager);
         }
     }
