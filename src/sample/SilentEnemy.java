@@ -68,8 +68,9 @@ public class SilentEnemy extends Enemy {
                                 chase(speed);
                                 for (int i = 0; i < Weapon.projectiles.size(); i++) {
                                     if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
-                                        dropHealth(Weapon.projectiles.get(i).damage, root, SilentEnemy.this, true, scoreManager);
+                                        int damage = Weapon.projectiles.get(i).damage;
                                         Weapon.projectiles.get(i).despawn();
+                                        dropHealth(damage, root, SilentEnemy.this, true, scoreManager);
                                     }
                                 }
                                 checkAttack(handy, root, SilentEnemy.this, scoreManager);
