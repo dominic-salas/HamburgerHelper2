@@ -79,7 +79,6 @@ public class DeadGUIController implements Initializable {
                 highscore.setText("Your highscore:" + ScoreManager.activeProfile.highscore);
             }
         }
-        System.out.println("e");
     }
 
     public void exitGame() {
