@@ -22,7 +22,6 @@ public class MainScene extends Application {
         Scene GUIDead = new Scene(GUIdead, 600, 600);
         primaryStage.setScene(new Scene(GUI, 600, 600));
         primaryStage.setTitle("Hamburger Helper 2: Electric Boogaloo");
-
         scene = new Scene(root, 600, 600);
         scene.setFill(Color.WHITE); //color of the scene
         primaryStage.show();

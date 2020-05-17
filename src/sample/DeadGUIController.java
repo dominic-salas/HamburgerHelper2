@@ -7,14 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static sample.Controller.scoreManager;
-
-public class Dead implements Initializable {
+public class DeadGUIController implements Initializable {
     ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun");
 
     @FXML
@@ -41,16 +39,9 @@ public class Dead implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         weaponSelect.setValue("Basic Gun");
         weaponSelect.setItems(weaponOptions);
-        /* //TODO fix this so that printing scores to the screen works without returning an error
-        scoreValue.setText("Credits: "+ scoreManager.activeProfile.credits);
-        if (ScoreManager.activeProfile.credits >= scoreManager.activeProfile.highscore){
-            highscore.setText("You beat your highscore! \nNew highscore: " + scoreManager.activeProfile.highscore);
-        }else {
-            highscore.setText("Your highscore:" + scoreManager.activeProfile.highscore);
-        }
-         */
+        GameInitializer.deathController = this;
+        printScores();
     }
-
     public void changeScene() {
         MainScene.initializer.swapScene();
         switch (weaponSelect.getValue().toString()) {
@@ -77,6 +68,18 @@ public class Dead implements Initializable {
         }
         HamburgerHelper.dead = false;
         HamburgerHelper.waitRestart = true;
+    }
+
+    public void printScores(){
+        if(ScoreManager.activeProfile!=null){
+            scoreValue.setText("Credits: "+ ScoreManager.activeProfile.credits);
+            if (ScoreManager.activeProfile.credits >= ScoreManager.activeProfile.highscore){
+                highscore.setText("You beat your highscore! \nNew highscore: " + ScoreManager.activeProfile.highscore);
+            }else {
+                highscore.setText("Your highscore:" + ScoreManager.activeProfile.highscore);
+            }
+        }
+        System.out.println("e");
     }
 
     public void exitGame() {

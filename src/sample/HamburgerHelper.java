@@ -43,9 +43,8 @@ public class HamburgerHelper implements Spawnable, Killable {
     public static boolean waitRestart = true;
     public Rectangle hitbox;
     public static boolean dead = false;
-    private Text dedLmao = new Text("u ded lol, just press enter to retry for now");
     private Text liveText = new Text("Health: " + lives);
-    private Text zeroText = new Text("Health: DEAD lol");
+
 
     /**
      * hamburger helper object that initializes everything and handles what handy does
@@ -65,14 +64,9 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setX(300);
         sprite.setImage(leftForward);
         sprite.relocate(xpos, ypos);
-        weapon = new LaserShotGun(root);
-
         liveText.setX(0);
         liveText.setY(10);
         liveText.setTextAlignment(TextAlignment.CENTER);
-        zeroText.setX(0);
-        zeroText.setY(10);
-        zeroText.setTextAlignment(TextAlignment.CENTER);
         root.getChildren().add(liveText);
         timeline.setCycleCount(Animation.INDEFINITE);
 
@@ -83,8 +77,6 @@ public class HamburgerHelper implements Spawnable, Killable {
                             root.getChildren().removeAll();
                             lives = 100;
                             liveText.setText("Health: " + lives);
-                            root.getChildren().remove(dedLmao);
-                            root.getChildren().remove(zeroText);
                             gameInitializer.restartGame();
                             if (waitRestart) {
                                 root.getChildren().add(liveText);
@@ -166,9 +158,6 @@ public class HamburgerHelper implements Spawnable, Killable {
         }
     }
 
-    public void pickupWeapon() {
-    }
-
     /**
      * drops the health of handy
      *
@@ -180,23 +169,7 @@ public class HamburgerHelper implements Spawnable, Killable {
         lives -= damage;
         if (lives <= 0 && !dead) {
             root.getChildren().remove(liveText);
-            die(root);
             dead = true;
-            root.getChildren().add(zeroText);
         }
-    }
-
-    /**
-     * kill handy/ freezes the screen and forces the player to restart the game
-     *
-     * @param root to add text
-     */
-    private void die(Group root) {
-        dedLmao.setTextAlignment(TextAlignment.CENTER);
-        dedLmao.maxWidth(200);
-        dedLmao.setX(200);
-        dedLmao.setY(200);
-        root.getChildren().add(dedLmao);
-
     }
 }

@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  * By David Rogers
  */
 
-public class Controller implements Initializable {
+public class startGUIController implements Initializable {
     static ScoreManager scoreManager = new ScoreManager();
     ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun");
 

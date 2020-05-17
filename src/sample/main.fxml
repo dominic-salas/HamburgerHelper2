@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.startGUIController">
    <children>
       <Button layoutX="256.0" layoutY="532.0" mnemonicParsing="false" onAction="#changeScene" text="Launch Game" textAlignment="CENTER" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="351.0" layoutX="298.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="2.0">
