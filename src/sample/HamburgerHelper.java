@@ -40,14 +40,22 @@ public class HamburgerHelper implements Spawnable, Killable {
     boolean relativeRight;
     boolean relativeDown;
     boolean relativeUp;
+    public static boolean waitRestart = true;
     public Rectangle hitbox;
-    boolean dead = false;
+    public static boolean dead = false;
     private Text dedLmao = new Text("u ded lol, just press enter to retry for now");
     private Text liveText = new Text("Health: " + lives);
     private Text zeroText = new Text("Health: DEAD lol");
 
-    public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage) {
-        hitbox = new Rectangle(xpos+92,ypos+88,40,50);
+    /**
+     * hamburger helper object that initializes everything and handles what handy does
+     *
+     * @param root         to spawn to group
+     * @param userInput    to handle inputs from handy
+     * @param primaryStage to manage primary stage
+     */
+    public HamburgerHelper(Group root, UserInput userInput, Stage primaryStage, GameInitializer gameInitializer) {
+        hitbox = new Rectangle(xpos + 92, ypos + 88, 40, 50);
         //root.getChildren().add(hitbox); // for hitbox testing
         this.userInput = userInput;
         this.primaryStage = primaryStage;
@@ -71,13 +79,17 @@ public class HamburgerHelper implements Spawnable, Killable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        if (userInput.enterPress && dead) {
+                        if (dead) {
+                            root.getChildren().removeAll();
                             lives = 100;
                             liveText.setText("Health: " + lives);
                             root.getChildren().remove(dedLmao);
                             root.getChildren().remove(zeroText);
-                            root.getChildren().add(liveText);
-                            dead = false;
+                            gameInitializer.restartGame();
+                            if (waitRestart) {
+                                root.getChildren().add(liveText);
+                                waitRestart = false;
+                            }
                         }
                     }
                 });
@@ -154,15 +166,15 @@ public class HamburgerHelper implements Spawnable, Killable {
         }
     }
 
-    public void shoot(boolean mouseHover) {
-    }
-
-    public void checkIntersect() {
-    }
-
     public void pickupWeapon() {
     }
 
+    /**
+     * drops the health of handy
+     *
+     * @param damage to show how much damage should be subtracted
+     * @param root   to add text
+     */
     public void dropHealth(double damage, Group root) {
         liveText.setText("Health: " + lives);
         lives -= damage;
@@ -174,11 +186,17 @@ public class HamburgerHelper implements Spawnable, Killable {
         }
     }
 
+    /**
+     * kill handy/ freezes the screen and forces the player to restart the game
+     *
+     * @param root to add text
+     */
     private void die(Group root) {
         dedLmao.setTextAlignment(TextAlignment.CENTER);
         dedLmao.maxWidth(200);
         dedLmao.setX(200);
         dedLmao.setY(200);
         root.getChildren().add(dedLmao);
+
     }
 }
