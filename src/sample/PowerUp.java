@@ -20,5 +20,25 @@ public abstract class PowerUp implements Spawnable {
         return hitbox.getBoundsInParent().intersects(handy.sprite.getBoundsInParent());
     }
 
+    /**
+     * makes sure PowerUp moves with the map
+     */
+    public void convertMotion() {
+        xpos -= Obstacle.xSpeed;
+        ypos -= Obstacle.ySpeed;
+        sprite.setX(xpos);
+        sprite.setY(ypos);
+        sprite.relocate(xpos, ypos);
+        hitbox.setX(xpos);
+        hitbox.setY(ypos);
+        hitbox.relocate(xpos, ypos);
+    }
 
+    public void despawn(Group root, PowerUp powerUp) {
+        root.getChildren().remove(powerUp.sprite);
+        root.getChildren().remove(powerUp.hitbox);
+        PowerUpFactory.powerUps.remove(powerUp);
+        sprite = null;
+        hitbox = null;
+    }
 }

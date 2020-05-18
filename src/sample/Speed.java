@@ -3,6 +3,7 @@ package sample;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -11,10 +12,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 
-public class Coin extends PowerUp {
+public class Speed extends PowerUp {
     public Timeline timeline = new Timeline();
+    boolean activated = false;
+    int counter = 0;
 
-    public Coin(Group root, HamburgerHelper handy, double xpos, double ypos) {
+    public Speed(Group root, HamburgerHelper handy, double xpos, double ypos) {
         hitbox = new Rectangle();
         this.xpos = xpos;
         this.ypos = ypos;
@@ -27,7 +30,7 @@ public class Coin extends PowerUp {
         sprite.setFitHeight(20);
         hitbox.setWidth(15.09);
         hitbox.setHeight(20);
-        sprite.setImage(PowerUpFactory.coinImg);
+        sprite.setImage(PowerUpFactory.speedImg);
         root.getChildren().add(sprite);
         timeline.setCycleCount(Animation.INDEFINITE);
 
@@ -37,17 +40,34 @@ public class Coin extends PowerUp {
                         if (sprite != null && hitbox != null && !HamburgerHelper.dead) {
                             try {
                                 if (hitbox.getBoundsInParent().intersects(handy.sprite.getBoundsInParent())) {
-                                    ScoreManager.addScore(500);
-                                    despawn(root, Coin.this);
+                                    activated = true;
+                                    despawn(root, Speed.this);
+                                }
+                                if (activated) {
+                                    counter++;
+                                    HamburgerHelper.speed = 6;
+                                }
+                                if (counter >= 625) {
+                                    HamburgerHelper.speed = 4;
+                                    PowerUpFactory.powerUps.remove(Speed.this);
+                                    sprite = null;
+                                    hitbox = null;
+                                    activated = false;
                                 }
                                 convertMotion();
                             } catch (java.lang.NullPointerException e) {
-                                despawn(root, Coin.this);
+                                despawn(root, Speed.this);
                             }
                         }
                     }
                 });
         timeline.getKeyFrames().add(action);
         timeline.play();
+    }
+
+    @Override
+    public void despawn(Group root, PowerUp powerUp) {
+        root.getChildren().remove(powerUp.sprite);
+        root.getChildren().remove(powerUp.hitbox);
     }
 }

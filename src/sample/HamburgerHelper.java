@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -26,7 +27,7 @@ public class HamburgerHelper implements Spawnable, Killable {
     private Image rightForward = new Image("handy forwards right.png");
     private Image leftBack = new Image("backwardshandleft.png");
     private Image rightBack = new Image("backwardshandright.png");
-    public int lives = 100;
+    public static int lives = 100;
     public ArrayList powerups;
     public static Weapon weapon;
     public Timeline timeline = new Timeline();
@@ -34,6 +35,8 @@ public class HamburgerHelper implements Spawnable, Killable {
     public static double ypos = 150;
     int imageOffsetCorrectY = 142;
     int imageOffsetCorrectX = 115;
+    int seconds = 5;
+    int counter;
     UserInput userInput;
     Stage primaryStage;
     boolean relativeLeft;
@@ -44,6 +47,7 @@ public class HamburgerHelper implements Spawnable, Killable {
     public Rectangle hitbox;
     public static boolean dead = false;
     private Text liveText = new Text("Health: " + lives);
+    public static double speed = 4;
 
 
     /**
@@ -64,8 +68,9 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setX(300);
         sprite.setImage(leftForward);
         sprite.relocate(xpos, ypos);
-        liveText.setX(0);
-        liveText.setY(10);
+        liveText.setX(1);
+        liveText.setY(15);
+        liveText.setFont(new Font(18));
         liveText.setTextAlignment(TextAlignment.CENTER);
         root.getChildren().add(liveText);
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -82,6 +87,18 @@ public class HamburgerHelper implements Spawnable, Killable {
                                 root.getChildren().add(liveText);
                                 waitRestart = false;
                             }
+                        }
+                        if (lives >= 200 && seconds > 0) {
+                            counter++;
+                            liveText.setText("Invulnerable for " + seconds);
+                            if (counter >= 100) {
+                                seconds--;
+                                counter = 0;
+                            }
+                        } else if (lives <= 100) {
+                            liveText.setText("Health: " + lives);
+                            seconds = 5;
+                            counter = 0;
                         }
                     }
                 });
@@ -134,18 +151,18 @@ public class HamburgerHelper implements Spawnable, Killable {
     public void convertInput() {
         if (!dead) {
             if (userInput.leftPress) { //update x speed
-                Obstacle.xSpeed = -4;
+                Obstacle.xSpeed = -speed;
             } else if (userInput.rightPress) {
-                Obstacle.xSpeed = +4;
+                Obstacle.xSpeed = +speed;
             }
             if (!userInput.leftPress && !userInput.rightPress || (userInput.rightPress && userInput.leftPress)) {
                 Obstacle.xSpeed = 0;
             } //set to zero speed if nothing pressed
 
             if (userInput.upPress) { //update y speed
-                Obstacle.ySpeed = -4;
+                Obstacle.ySpeed = -speed;
             } else if (userInput.downPress) {
-                Obstacle.ySpeed = +4;
+                Obstacle.ySpeed = +speed;
             }
             if (!userInput.upPress && !userInput.downPress || (userInput.upPress && userInput.downPress)) {
                 Obstacle.ySpeed = 0;
@@ -165,8 +182,10 @@ public class HamburgerHelper implements Spawnable, Killable {
      * @param root   to add text
      */
     public void dropHealth(double damage, Group root) {
-        liveText.setText("Health: " + lives);
-        lives -= damage;
+        if (lives <= 100) {
+            liveText.setText("Health: " + lives);
+            lives -= damage;
+        }
         if (lives <= 0 && !dead) {
             root.getChildren().remove(liveText);
             dead = true;

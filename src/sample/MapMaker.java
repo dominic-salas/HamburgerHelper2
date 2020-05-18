@@ -27,6 +27,8 @@ public class MapMaker {
     private Random rand = new Random();
     private Obstacle[][] mapSpread = new Obstacle[6][6];
     public static ArrayList<Obstacle> obstacles = new ArrayList<>();
+    public static int possibleX = 0;
+    public static int possibleY = 0;
     private HamburgerHelper handy;
     private Timeline timeline;
 
@@ -49,6 +51,20 @@ public class MapMaker {
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) { //this is my pride and joy please don't break this. It took me 3 hours to get collisions working
                         handy.convertInput(); //get inputs
+                        if (!PowerUpFactory.powerCheckValid) {
+                            possibleX = rand.nextInt(600);
+                            possibleY = rand.nextInt(600);
+                            PowerUpFactory.powerCheck.setX(possibleX);
+                            PowerUpFactory.powerCheck.setY(possibleY);
+                        }
+                        for (int i = 0; i < obstacles.size(); i++) {
+                            if (obstacles.get(i).sprite.getBoundsInParent().intersects(PowerUpFactory.powerCheck.getBoundsInParent())) {
+                                i = obstacles.size();
+                            } else {
+                                PowerUpFactory.powerCheckValid = true;
+
+                            }
+                        }
                         obstacles.forEach(Obstacle::predictIntersectHandy); //check if inputs will cause collision and set to 0 if they will
                         obstacles.forEach(Obstacle::convertMotion); //implement movement
                         /*
@@ -96,6 +112,9 @@ public class MapMaker {
                 obstacles.set(i, new Obstacle(1000, 1000, handy, root));
             } else {
                 obstacles.get(i).spawn(obstacles.get(i).sprite, root);
+            }
+            if (obstacles.get(i).sprite.getBoundsInParent().intersects(PowerUpFactory.powerCheck.getBoundsInParent())) {
+                PowerUpFactory.powerCheckValid = true;
             }
         }
         for (int i = 0; i < obstacles.size(); i++) {
