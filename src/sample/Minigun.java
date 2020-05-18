@@ -31,6 +31,7 @@ public class Minigun extends Weapon {
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         shoot();
+                        checkStop();
                     }
                 });
         timeline.getKeyFrames().add(action);
@@ -42,6 +43,13 @@ public class Minigun extends Weapon {
      * spawns basic bullet along generated slope
      * adds bullets to projectiles arraylist
      */
+
+    public void checkStop(){
+        if(HamburgerHelper.weapon!=this){
+            timeline.stop();
+        }
+    }
+
     @Override
     public void shoot(){
         if(UserInput.mouseHeld){
