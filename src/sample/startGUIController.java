@@ -4,10 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,6 +23,7 @@ import java.util.ResourceBundle;
 public class startGUIController implements Initializable {
     static ScoreManager scoreManager = new ScoreManager();
     ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun");
+    ObservableList<ScoreProfile> profilesList = FXCollections.observableArrayList();
 
     @FXML
     Button searchButton;
@@ -39,6 +39,19 @@ public class startGUIController implements Initializable {
     Label dateCreatedDisplay = new Label();
     @FXML
     ChoiceBox weaponSelect = new ChoiceBox();
+    @FXML
+    Label profilesLabel = new Label();
+    @FXML
+    TableView profileTable = new TableView(profilesList);
+    @FXML
+    TableColumn<ScoreProfile,String> profileNameColumn = new TableColumn<>("Profile");
+    @FXML
+    TableColumn<ScoreProfile,Integer> highscoreColumn = new TableColumn<>("Highscore");
+    @FXML
+    TableColumn<ScoreProfile,Integer> creditColumn = new TableColumn<>("Credits");
+    @FXML
+    TableColumn<ScoreProfile,String> dateCreatedColumn = new TableColumn<>("Created");
+
 
 
     /**
@@ -52,6 +65,19 @@ public class startGUIController implements Initializable {
         scoreManager.loadProfiles();
         weaponSelect.setValue("Basic Gun");
         weaponSelect.setItems(weaponOptions);
+       setUpTable();
+    }
+
+    public void setUpTable(){
+        scoreManager.profiles.forEach(scoreProfile -> {
+            profilesList.add(scoreProfile);
+        });
+        profileNameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
+        highscoreColumn.setCellValueFactory(new PropertyValueFactory<>("highscore"));
+        creditColumn.setCellValueFactory(new PropertyValueFactory<>("credits"));
+        dateCreatedColumn.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
+        profileTable.setItems(profilesList);
+        profileTable.getColumns().addAll(profileNameColumn,highscoreColumn,creditColumn,dateCreatedColumn);
     }
 
     /**

@@ -15,4 +15,8 @@ public class ScoreProfile {
         this.dateCreated = dateCreated;
         this.credits = credits;
     }
+    public String getPlayerName(){return playerName;}
+    public int getHighscore(){return highscore;}
+    public String getDateCreated(){return dateCreated;}
+    public int getCredits(){return credits;}
 }

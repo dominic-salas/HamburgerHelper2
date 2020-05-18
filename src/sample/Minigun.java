@@ -20,8 +20,6 @@ import javafx.util.Duration;
 public class Minigun extends Weapon {
     Timeline timeline = new Timeline();
     public ImageView sprite;
-    private Image weaponImage;
-    public double spawnChance;
     public double bulletSpeed = 10;
 
     public Minigun(Group root) {
