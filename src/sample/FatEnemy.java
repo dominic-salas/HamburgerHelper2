@@ -51,24 +51,9 @@ public class FatEnemy extends Enemy {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        if (sprite != null && hitbox != null && !handy.dead) {
-                            try {
-                                chase(speed);
-                                for (int i = 0; i < Weapon.projectiles.size(); i++) {
-                                    if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
-                                        dropHealth(Weapon.projectiles.get(i).damage, root, FatEnemy.this, true, scoreManager);
-                                        Weapon.projectiles.get(i).despawn();
-                                    }
-                                }
-                                checkAttack(handy, root, FatEnemy.this, scoreManager);
-                                xSpeed = 0;
-                                ySpeed = 0;
-                                hitbox.setX(sprite.getX() + 10);
-                                hitbox.setY(sprite.getY() + 4);
-                                hitbox.relocate(sprite.getX() + 10, sprite.getY() + 4);
-                                checkBounds(root, FatEnemy.this, scoreManager);
-                            } catch (java.lang.NullPointerException ignore) {
-                            }
+                        try {
+                            updateEnemy(FatEnemy.this, root, scoreManager, handy, 10, 4);
+                        } catch (java.lang.NullPointerException ignore) {
                         }
                     }
                 });

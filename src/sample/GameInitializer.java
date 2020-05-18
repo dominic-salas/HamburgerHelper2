@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.naming.ldap.Control;
+
 public class GameInitializer {
     Scene scene;
     Stage primaryStage;
@@ -28,13 +30,13 @@ public class GameInitializer {
         mapMaker.initSpawn(root);
         EnemyFactory enemy = new EnemyFactory(root, handy, startGUIController.scoreManager);
         handy.spawn(handy.sprite, root);
+        PowerUpFactory powerUpFactory = new PowerUpFactory(root, handy, startGUIController.scoreManager);
         primaryStage.setScene(scene); //changes scene from gui to game
     }
 
     public void restartGame() {
         primaryStage.setScene(GUI);
         deathController.printScores();
-
     }
 
     public void swapScene() {

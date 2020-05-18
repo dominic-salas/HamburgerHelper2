@@ -2,18 +2,23 @@ package sample;
 
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
+
 
 public abstract class PowerUp implements Spawnable {
+    double xpos;
+    double ypos;
+    public ImageView sprite;
+    public Rectangle hitbox;
 
-    private void pickup() {
+    /**
+     * checks if PowerUp hits handy
+     *
+     * @param handy to check if handy is hit
+     */
+    public boolean checkIntersect(HamburgerHelper handy) {
+        return hitbox.getBoundsInParent().intersects(handy.sprite.getBoundsInParent());
     }
 
-    private void checkIntersect() {
-    }
 
-    private void despawn() {
-    }
-
-    private void special() {
-    }
 }

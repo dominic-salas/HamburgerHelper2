@@ -58,28 +58,9 @@ public class SilentEnemy extends Enemy {
                     public void handle(ActionEvent event) {
                         if (sprite != null && hitbox != null && !handy.dead) {
                             try {
-                                checkSleeping();
-                                if (awake) {
-                                    speed = 2.75;
-                                    root.getChildren().remove(sprite);
-                                    sprite.setImage(silentImageOpen);
-                                    root.getChildren().add(sprite);
-                                }
-                                chase(speed);
-                                for (int i = 0; i < Weapon.projectiles.size(); i++) {
-                                    if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
-                                        int damage = Weapon.projectiles.get(i).damage;
-                                        Weapon.projectiles.get(i).despawn();
-                                        dropHealth(damage, root, SilentEnemy.this, true, scoreManager);
-                                    }
-                                }
-                                checkAttack(handy, root, SilentEnemy.this, scoreManager);
-                                xSpeed = 0;
-                                ySpeed = 0;
-                                hitbox.setX(sprite.getX());
-                                hitbox.setY(sprite.getY());
-                                hitbox.relocate(sprite.getX(), sprite.getY());
-                                checkBounds(root, SilentEnemy.this, scoreManager);
+                                checkSleeping(root);
+
+                                updateEnemy(SilentEnemy.this, root, scoreManager, handy, 0, 0);
                             } catch (java.lang.NullPointerException ignore) {
                             }
                         }
@@ -89,9 +70,15 @@ public class SilentEnemy extends Enemy {
         timeline.play();
     }
 
-    private void checkSleeping() {
+    private void checkSleeping(Group root) {
         if (mouseHeld && !awake) {
             awake = true;
+        }
+        if (awake) {
+            speed = 2.75;
+            root.getChildren().remove(sprite);
+            sprite.setImage(silentImageOpen);
+            root.getChildren().add(sprite);
         }
     }
 }

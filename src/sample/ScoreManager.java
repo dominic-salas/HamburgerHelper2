@@ -30,11 +30,11 @@ public class ScoreManager {
         }
     }
 
-    public void addScore(int score) {
+    public static void addScore(int score) {
         activeProfile.score += score;
         activeProfile.credits += score;
-        if(activeProfile.score>activeProfile.highscore){ //update highscore if score is greater than it
-            activeProfile.highscore=activeProfile.score;
+        if (activeProfile.score > activeProfile.highscore) { //update highscore if score is greater than it
+            activeProfile.highscore = activeProfile.score;
         }
     }
 

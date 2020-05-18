@@ -53,20 +53,7 @@ public class BasicEnemy extends Enemy {
                     public void handle(ActionEvent event) {
                         if (sprite != null && hitbox != null && !handy.dead) {
                             try {
-                                chase(speed);
-                                for (int i = 0; i < Weapon.projectiles.size(); i++) {
-                                    if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
-                                        dropHealth(Weapon.projectiles.get(i).damage, root, BasicEnemy.this, true, scoreManager);
-                                        Weapon.projectiles.get(i).despawn();
-                                    }
-                                }
-                                checkAttack(handy, root, BasicEnemy.this, scoreManager);
-                                xSpeed = 0;
-                                ySpeed = 0;
-                                hitbox.setX(sprite.getX() + 12.5);
-                                hitbox.setY(sprite.getY() + 1);
-                                hitbox.relocate(sprite.getX() + 12.5, sprite.getY() + 1);
-                                checkBounds(root, BasicEnemy.this, scoreManager);
+                                updateEnemy(BasicEnemy.this, root, scoreManager, handy, 12.5, 1);
                             } catch (java.lang.NullPointerException ignore) {
                             }
                         }

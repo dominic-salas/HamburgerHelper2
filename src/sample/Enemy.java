@@ -25,6 +25,23 @@ public abstract class Enemy implements Spawnable, Killable {
     public double speed;
     public boolean isDead = false;
 
+    public void updateEnemy(Enemy enemy, Group root, ScoreManager scoreManager, HamburgerHelper handy, double hitPadX, double hitPadY) {
+        chase(speed);
+        for (int i = 0; i < Weapon.projectiles.size(); i++) {
+            if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
+                dropHealth(Weapon.projectiles.get(i).damage, root, enemy, true, scoreManager);
+                Weapon.projectiles.get(i).despawn();
+            }
+        }
+        checkAttack(handy, root, enemy, scoreManager);
+        xSpeed = 0;
+        ySpeed = 0;
+        hitbox.setX(sprite.getX() + hitPadX);
+        hitbox.setY(sprite.getY() + hitPadY);
+        hitbox.relocate(sprite.getX() + hitPadX, sprite.getY() + hitPadY);
+        checkBounds(root, enemy, scoreManager);
+    }
+
     /**
      * makes sure Enemy moves with the map
      */

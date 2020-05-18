@@ -39,7 +39,7 @@ public class EnemyFactory {
                     public void handle(ActionEvent event) {
                         for (int i = 0; i < enemies.size(); i++) {
                             if (enemies.get(i).isDead) {
-                                spawnNew(root, handy, scoreManager);
+                                spawnNew(root, handy, scoreManager, true);
                                 enemies.remove(i);
                             }
                         }
@@ -55,7 +55,10 @@ public class EnemyFactory {
      * @param root  to add to group
      * @param handy to chase handy
      */
-    public void spawnNew(Group root, HamburgerHelper handy, ScoreManager scoreManager) {
+    public void spawnNew(Group root, HamburgerHelper handy, ScoreManager scoreManager, boolean count) {
+        if (count) {
+            PowerUpFactory.spawnCounter++;
+        }
         int randomup = 0;
         int randomright = 0;
         if (rand.nextInt(2) == 1) {
@@ -79,6 +82,7 @@ public class EnemyFactory {
                 enemies.add(new FatEnemy(root, handy, xrand, yrand, scoreManager));
                 break;
         }
+
     }
 
     /**
@@ -89,7 +93,7 @@ public class EnemyFactory {
      */
     private void spawnInit(Group root, HamburgerHelper handy, ScoreManager scoreManager) {
         for (int i = 0; i < 5; i++) {
-            spawnNew(root, handy, scoreManager);
+            spawnNew(root, handy, scoreManager, false);
         }
     }
 }
