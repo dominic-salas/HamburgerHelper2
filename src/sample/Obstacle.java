@@ -90,7 +90,6 @@ public class Obstacle implements Spawnable {
         }
         handy.hitbox.relocate(HamburgerHelper.xpos + 92, HamburgerHelper.ypos + 88); //return hitbox to og position
 
-
         handy.hitbox.relocate(HamburgerHelper.xpos + 92, HamburgerHelper.ypos + 88 + ySpeed); //move hitbox to predicted y position
         if (handy.hitbox.getBoundsInParent().intersects(sprite.getBoundsInParent())) {
             ySpeed = 0;

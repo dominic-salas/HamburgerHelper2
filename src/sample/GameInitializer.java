@@ -30,7 +30,7 @@ public class GameInitializer {
         mapMaker.initSpawn(root);
         EnemyFactory enemy = new EnemyFactory(root, handy, startGUIController.scoreManager);
         handy.spawn(handy.sprite, root);
-        PowerUpFactory powerUpFactory = new PowerUpFactory(root, handy, startGUIController.scoreManager);
+        PowerUpFactory powerUpFactory = new PowerUpFactory(root, handy, startGUIController.scoreManager, enemy);
         primaryStage.setScene(scene); //changes scene from gui to game
     }
 

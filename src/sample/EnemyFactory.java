@@ -38,8 +38,8 @@ public class EnemyFactory {
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
                         for (int i = 0; i < enemies.size(); i++) {
-                            if (enemies.get(i).isDead) {
-                                spawnNew(root, handy, scoreManager, true);
+                            if (enemies.get(i).isDead && !Bomb.activated) {
+                                spawnNew(root, handy, scoreManager);
                                 enemies.remove(i);
                             }
                         }
@@ -55,10 +55,7 @@ public class EnemyFactory {
      * @param root  to add to group
      * @param handy to chase handy
      */
-    public void spawnNew(Group root, HamburgerHelper handy, ScoreManager scoreManager, boolean count) {
-        if (count) {
-            PowerUpFactory.spawnCounter++;
-        }
+    public void spawnNew(Group root, HamburgerHelper handy, ScoreManager scoreManager) {
         int randomup = 0;
         int randomright = 0;
         if (rand.nextInt(2) == 1) {
@@ -69,16 +66,17 @@ public class EnemyFactory {
         }
         int xrand = rand.nextInt(100) + randomup;
         int yrand = rand.nextInt(100) + randomright;
-        switch (rand.nextInt(5)) {
+        switch (rand.nextInt(6)) {
             case 0:
             case 1:
-                enemies.add(new BasicEnemy(root, handy, xrand, yrand, scoreManager));
-                break;
             case 2:
             case 3:
-                enemies.add(new SilentEnemy(root, handy, xrand, yrand, scoreManager));
+                enemies.add(new BasicEnemy(root, handy, xrand, yrand, scoreManager));
                 break;
             case 4:
+                enemies.add(new SilentEnemy(root, handy, xrand, yrand, scoreManager));
+                break;
+            case 5:
                 enemies.add(new FatEnemy(root, handy, xrand, yrand, scoreManager));
                 break;
         }
@@ -91,9 +89,9 @@ public class EnemyFactory {
      * @param root  to add to group
      * @param handy to chase handy
      */
-    private void spawnInit(Group root, HamburgerHelper handy, ScoreManager scoreManager) {
+    public void spawnInit(Group root, HamburgerHelper handy, ScoreManager scoreManager) {
         for (int i = 0; i < 5; i++) {
-            spawnNew(root, handy, scoreManager, false);
+            spawnNew(root, handy, scoreManager);
         }
     }
 }
