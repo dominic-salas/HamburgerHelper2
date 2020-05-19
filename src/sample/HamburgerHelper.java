@@ -8,6 +8,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -36,6 +38,8 @@ public class HamburgerHelper implements Spawnable, Killable {
     int imageOffsetCorrectX = 115;
     int seconds = 5;
     int counter;
+    Rectangle healthBar = new Rectangle();
+    Rectangle barBlank = new Rectangle();
     UserInput userInput;
     Stage primaryStage;
     boolean relativeLeft;
@@ -76,50 +80,29 @@ public class HamburgerHelper implements Spawnable, Killable {
         secondLife.setTextAlignment(TextAlignment.CENTER);
         secondLife.setFont(Font.font(20));
         liveText.setX(1);
-        liveText.setY(15);
-        liveText.setFont(new Font(18));
+        liveText.setY(14);
+        liveText.setFont(new Font(16));
         liveText.setTextAlignment(TextAlignment.CENTER);
+        healthBar.setFill(Color.GREEN);
+        healthBar.setX(0);
+        healthBar.setY(1);
+        healthBar.setWidth(200);
+        healthBar.setHeight(16);
+        barBlank.setFill(Color.RED);
+        barBlank.setX(200);
+        barBlank.setY(1);
+        barBlank.setWidth(0);
+        barBlank.setHeight(16);
+        root.getChildren().add(healthBar);
+        root.getChildren().add(barBlank);
         root.getChildren().add(liveText);
         timeline.setCycleCount(Animation.INDEFINITE);
 
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        if (dead && !PowerUpFactory.secondLife) {
-                            root.getChildren().removeAll();
-                            lives = 100;
-                            liveText.setText("Health: " + lives);
-                            gameInitializer.restartGame();
-                            if (waitRestart) {
-                                root.getChildren().add(liveText);
-                                waitRestart = false;
-                            }
-                        } else if (dead && !wait) {
-                            root.getChildren().remove(liveText);
-                            root.getChildren().add(secondLife);
-                            wait = true;
-                        }
-                        if (userInput.enterPress && dead) {
-                            root.getChildren().remove(secondLife);
-                            root.getChildren().add(liveText);
-                            lives = 100;
-                            liveText.setText("Health: " + lives);
-                            PowerUpFactory.secondLife = false;
-                            dead = false;
-                            wait = false;
-                        }
-                        if (lives >= 200 && seconds > 0) {
-                            counter++;
-                            liveText.setText("Invulnerable for " + seconds);
-                            if (counter >= 100) {
-                                seconds--;
-                                counter = 0;
-                            }
-                        } else if (lives <= 100) {
-                            liveText.setText("Health: " + lives);
-                            seconds = 5;
-                            counter = 0;
-                        }
+                        dropHealth(0, root); //to make sure health bar is always on top of everything else, essentially replaces it every frame
+                        manageHealth(root, gameInitializer);
                     }
                 });
         timeline.getKeyFrames().add(action);
@@ -203,12 +186,73 @@ public class HamburgerHelper implements Spawnable, Killable {
      */
     public void dropHealth(double damage, Group root) {
         if (lives <= 100) {
-            liveText.setText("Health: " + lives);
             lives -= damage;
+            root.getChildren().remove(healthBar);
+            healthBar.setWidth(lives * 2);
+            root.getChildren().add(healthBar);
+            root.getChildren().remove(barBlank);
+            barBlank.setWidth(200 - (lives * 2));
+            barBlank.setX(200 - barBlank.getWidth());
+            root.getChildren().add(barBlank);
+            root.getChildren().remove(liveText);
+            liveText.setText("Health: " + lives);
+            root.getChildren().add(liveText);
         }
         if (lives <= 0 && !dead) {
             root.getChildren().remove(liveText);
             dead = true;
+        }
+    }
+
+    /**
+     * Large chunk of code that handles all situations where health and healthbars would change
+     *
+     * @param root            to add healthbar and health to group
+     * @param gameInitializer to call the death screen when life is less than 0 (handy dies)
+     */
+    private void manageHealth(Group root, GameInitializer gameInitializer) {
+        if (dead && !PowerUpFactory.secondLife) {
+            root.getChildren().removeAll();
+            lives = 100;
+            gameInitializer.restartGame();
+            if (waitRestart) {
+                healthBar.setWidth(200);
+                barBlank.setWidth(0);
+                dropHealth(0, root);
+                waitRestart = false;
+            }
+        } else if (dead && !wait) {
+            root.getChildren().remove(liveText);
+            root.getChildren().remove(healthBar);
+            root.getChildren().remove(barBlank);
+            root.getChildren().add(secondLife);
+            wait = true;
+        }
+        if (userInput.enterPress && dead) {
+            root.getChildren().remove(secondLife);
+            healthBar.setWidth(200);
+            barBlank.setWidth(0);
+            lives = 100;
+            dropHealth(0, root);
+            PowerUpFactory.secondLife = false;
+            dead = false;
+            wait = false;
+        }
+        if (lives >= 200 && seconds > 0) {
+            counter++;
+            liveText.setText("Invulnerable for " + seconds);
+            healthBar.setWidth(200);
+            healthBar.setFill(Color.BLUE);
+            barBlank.setWidth(0);
+            if (counter >= 100) {
+                seconds--;
+                counter = 0;
+            }
+        } else if (lives <= 100) {
+            healthBar.setFill(Color.GREEN);
+            dropHealth(0, root);
+            seconds = 5;
+            counter = 0;
         }
     }
 }
