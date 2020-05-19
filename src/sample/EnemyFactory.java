@@ -42,6 +42,10 @@ public class EnemyFactory {
                                 spawnNew(root, handy, scoreManager);
                                 enemies.remove(i);
                             }
+                            root.getChildren().remove(enemies.get(i).sprite);
+                            if (enemies.get(i).sprite != null) {
+                                root.getChildren().add(enemies.get(i).sprite);
+                            }
                         }
                     }
                 });

@@ -12,6 +12,10 @@ import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * DeadGUIController is a controller for the death screen the player sees when handy dies without an extra life.
+ * by Dominic Salas
+ */
 public class DeadGUIController implements Initializable {
     ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun","RPG");
 
@@ -42,6 +46,10 @@ public class DeadGUIController implements Initializable {
         GameInitializer.deathController = this;
         printScores();
     }
+
+    /**
+     * Replays the game and makes sure handy starts with the weapon the player selects
+     */
     public void changeScene() {
         MainScene.initializer.swapScene();
         switch (weaponSelect.getValue().toString()) {
@@ -73,8 +81,12 @@ public class DeadGUIController implements Initializable {
         HamburgerHelper.waitRestart = true;
     }
 
-    public void printScores(){
-        if(ScoreManager.activeProfile!=null){
+    /**
+     * prints scores to the screen for the player to see
+     * shows if the player beat his/her highscore
+     */
+    public void printScores() {
+        if (ScoreManager.activeProfile != null) {
             scoreValue.setText("Score: " + ScoreManager.activeProfile.score);
             if (ScoreManager.activeProfile.score >= ScoreManager.activeProfile.highscore) {
                 highscore.setText("You beat your highscore! New highscore: " + ScoreManager.activeProfile.score);

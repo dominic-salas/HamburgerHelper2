@@ -10,10 +10,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-
+/**
+ * Heart collectible that gives handy an extra life
+ * doesn't redirect handy to the "death screen" when he dies, instead
+ * gets a prompt to respawn with enter key
+ * <p>
+ * by Dominic Salas
+ */
 public class Heart extends PowerUp {
     public Timeline timeline = new Timeline();
 
+    /**
+     * Heart class to initialize all variables of heart
+     * @param root to add heart to group
+     * @param handy to know when heart is collected by handy
+     * @param xpos to know where to spawn heart
+     * @param ypos to know where to spawn heart
+     */
     public Heart(Group root, HamburgerHelper handy, double xpos, double ypos) {
         hitbox = new Rectangle();
         this.xpos = xpos;

@@ -34,6 +34,12 @@ public abstract class PowerUp implements Spawnable {
         hitbox.relocate(xpos, ypos);
     }
 
+    /**
+     * despawns and removes all sprites and hitboxes of the power up
+     *
+     * @param root    to remove from group
+     * @param powerUp to know which powerUp to remove
+     */
     public void despawn(Group root, PowerUp powerUp) {
         root.getChildren().remove(powerUp.sprite);
         root.getChildren().remove(powerUp.hitbox);

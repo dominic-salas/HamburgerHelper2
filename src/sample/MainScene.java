@@ -10,10 +10,17 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * Main Scene that creates the application
+ * Calls the initial scene where the player chooses his account and picks a weapon
+ * and calls game initializer to actually play the game
+ * by David Rogers
+ */
 public class MainScene extends Application {
     static GameInitializer initializer;
     static Group root = new Group();
     static Scene scene;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         //scene primaryStage starts out as GUI
@@ -30,7 +37,6 @@ public class MainScene extends Application {
 
         initializer = new GameInitializer(scene, primaryStage, root, GUIDead);
     }
-
 
 
     public static void main(String[] args) {

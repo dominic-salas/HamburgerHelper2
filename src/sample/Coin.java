@@ -10,10 +10,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-
+/**
+ * Coin collectible that adds score when handy collects it.
+ * by Dominic Salas
+ */
 public class Coin extends PowerUp {
     public Timeline timeline = new Timeline();
 
+    /**
+     * Coin class to initialize all of coin's variables
+     *
+     * @param root  to add coin to group
+     * @param handy to know when handy "collects" the coin
+     * @param xpos  to spawn coin in a certain spot
+     * @param ypos  to spawn coin in a certain spot
+     */
     public Coin(Group root, HamburgerHelper handy, double xpos, double ypos) {
         hitbox = new Rectangle();
         this.xpos = xpos;
