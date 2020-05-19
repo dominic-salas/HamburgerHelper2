@@ -20,13 +20,16 @@ public class PowerUpFactory {
     static Image coinImg = new Image("coin.png");
     static Image shieldImg = new Image("shield.png");
     static Image speedImg = new Image("speed.png");
+    static Image heartImg = new Image("heart.png");
     static ArrayList<PowerUp> powerUps = new ArrayList<>();
     static Rectangle powerCheck = new Rectangle();
     static boolean powerCheckValid = false;
+    static boolean secondLife = false;
     int coinCounter = 0;
     int shieldCounter = 0;
     int speedCounter = 0;
     int bombCounter = 0;
+    int heartCounter = 0;
     Random rand = new Random();
 
     public PowerUpFactory(Group root, HamburgerHelper handy, ScoreManager scoreManager, EnemyFactory enemyFactory) {
@@ -40,6 +43,7 @@ public class PowerUpFactory {
                             speedCounter++;
                             shieldCounter++;
                             bombCounter++;
+                            heartCounter++;
                             if (coinCounter >= 250) {
                                 if (spawnNew(root, handy, "coin", scoreManager, enemyFactory)) {
                                     coinCounter = 0;
@@ -50,14 +54,19 @@ public class PowerUpFactory {
                                     speedCounter = 0;
                                 }
                             }
-                            if (shieldCounter >= 1875) {
+                            if (shieldCounter >= 2250) {
                                 if (spawnNew(root, handy, "shield", scoreManager, enemyFactory)) {
                                     shieldCounter = 0;
                                 }
                             }
-                            if (bombCounter >= 2000) {
+                            if (bombCounter >= 2625) {
                                 if (spawnNew(root, handy, "bomb", scoreManager, enemyFactory)) {
                                     bombCounter = 0;
+                                }
+                            }
+                            if (heartCounter >= 3000 && !secondLife) {
+                                if (spawnNew(root, handy, "heart", scoreManager, enemyFactory)) {
+                                    heartCounter = 0;
                                 }
                             }
                         }
@@ -86,6 +95,10 @@ public class PowerUpFactory {
                     return true;
                 case "bomb":
                     powerUps.add(new Bomb(root, handy, MapMaker.possibleX, MapMaker.possibleY, scoreManager, enemyFactory));
+                    powerCheckValid = false;
+                    return true;
+                case "heart":
+                    powerUps.add(new Heart(root, handy, MapMaker.possibleX, MapMaker.possibleY));
                     powerCheckValid = false;
                     return true;
             }

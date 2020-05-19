@@ -51,9 +51,11 @@ public class FatEnemy extends Enemy {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        try {
-                            updateEnemy(FatEnemy.this, root, scoreManager, handy, 10, 4);
-                        } catch (java.lang.NullPointerException ignore) {
+                        if (sprite != null && hitbox != null && !handy.dead) {
+                            try {
+                                updateEnemy(FatEnemy.this, root, scoreManager, handy, 10, 4);
+                            } catch (java.lang.NullPointerException ignore) {
+                            }
                         }
                     }
                 });

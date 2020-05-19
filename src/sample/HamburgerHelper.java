@@ -28,7 +28,6 @@ public class HamburgerHelper implements Spawnable, Killable {
     private Image leftBack = new Image("backwardshandleft.png");
     private Image rightBack = new Image("backwardshandright.png");
     public static int lives = 100;
-    public ArrayList powerups;
     public static Weapon weapon;
     public Timeline timeline = new Timeline();
     public static double xpos = 170;
@@ -46,6 +45,8 @@ public class HamburgerHelper implements Spawnable, Killable {
     public static boolean waitRestart = true;
     public Rectangle hitbox;
     public static boolean dead = false;
+    boolean wait = false;
+    private Text secondLife = new Text("Extra Life! Press Enter to Keep Going...");
     private Text liveText = new Text("Health: " + lives);
     public static double speed = 4;
 
@@ -68,6 +69,12 @@ public class HamburgerHelper implements Spawnable, Killable {
         sprite.setX(300);
         sprite.setImage(leftForward);
         sprite.relocate(xpos, ypos);
+        secondLife.prefWidth(100);
+        secondLife.prefHeight(100);
+        secondLife.setX(140);
+        secondLife.setY(100);
+        secondLife.setTextAlignment(TextAlignment.CENTER);
+        secondLife.setFont(Font.font(20));
         liveText.setX(1);
         liveText.setY(15);
         liveText.setFont(new Font(18));
@@ -78,7 +85,7 @@ public class HamburgerHelper implements Spawnable, Killable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        if (dead) {
+                        if (dead && !PowerUpFactory.secondLife) {
                             root.getChildren().removeAll();
                             lives = 100;
                             liveText.setText("Health: " + lives);
@@ -87,6 +94,19 @@ public class HamburgerHelper implements Spawnable, Killable {
                                 root.getChildren().add(liveText);
                                 waitRestart = false;
                             }
+                        } else if (dead && !wait) {
+                            root.getChildren().remove(liveText);
+                            root.getChildren().add(secondLife);
+                            wait = true;
+                        }
+                        if (userInput.enterPress && dead) {
+                            root.getChildren().remove(secondLife);
+                            root.getChildren().add(liveText);
+                            lives = 100;
+                            liveText.setText("Health: " + lives);
+                            PowerUpFactory.secondLife = false;
+                            dead = false;
+                            wait = false;
                         }
                         if (lives >= 200 && seconds > 0) {
                             counter++;
