@@ -13,12 +13,25 @@ import javafx.util.Duration;
 
 import static sample.EnemyFactory.enemies;
 
-
+/**
+ * Bomb power up that kills all enemies and prevents them from spawning for 6 seconds
+ * by Dominic Salas
+ */
 public class Bomb extends PowerUp {
     public Timeline timeline = new Timeline();
     static boolean activated = false;
     int counter = 0;
 
+    /**
+     * Bomb class for initializing and placing bomb
+     *
+     * @param root         to add bomb to group
+     * @param handy        to make stuff happen when handy collides with bomb
+     * @param xpos         to pass in the position of bomb
+     * @param ypos         to pass in the position of bomb
+     * @param scoreManager to add score, equivalent to as if handy killed all enemies himself
+     * @param enemyFactory to kill and spawn all enemies
+     */
     public Bomb(Group root, HamburgerHelper handy, double xpos, double ypos, ScoreManager scoreManager, EnemyFactory enemyFactory) {
         hitbox = new Rectangle();
         this.xpos = xpos;
@@ -71,6 +84,12 @@ public class Bomb extends PowerUp {
         timeline.play();
     }
 
+    /**
+     * different despawn method to separate when the power up should be considered obsolete
+     *
+     * @param root    to remove sprite and hitbox
+     * @param powerUp to know which powerup to remove
+     */
     @Override
     public void despawn(Group root, PowerUp powerUp) {
         root.getChildren().remove(powerUp.sprite);

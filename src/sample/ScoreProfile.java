@@ -1,6 +1,9 @@
 package sample;
 
-
+/**
+ * Score profile class that stores score, playername, highscore, date created, and credits
+ * by David Rogers
+ */
 public class ScoreProfile {
     public int score;
     public String playerName;

@@ -14,6 +14,10 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Spawns powerups.
+ * by Dominic Salas
+ */
 public class PowerUpFactory {
     private Timeline timeline;
     static Image bombImg = new Image("bomb.png");
@@ -32,11 +36,24 @@ public class PowerUpFactory {
     int heartCounter = 0;
     Random rand = new Random();
 
+    /**
+     * PowerUpFactory class to initialize timeline and to handle all powerups
+     *
+     * @param root         to spawn powerups to group
+     * @param handy        to pass in handy to all powerups
+     * @param scoreManager for certain powerups (bomb)
+     * @param enemyFactory for certain powerups (bomb)
+     */
     public PowerUpFactory(Group root, HamburgerHelper handy, ScoreManager scoreManager, EnemyFactory enemyFactory) {
         timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
+                    /**
+                     * timeline that loops and increases an integer counter for each powerup
+                     * when the counter hits a certain number, and then counter resets
+                     * used to simulate the "rarity" of certain power ups
+                     */
                     public void handle(ActionEvent event) {
                         if (!HamburgerHelper.dead) {
                             coinCounter++;
@@ -76,6 +93,16 @@ public class PowerUpFactory {
         timeline.play();
     }
 
+    /**
+     * spawns a new powerup.
+     *
+     * @param root         to spawn powerup to group
+     * @param handy        to make sure powerups are taken
+     * @param type         for the type of powerup
+     * @param scoreManager to pass into bomb
+     * @param enemyFactory to pass into bomb
+     * @return if the power up was successfully spawned.
+     */
     public boolean spawnNew(Group root, HamburgerHelper handy, String type, ScoreManager scoreManager, EnemyFactory enemyFactory) {
         powerCheck.setWidth(30);
         powerCheck.setHeight(30);

@@ -6,6 +6,10 @@ import javafx.stage.Stage;
 
 import javax.naming.ldap.Control;
 
+/**
+ * Creates all necessary classes to be initialized for the game
+ * by David Rogers
+ */
 public class GameInitializer {
     Scene scene;
     Stage primaryStage;
@@ -15,6 +19,9 @@ public class GameInitializer {
     static DeadGUIController deathController;
     public static MapMaker mapMaker;
 
+    /**
+     * GameInitializer class to get variables from MainScene
+     */
     public GameInitializer(Scene scene, Stage primaryStage, Group root, Scene GUI) {
         this.scene = scene;
         this.primaryStage = primaryStage;
@@ -22,6 +29,10 @@ public class GameInitializer {
         this.GUI = GUI;
     }
 
+    /**
+     * Method called to make handy, obstacles, enemies, etc.
+     * launches the game
+     */
     public void startGame() {
 
         inputs = new UserInput(scene, primaryStage);
@@ -34,11 +45,19 @@ public class GameInitializer {
         primaryStage.setScene(scene); //changes scene from gui to game
     }
 
+    /**
+     * swaps the scene to the death screen
+     * passes scores to be printed by death screen
+     */
     public void restartGame() {
         primaryStage.setScene(GUI);
         deathController.printScores();
     }
 
+    /**
+     * swaps the scene from the dead screen to the game, resets some inputs to prevent
+     * glitches
+     */
     public void swapScene() {
         primaryStage.setScene(scene);
         MainScene.initializer.inputs.downPress = false;

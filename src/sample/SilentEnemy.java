@@ -70,6 +70,11 @@ public class SilentEnemy extends Enemy {
         timeline.play();
     }
 
+    /**
+     * Checks when silentEnemy should charge towards handy and what happens.
+     *
+     * @param root to change image of silent enemy
+     */
     private void checkSleeping(Group root) {
         if (mouseHeld && !awake) {
             awake = true;

@@ -10,12 +10,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+/**
+ * shield power up that makes the player invulnerable for 5 seconds
+ * by Dominic Salas
+ */
 
 public class Shield extends PowerUp {
     public Timeline timeline = new Timeline();
     boolean activated = false;
     int counter = 0;
 
+    /**
+     * shield class for initializing all variables of the power up
+     *
+     * @param root  to spawn to group
+     * @param handy to check for collisions
+     * @param xpos  to know where to spawn
+     * @param ypos  to know where to spawn
+     */
     public Shield(Group root, HamburgerHelper handy, double xpos, double ypos) {
 
         hitbox = new Rectangle();
@@ -36,6 +48,9 @@ public class Shield extends PowerUp {
 
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
+                    /**
+                     * timeline to handle the effect timer of the shield.
+                     */
                     public void handle(ActionEvent event) {
                         if (sprite != null && hitbox != null && !HamburgerHelper.dead) {
                             try {
