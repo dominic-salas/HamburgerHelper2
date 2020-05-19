@@ -41,9 +41,9 @@ public class Bomb extends PowerUp {
         sprite.setY(ypos);
         hitbox.setX(xpos);
         hitbox.setY(ypos);
-        sprite.setFitWidth(15.09);
+        sprite.setFitWidth(18.03);
         sprite.setFitHeight(20);
-        hitbox.setWidth(15.09);
+        hitbox.setWidth(16);
         hitbox.setHeight(20);
         sprite.setImage(PowerUpFactory.bombImg);
         root.getChildren().add(sprite);

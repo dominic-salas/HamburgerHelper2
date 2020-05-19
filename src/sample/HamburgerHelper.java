@@ -228,6 +228,9 @@ public class HamburgerHelper implements Spawnable, Killable {
             root.getChildren().add(secondLife);
             wait = true;
         }
+        if (wait) {
+            UserInput.mouseHeld = false;
+        }
         if (userInput.enterPress && dead) {
             root.getChildren().remove(secondLife);
             healthBar.setWidth(200);
@@ -250,7 +253,13 @@ public class HamburgerHelper implements Spawnable, Killable {
             }
         } else if (lives <= 100) {
             healthBar.setFill(Color.GREEN);
-            dropHealth(0, root);
+            if (!wait) {
+                dropHealth(0, root);
+            } else {
+                root.getChildren().remove(liveText);
+                root.getChildren().remove(healthBar);
+                root.getChildren().remove(barBlank);
+            }
             seconds = 5;
             counter = 0;
         }

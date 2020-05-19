@@ -111,17 +111,13 @@ public class UserInput {
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (!HamburgerHelper.dead) {
-                    mouseHeld = true;
-                }
+                mouseHeld = !HamburgerHelper.dead;
             }
         });
         scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (!HamburgerHelper.dead) {
-                    mouseHeld = false;
-                }
+                mouseHeld = false;
             }
         });
     }
