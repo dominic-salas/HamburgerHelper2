@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ScoreManager {
     public LinkedList<ScoreProfile> profiles = new LinkedList<>();
-    public static ScoreProfile activeProfile;
+    public static ScoreProfile activeProfile = null;
     Scanner scanner = new Scanner(System.in);
 
     FileReader fr;

@@ -32,8 +32,10 @@ public abstract class Enemy implements Spawnable, Killable {
                 if(Weapon.projectiles.get(i) instanceof Grenade){
                     ((Grenade) Weapon.projectiles.get(i)).explode();
                 }
+                else if(!(Weapon.projectiles.get(i) instanceof Explosion)){
+                    Weapon.projectiles.get(i).despawn();
+                }
                 dropHealth(Weapon.projectiles.get(i).damage, root, enemy, true, scoreManager);
-                Weapon.projectiles.get(i).despawn();
             }
         }
         checkAttack(handy, root, enemy, scoreManager);

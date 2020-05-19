@@ -41,7 +41,7 @@ public class DeadGUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        weaponSelect.setValue("Basic Gun");
+        weaponSelect.setValue("Basic Gun -- Free");
         weaponSelect.setItems(weaponOptions);
         GameInitializer.deathController = this;
         printScores();
@@ -53,27 +53,27 @@ public class DeadGUIController implements Initializable {
     public void changeScene() {
         MainScene.initializer.swapScene();
         switch (weaponSelect.getValue().toString()) {
-            case "Basic Gun": {
+            case "Basic Gun -- Free": {
                 HamburgerHelper.weapon = new BasicGun(MainScene.root);
                 break;
             }
-            case "Shotgun": {
+            case "Shotgun -- 5,000": {
                 HamburgerHelper.weapon = new ShotGun(MainScene.root);
                 break;
             }
-            case "Laser Gun": {
+            case "Laser Gun -- 12,500": {
                 HamburgerHelper.weapon = new LaserGun(MainScene.root);
                 break;
             }
-            case "Laser Shotgun": {
+            case "Laser Shotgun -- 25,000": {
                 HamburgerHelper.weapon = new LaserShotGun(MainScene.root);
                 break;
             }
-            case "Minigun": {
+            case "Minigun -- 100,000": {
                 HamburgerHelper.weapon = new Minigun(MainScene.root);
                 break;
             }
-            case "RPG":{
+            case "RPG -- 100,000":{
                 HamburgerHelper.weapon = new RPG(MainScene.root);
             }
         }

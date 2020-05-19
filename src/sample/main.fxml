@@ -40,5 +40,6 @@
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
+      <Button fx:id="purchaseButton" layoutX="107.0" layoutY="457.0" mnemonicParsing="false" onAction="#buyWeapon" text="Buy" />
    </children>
 </AnchorPane>

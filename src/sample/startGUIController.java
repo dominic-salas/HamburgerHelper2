@@ -22,8 +22,9 @@ import java.util.ResourceBundle;
 
 public class startGUIController implements Initializable {
     static ScoreManager scoreManager = new ScoreManager();
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun","RPG");
+    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun -- Free", "Shotgun -- 5,000", "Laser Gun -- 12,500", "Laser Shotgun -- 25,000", "Minigun -- 100,000","RPG -- 100,000");
     ObservableList<ScoreProfile> profilesList = FXCollections.observableArrayList();
+    String weaponNameHolder = "Basic Gun -- Free";
 
     @FXML
     Button searchButton;
@@ -39,6 +40,8 @@ public class startGUIController implements Initializable {
     Label dateCreatedDisplay = new Label();
     @FXML
     ChoiceBox weaponSelect = new ChoiceBox();
+    @FXML
+    Button purchaseButton = new Button();
     @FXML
     Label profilesLabel = new Label();
     @FXML
@@ -63,12 +66,13 @@ public class startGUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         scoreManager.loadProfiles();
-        weaponSelect.setValue("Basic Gun");
+        weaponSelect.setValue("Basic Gun -- Free");
         weaponSelect.setItems(weaponOptions);
        setUpTable();
     }
 
     public void setUpTable(){
+        profilesList.clear();
         scoreManager.profiles.forEach(scoreProfile -> {
             profilesList.add(scoreProfile);
         });
@@ -77,6 +81,7 @@ public class startGUIController implements Initializable {
         creditColumn.setCellValueFactory(new PropertyValueFactory<>("credits"));
         dateCreatedColumn.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
         profileTable.setItems(profilesList);
+        profileTable.getColumns().clear();
         profileTable.getColumns().addAll(profileNameColumn,highscoreColumn,creditColumn,dateCreatedColumn);
     }
 
@@ -86,31 +91,6 @@ public class startGUIController implements Initializable {
      */
     public void changeScene() {
         MainScene.initializer.startGame();
-        switch (weaponSelect.getValue().toString()){
-            case "Basic Gun":{
-                HamburgerHelper.weapon = new BasicGun(MainScene.root);
-                break;
-            }
-            case "Shotgun":{
-                HamburgerHelper.weapon = new ShotGun(MainScene.root);
-                break;
-            }
-            case "Laser Gun":{
-                HamburgerHelper.weapon = new LaserGun(MainScene.root);
-                break;
-            }
-            case "Laser Shotgun":{
-                HamburgerHelper.weapon = new LaserShotGun(MainScene.root);
-                break;
-            }
-            case "Minigun":{
-                HamburgerHelper.weapon = new Minigun(MainScene.root);
-                break;
-            }
-            case "RPG":{
-                HamburgerHelper.weapon = new RPG(MainScene.root);
-            }
-        }
     }
 
     /**
@@ -118,11 +98,76 @@ public class startGUIController implements Initializable {
      */
     public void setProfile(){
         scoreManager.selectAccount(profileInput.getText());
+        updateText();
+    }
+
+    public void buyWeapon() {
+        if(ScoreManager.activeProfile==null){
+            weaponSelect.setValue("Basic Gun -- Free");
+            return;
+        }
+        switch (weaponSelect.getValue().toString()) {
+            case "Basic Gun -- Free": {
+                HamburgerHelper.weapon = new BasicGun(MainScene.root);
+                break;
+            }
+            case "Shotgun -- 5,000": {
+                if(ScoreManager.activeProfile.credits>=5000&&!weaponNameHolder.equals(weaponSelect.getValue().toString())){
+                    ScoreManager.activeProfile.credits-=5000;
+                    HamburgerHelper.weapon = new ShotGun(MainScene.root);
+                    break;
+                }else{
+                    weaponSelect.setValue(weaponNameHolder);
+                }
+            }
+            case "Laser Gun -- 12,500": {
+                if(ScoreManager.activeProfile.credits>=12500&&!weaponNameHolder.equals(weaponSelect.getValue().toString())){
+                    ScoreManager.activeProfile.credits-=12500;
+                    HamburgerHelper.weapon = new LaserGun(MainScene.root);
+                    break;
+                }else{
+                    weaponSelect.setValue(weaponNameHolder);
+                }
+            }
+            case "Laser Shotgun -- 25,000": {
+                if(ScoreManager.activeProfile.credits>=25000&&!weaponNameHolder.equals(weaponSelect.getValue().toString())){
+                    ScoreManager.activeProfile.credits-=25000;
+                    HamburgerHelper.weapon = new LaserShotGun(MainScene.root);
+                    break;
+                }else{
+                    weaponSelect.setValue(weaponNameHolder);
+                }
+            }
+            case "Minigun -- 100,000": {
+                if(ScoreManager.activeProfile.credits>=100000&&!weaponNameHolder.equals(weaponSelect.getValue().toString())){
+                    ScoreManager.activeProfile.credits-=100000;
+                    HamburgerHelper.weapon = new Minigun(MainScene.root);
+                    break;
+                }else{
+                    weaponSelect.setValue(weaponNameHolder);
+                }
+            }
+            case "RPG -- 100,000":{
+                if(ScoreManager.activeProfile.credits>=100000&&!weaponNameHolder.equals(weaponSelect.getValue().toString())){
+                    ScoreManager.activeProfile.credits-=100000;
+                    HamburgerHelper.weapon = new RPG(MainScene.root);
+                    break;
+                }else{
+                    weaponSelect.setValue(weaponNameHolder);
+                }
+            }
+
+        }
+        weaponNameHolder = weaponSelect.getValue().toString();
+        updateText();
+        setUpTable();
+        scoreManager.storeProfiles();
+    }
+    private void updateText(){
         profileNameDisplay.setText("Profile Name: "+scoreManager.activeProfile.playerName);
         highScoreDisplay.setText("Highscore: "+scoreManager.activeProfile.highscore);
         creditsDisplay.setText("Credits: "+scoreManager.activeProfile.credits);
         dateCreatedDisplay.setText("Created On: "+scoreManager.activeProfile.dateCreated);
-
     }
 
 }
