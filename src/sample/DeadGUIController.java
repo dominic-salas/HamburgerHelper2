@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
  * by Dominic Salas
  */
 public class DeadGUIController implements Initializable {
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun","RPG");
+    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun -- Free", "Shotgun -- 5,000", "Laser Gun -- 12,500", "Laser Shotgun -- 25,000", "Minigun -- 100,000","RPG -- 100,000");
 
     @FXML
     Button respawnButton;
