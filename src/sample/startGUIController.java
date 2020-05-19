@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class startGUIController implements Initializable {
     static ScoreManager scoreManager = new ScoreManager();
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun");
+    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun","RPG");
     ObservableList<ScoreProfile> profilesList = FXCollections.observableArrayList();
 
     @FXML
@@ -106,6 +106,9 @@ public class startGUIController implements Initializable {
             case "Minigun":{
                 HamburgerHelper.weapon = new Minigun(MainScene.root);
                 break;
+            }
+            case "RPG":{
+                HamburgerHelper.weapon = new RPG(MainScene.root);
             }
         }
     }

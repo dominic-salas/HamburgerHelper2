@@ -50,8 +50,8 @@ public abstract class Projectile implements Spawnable {
      * takes in slope when spawned, and then follows x and y speed until despawned
      */
     public void move() {  //TODO movement also has to also include relative handy movement
-        xpos += xSpeed;
-        ypos += ySpeed;
+        xpos += xSpeed-Obstacle.xSpeed;
+        ypos += ySpeed-Obstacle.ySpeed;
         sprite.relocate(xpos, ypos);
     }
 

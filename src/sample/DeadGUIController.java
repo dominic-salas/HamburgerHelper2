@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DeadGUIController implements Initializable {
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun");
+    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun", "Shotgun", "Laser Gun", "Laser Shotgun", "Minigun","RPG");
 
     @FXML
     Button respawnButton;
@@ -64,6 +64,9 @@ public class DeadGUIController implements Initializable {
             case "Minigun": {
                 HamburgerHelper.weapon = new Minigun(MainScene.root);
                 break;
+            }
+            case "RPG":{
+                HamburgerHelper.weapon = new RPG(MainScene.root);
             }
         }
         HamburgerHelper.dead = false;
