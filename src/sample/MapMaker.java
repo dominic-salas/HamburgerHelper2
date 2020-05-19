@@ -40,6 +40,8 @@ public class MapMaker {
     public MapMaker(HamburgerHelper handy) {
         timeline = new Timeline();
         this.handy = handy;
+        PowerUpFactory.powerCheck.setHeight(30);
+        PowerUpFactory.powerCheck.setWidth(30);
         timeline.setCycleCount(Animation.INDEFINITE);
 /**
  * timeline for moving all obstacles according to handy movement
@@ -54,15 +56,14 @@ public class MapMaker {
                         if (!PowerUpFactory.powerCheckValid) {
                             possibleX = rand.nextInt(600);
                             possibleY = rand.nextInt(600);
-                            PowerUpFactory.powerCheck.setX(possibleX);
-                            PowerUpFactory.powerCheck.setY(possibleY);
+                            PowerUpFactory.powerCheck.setX(possibleX - 15);
+                            PowerUpFactory.powerCheck.setY(possibleY - 15);
                         }
                         for (int i = 0; i < obstacles.size(); i++) {
                             if (obstacles.get(i).sprite.getBoundsInParent().intersects(PowerUpFactory.powerCheck.getBoundsInParent())) {
                                 i = obstacles.size();
                             } else {
                                 PowerUpFactory.powerCheckValid = true;
-
                             }
                         }
                         obstacles.forEach(Obstacle::predictIntersectHandy); //check if inputs will cause collision and set to 0 if they will

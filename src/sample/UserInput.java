@@ -40,8 +40,10 @@ public class UserInput {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        checkInputs();
-                        checkMouseHover();
+                        if (!HamburgerHelper.dead) {
+                            checkInputs();
+                            checkMouseHover();
+                        }
                     }
                 });
         timeline.getKeyFrames().add(action);
@@ -101,7 +103,9 @@ public class UserInput {
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                HamburgerHelper.weapon.shoot();
+                if (!HamburgerHelper.dead) {
+                    HamburgerHelper.weapon.shoot();
+                }
             }
         });
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
