@@ -29,13 +29,14 @@ public abstract class Enemy implements Spawnable, Killable {
         chase(speed);
         for (int i = 0; i < Weapon.projectiles.size(); i++) {
             if (hitbox.getBoundsInParent().intersects(Weapon.projectiles.get(i).sprite.getBoundsInParent())) {
+                dropHealth(Weapon.projectiles.get(i).damage, root, enemy, true, scoreManager);
                 if(Weapon.projectiles.get(i) instanceof Grenade){
                     ((Grenade) Weapon.projectiles.get(i)).explode();
                 }
                 else if(!(Weapon.projectiles.get(i) instanceof Explosion)){
                     Weapon.projectiles.get(i).despawn();
                 }
-                dropHealth(Weapon.projectiles.get(i).damage, root, enemy, true, scoreManager);
+
             }
         }
         checkAttack(handy, root, enemy, scoreManager);

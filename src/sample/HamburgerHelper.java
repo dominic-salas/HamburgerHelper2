@@ -30,7 +30,7 @@ public class HamburgerHelper implements Spawnable, Killable {
     private Image leftBack = new Image("backwardshandleft.png");
     private Image rightBack = new Image("backwardshandright.png");
     public static int lives = 100;
-    public static Weapon weapon;
+    public static Weapon weapon = new BasicGun(MainScene.root);
     public Timeline timeline = new Timeline();
     public static double xpos = 170;
     public static double ypos = 150;
