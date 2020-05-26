@@ -50,7 +50,7 @@ public class EnemyFactory {
                     }
                 });
         timeline.getKeyFrames().add(action);
-        timeline.play();
+       // timeline.play();
     }
 
     /**

@@ -7,38 +7,72 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 public class pathFinder {
     static Boolean[][] gridMap = new Boolean[62][]; //x, y
     Rectangle pointChecker = new Rectangle(0,0,10,10);
     Boolean freePos;
-    private Point2D target = new Point2D(0,0);
     private Rectangle targetBox = new Rectangle();
     private Point2D targetArrayXY = new Point2D(0,0);
-    private final Point2D origin = new Point2D(28,26);
+    private Point2D origin = new Point2D(28,26);
     private static int counter = 0;
     private ArrayList<Rectangle> path = new ArrayList<>();
     ArrayList<Point2D> pathPoints= new ArrayList<Point2D>();
+    Queue<SearcherNode> posQueue = new LinkedList<>();
+    private Point2D[] movements = new Point2D[4];
 
     public pathFinder() {
         for (int i = 0; i < 62; i++) {
             gridMap[i] = new Boolean[62];
         }
-    }
+        movements[0] = new Point2D(-1,0); //left
+        movements[1] = new Point2D(1,0); //right
+        movements[2] = new Point2D(0,-1); //up
+        movements[3] = new Point2D(0,1); //down
 
-    public ArrayList<Point2D> findPath(Point2D target){ //DFS
+
+    }
+    public ArrayList<Point2D> findPath2(Point2D target){
+        posQueue.clear();
+
         checkMap(target);
-        path.clear();
-        pathPoints.clear();
-        System.out.println(extendPath(origin));
-
-        path.forEach(Rectangle->{
-            pathPoints.add(new Point2D(Rectangle.getX(),Rectangle.getY()));
-            //MainScene.root.getChildren().add(Rectangle);
-        });
-        return pathPoints;
+        Point2D currentPos = new Point2D(0,0); // just setup
+        SearcherNode currentNode;
+        posQueue.add(new SearcherNode(origin,null)); // set start
+        while(!posQueue.isEmpty()){
+           // System.out.println(posQueue.size());
+            currentNode = posQueue.peek();
+            currentPos = posQueue.remove().pos; //move to next position in queueuueue
+            if(currentPos.equals(targetArrayXY)){
+                return backTrace(currentNode);
+            }
+            gridMap[(int)currentPos.getX()][(int)currentPos.getY()] = false; // mark it as no longer available position
+            for (int i = 0; i <4 ; i++) { //try all posible movements
+                currentPos= new Point2D(currentPos.getX()+movements[i].getX(),currentPos.getY()+movements[i].getY());
+                if (gridMap[(int)currentPos.getX()][(int)currentPos.getY()]){ //if it aint taken
+                    posQueue.add(new SearcherNode(currentPos,currentNode)); //add it to the path queueeuueueue
+                    gridMap[(int)currentPos.getX()][(int)currentPos.getY()]=false;
+                }
+                currentPos= new Point2D(currentPos.getX()-movements[i].getX(),currentPos.getY()-movements[i].getY()); //put it back where it belongs
+            }
+        }
+        return (null);
     }
+
+    public ArrayList<Point2D> backTrace(SearcherNode startPos){
+        ArrayList<Point2D> backTrace = new ArrayList<>();
+        SearcherNode current = startPos;
+        while(current.prev!=null){
+            backTrace.add(new Point2D(current.pos.getX()*10,current.pos.getY()*10));
+            current=current.prev;
+        }
+        return backTrace;
+    }
+
+    
 
     public void checkMap(Point2D target){
         targetBox.setX(target.getX());
@@ -80,7 +114,18 @@ public class pathFinder {
 
     }
 
+    public ArrayList<Point2D> findPath(Point2D target){ //DFS
+        checkMap(target);
+        path.clear();
+        pathPoints.clear();
+        System.out.println(extendPath(origin));
 
+        path.forEach(Rectangle->{
+            pathPoints.add(new Point2D(Rectangle.getX(),Rectangle.getY()));
+            //MainScene.root.getChildren().add(Rectangle);
+        });
+        return pathPoints;
+    }
 
     private boolean extendPath(Point2D currentPos){
         counter++;
