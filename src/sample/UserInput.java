@@ -107,7 +107,6 @@ public class UserInput {
             public void handle(MouseEvent event) {
                 if (!HamburgerHelper.dead) {
                     HamburgerHelper.weapon.shoot();
-                    stuckFinder.findPath(new Point2D(mousePosX-18,mousePosY-40));
                 }
             }
         });
