@@ -72,7 +72,7 @@ public class pathFinder {
         return backTrace;
     }
 
-    
+
 
     public void checkMap(Point2D target){
         targetBox.setX(target.getX());
