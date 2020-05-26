@@ -91,7 +91,7 @@ public class DeadGUIController implements Initializable {
             if (ScoreManager.activeProfile.score >= ScoreManager.activeProfile.highscore) {
                 highscore.setText("You beat your highscore! New highscore: " + ScoreManager.activeProfile.score);
             } else {
-                highscore.setText("Your highscore:" + ScoreManager.activeProfile.highscore);
+                highscore.setText("Your highscore: " + ScoreManager.activeProfile.highscore);
             }
         }
     }
