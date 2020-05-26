@@ -33,7 +33,7 @@ public class MainScene extends Application {
         scene.setFill(Color.WHITE); //color of the scene
         primaryStage.show();
         primaryStage.getX();
-        primaryStage.setResizable(false);
+      //  primaryStage.setResizable(false);
 
         initializer = new GameInitializer(scene, primaryStage, root, GUIDead);
     }

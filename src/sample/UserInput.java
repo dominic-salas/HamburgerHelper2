@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -30,6 +31,7 @@ public class UserInput {
     private Timeline timeline = new Timeline();
     private Scene scene;
     private Stage primaryStage;
+    private pathFinder stuckFinder = new pathFinder();
 
 
     public UserInput(Scene scene, Stage primaryStage){
@@ -105,6 +107,7 @@ public class UserInput {
             public void handle(MouseEvent event) {
                 if (!HamburgerHelper.dead) {
                     HamburgerHelper.weapon.shoot();
+                    stuckFinder.findPath(new Point2D(mousePosX-18,mousePosY-40));
                 }
             }
         });

@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class startGUIController implements Initializable {
     static ScoreManager scoreManager = new ScoreManager();
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun -- Free", "Shotgun -- 5,000", "Laser Gun -- 12,500", "Laser Shotgun -- 25,000", "Minigun -- 100,000","RPG -- 100,000");
+    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun -- Free", "Shotgun -- 5,000", "Laser Gun -- 12,500", "Laser Shotgun -- 25,000", "Minigun -- 100,000","RPG -- 100,000","ElectroGun -- 150,000");
     ObservableList<ScoreProfile> profilesList = FXCollections.observableArrayList();
     String weaponNameHolder = "Basic Gun -- Free";
 
@@ -151,6 +151,15 @@ public class startGUIController implements Initializable {
                 if(ScoreManager.activeProfile.credits>=100000&&!weaponNameHolder.equals(weaponSelect.getValue().toString())){
                     ScoreManager.activeProfile.credits-=100000;
                     HamburgerHelper.weapon = new RPG(MainScene.root);
+                    break;
+                }else{
+                    weaponSelect.setValue(weaponNameHolder);
+                }
+            }
+            case "ElectroGun -- 150,000":{
+                if(ScoreManager.activeProfile.credits>=150000&&!weaponNameHolder.equals(weaponSelect.getValue().toString())){
+                    ScoreManager.activeProfile.credits-=150000;
+                    HamburgerHelper.weapon = new ElectroGun(MainScene.root);
                     break;
                 }else{
                     weaponSelect.setValue(weaponNameHolder);
