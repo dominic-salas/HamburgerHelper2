@@ -21,15 +21,13 @@ public class ElectroGun extends Weapon {
     }
     @Override
     public void shoot() {
-        points.clear();
         points=pf.findPath2(new Point2D(UserInput.mousePosX-18,UserInput.mousePosY-40));
         if(!points.isEmpty()){
             points.forEach(point2D -> {
                 ElectroBolt ElectroBolt = new ElectroBolt(point2D.getX(),point2D.getY(),root);
                 projectiles.add(ElectroBolt);
             });
-
         }
-
+        points.clear();
     }
 }

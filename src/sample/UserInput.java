@@ -31,8 +31,6 @@ public class UserInput {
     private Timeline timeline = new Timeline();
     private Scene scene;
     private Stage primaryStage;
-    private pathFinder stuckFinder = new pathFinder();
-
 
     public UserInput(Scene scene, Stage primaryStage){
         this.scene=scene;
@@ -107,7 +105,6 @@ public class UserInput {
             public void handle(MouseEvent event) {
                 if (!HamburgerHelper.dead) {
                     HamburgerHelper.weapon.shoot();
-                    stuckFinder.findPath2(new Point2D(mousePosX-18,mousePosY-40));
                 }
             }
         });
