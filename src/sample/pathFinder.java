@@ -45,7 +45,7 @@ public class pathFinder {
         while(!posQueue.isEmpty()){
            // System.out.println(posQueue.size());
             currentNode = posQueue.peek();
-            currentPos = posQueue.remove().pos; //move to next position in queueuueue
+            currentPos = posQueue.remove().pos; //move to next position in queue
             if(currentPos.equals(targetArrayXY)){
                 return backTrace(currentNode);
             }
@@ -53,8 +53,8 @@ public class pathFinder {
             for (int i = 0; i <4 ; i++) { //try all posible movements
                 currentPos= new Point2D(currentPos.getX()+movements[i].getX(),currentPos.getY()+movements[i].getY());
                 if (gridMap[(int)currentPos.getX()][(int)currentPos.getY()]){ //if it aint taken
-                    posQueue.add(new SearcherNode(currentPos,currentNode)); //add it to the path queueeuueueue
-                    gridMap[(int)currentPos.getX()][(int)currentPos.getY()]=false;
+                    posQueue.add(new SearcherNode(currentPos, currentNode)); //add it to the path queue
+                    gridMap[(int) currentPos.getX()][(int) currentPos.getY()] = false;
                 }
                 currentPos= new Point2D(currentPos.getX()-movements[i].getX(),currentPos.getY()-movements[i].getY()); //put it back where it belongs
             }

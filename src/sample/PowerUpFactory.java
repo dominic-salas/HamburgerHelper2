@@ -90,7 +90,7 @@ public class PowerUpFactory {
                     }
                 });
         timeline.getKeyFrames().add(action);
-        //timeline.play();
+        timeline.play();
     }
 
     /**
