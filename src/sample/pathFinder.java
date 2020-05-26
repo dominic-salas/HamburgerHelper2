@@ -188,22 +188,22 @@ private boolean tryRight(Point2D currentPos){
 }
 
     //reorders direction movement priority for more efficiency
-public boolean UpRight(Point2D currentPos, boolean u, boolean d, boolean r, boolean l){
-    if(u&&extendPath(moveUP(currentPos))){ //if you can go up
-        path.add(new Rectangle(currentPos.getX()*10,currentPos.getY()*10,10,10));
-        return true;
-    }else if(r&&extendPath(moveRight(currentPos))){
-        path.add(new Rectangle(currentPos.getX()*10,currentPos.getY()*10,10,10));
-        return true; //try going right
-    }else if(d&&extendPath(moveDown(currentPos))){
-        path.add(new Rectangle(currentPos.getX()*10,currentPos.getY()*10,10,10));
-        return true; //try going down
-    }else if(l&&extendPath(moveLeft(currentPos))){
-        path.add(new Rectangle(currentPos.getX()*10,currentPos.getY()*10,10,10));
-        return true; //try going left
+    public boolean UpRight(Point2D currentPos, boolean u, boolean d, boolean r, boolean l) {
+        if (u && extendPath(moveUP(currentPos))) { //if you can go up
+            path.add(new Rectangle(currentPos.getX() * 10, currentPos.getY() * 10, 10, 10));
+            return true;
+        } else if (r && extendPath(moveRight(currentPos))) {
+            path.add(new Rectangle(currentPos.getX() * 10, currentPos.getY() * 10, 10, 10));
+            return true; //try going right
+        } else if (d && extendPath(moveDown(currentPos))) {
+            path.add(new Rectangle(currentPos.getX() * 10, currentPos.getY() * 10, 10, 10));
+            return true; //try going down
+        } else if (l && extendPath(moveLeft(currentPos))) {
+            path.add(new Rectangle(currentPos.getX() * 10, currentPos.getY() * 10, 10, 10));
+            return true; //try going left
+        }
+        return false;
     }
-    return false;
-}
 
     public boolean UpLeft(Point2D currentPos, boolean u, boolean d, boolean r, boolean l){
         if(u&&extendPath(moveUP(currentPos))){ //if you can go up
