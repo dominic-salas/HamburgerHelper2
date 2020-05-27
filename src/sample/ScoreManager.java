@@ -66,7 +66,7 @@ public class ScoreManager {
      *
      * @param name
      */
-    public void createNewAccount(String name) { //method overload for if name is already created TODO i have no idea what this means david u gotta fix
+    public void createNewAccount(String name) { //method overload for if name is already created
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.now();
         String date = dateformatter.format(dateTime);

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
+ * Hamburger helper class for spawning handy and managing all handy behavior
  * By Dominic and David
  */
 public class HamburgerHelper implements Spawnable, Killable {

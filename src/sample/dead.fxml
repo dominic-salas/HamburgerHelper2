@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DeadGUIController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.DeadGUIController">
     <children>
-        <Button fx:id="respawnButton" layoutX="250.0" layoutY="549.0" mnemonicParsing="false" onAction="#changeScene"
-                prefWidth="100.0" text="Respawn"/>
+        <Button fx:id="respawnButton" layoutX="304.0" layoutY="549.0" mnemonicParsing="false" onAction="#changeScene"
+                prefHeight="25.0" prefWidth="100.0" text="Respawn"/>
         <ChoiceBox fx:id="weaponSelect" layoutX="227.0" layoutY="454.0" prefHeight="25.0" prefWidth="150.0"/>
         <Text layoutX="264.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You died :(">
             <font>
@@ -52,5 +53,7 @@
                 <Image url="@../../Resources/deadHandy.png"/>
             </image>
         </ImageView>
+        <Button fx:id="buyWeaponButton" layoutX="98.0" layoutY="449.0" mnemonicParsing="false" onAction="#buyWeapon"
+                prefHeight="25.0" prefWidth="100.0" text="Buy Weapon" translateX="100.0" translateY="100.0"/>
    </children>
 </AnchorPane>
