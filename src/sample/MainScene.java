@@ -8,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 /**
  * Main Scene that creates the application
  * Calls the initial scene where the player chooses his account and picks a weapon
@@ -33,7 +31,7 @@ public class MainScene extends Application {
         scene.setFill(Color.WHITE); //color of the scene
         primaryStage.show();
         primaryStage.getX();
-      //  primaryStage.setResizable(false);
+        primaryStage.setResizable(false);
 
         initializer = new GameInitializer(scene, primaryStage, root, GUIDead);
     }

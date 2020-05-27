@@ -2,7 +2,6 @@ package sample;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -42,5 +41,4 @@ public abstract class Weapon {
     }
 
     public void shoot() {}
-    private void pickup() {}
 }

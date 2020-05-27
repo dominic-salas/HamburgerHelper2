@@ -4,7 +4,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
-//lasershotgun lmao
 
 /**
  * Semi-Auto weapon that spawns 3 laser projectiles with medium bullet speed

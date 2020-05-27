@@ -22,9 +22,9 @@ import java.util.ResourceBundle;
 
 public class startGUIController implements Initializable {
     static ScoreManager scoreManager = new ScoreManager();
-    ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun -- Free", "Shotgun -- 5,000", "Laser Gun -- 12,500", "Laser Shotgun -- 25,000", "Minigun -- 100,000","RPG -- 100,000","ElectroGun -- 150,000");
-    ObservableList<ScoreProfile> profilesList = FXCollections.observableArrayList();
-    String weaponNameHolder = "Basic Gun -- Free";
+    private ObservableList<String> weaponOptions = FXCollections.observableArrayList("Basic Gun -- Free", "Shotgun -- 5,000", "Laser Gun -- 12,500", "Laser Shotgun -- 25,000", "Minigun -- 100,000","RPG -- 100,000","ElectroGun -- 150,000");
+    private ObservableList<ScoreProfile> profilesList = FXCollections.observableArrayList();
+    private String weaponNameHolder = "Basic Gun -- Free";
 
     @FXML
     Button searchButton;
@@ -47,12 +47,16 @@ public class startGUIController implements Initializable {
     @FXML
     TableView profileTable = new TableView(profilesList);
     @FXML
+    private
     TableColumn<ScoreProfile,String> profileNameColumn = new TableColumn<>("Profile");
     @FXML
+    private
     TableColumn<ScoreProfile,Integer> highscoreColumn = new TableColumn<>("Highscore");
     @FXML
+    private
     TableColumn<ScoreProfile,Integer> creditColumn = new TableColumn<>("Credits");
     @FXML
+    private
     TableColumn<ScoreProfile,String> dateCreatedColumn = new TableColumn<>("Created");
 
 

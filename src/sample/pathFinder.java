@@ -1,9 +1,6 @@
 package sample;
 
-
-import com.sun.tools.javac.Main;
 import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -73,7 +70,6 @@ public class pathFinder {
     }
 
 
-
     public void checkMap(Point2D target){
         targetBox.setX(target.getX());
         targetBox.setY(target.getY());
@@ -113,6 +109,22 @@ public class pathFinder {
         }
 
     }
+
+
+
+    //CODE BELOW IS NOT USED
+
+
+
+    /**
+     * Old path finder DFS
+     * Faster, but doesn't find shortest path.
+     * This is not used at all, but is a demonstration of previous code
+     * @param target
+     * @return
+     */
+
+
 
     public ArrayList<Point2D> findPath(Point2D target){ //DFS
         checkMap(target);

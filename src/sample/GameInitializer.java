@@ -4,8 +4,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.naming.ldap.Control;
-
 /**
  * Creates all necessary classes to be initialized for the game
  * by David Rogers

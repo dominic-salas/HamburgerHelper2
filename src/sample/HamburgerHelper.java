@@ -9,16 +9,12 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * By Dominic and David
@@ -29,15 +25,15 @@ public class HamburgerHelper implements Spawnable, Killable {
     private Image rightForward = new Image("handy forwards right.png");
     private Image leftBack = new Image("backwardshandleft.png");
     private Image rightBack = new Image("backwardshandright.png");
-    public static int lives = 100;
+    static int lives = 100;
     public static Weapon weapon = new BasicGun(MainScene.root);
     public Timeline timeline = new Timeline();
     public static double xpos = 170;
     public static double ypos = 150;
     int imageOffsetCorrectY = 142;
     int imageOffsetCorrectX = 115;
-    int seconds = 5;
-    int counter;
+    private int seconds = 5;
+    private int counter;
     Rectangle healthBar = new Rectangle();
     Rectangle barBlank = new Rectangle();
     UserInput userInput;
@@ -49,7 +45,7 @@ public class HamburgerHelper implements Spawnable, Killable {
     public static boolean waitRestart = true;
     public Rectangle hitbox;
     public static boolean dead = false;
-    boolean wait = false;
+    private boolean wait = false;
     private Text secondLife = new Text("Extra Life! Press Enter to Keep Going...");
     private Text liveText = new Text("Health: " + lives);
     public static double speed = 4;

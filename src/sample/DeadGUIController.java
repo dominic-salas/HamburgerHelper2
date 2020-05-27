@@ -7,8 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-
-import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 

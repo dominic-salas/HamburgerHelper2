@@ -35,8 +35,4 @@ public class LaserGun extends Weapon {
         projectiles.add(laser);
     }
 
-
-    public void pickup() {
-    }
-
 }

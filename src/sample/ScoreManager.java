@@ -2,8 +2,6 @@ package sample;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
@@ -15,22 +13,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * by David Rogers
  */
 public class ScoreManager {
-    public LinkedList<ScoreProfile> profiles = new LinkedList<>();
-    public static ScoreProfile activeProfile = null;
-    Scanner scanner = new Scanner(System.in);
+    LinkedList<ScoreProfile> profiles = new LinkedList<>();
+    static ScoreProfile activeProfile = null;
+    private Scanner scanner = new Scanner(System.in);
 
-    FileReader fr;
-    BufferedReader br;
-    FileWriter fw;
-    BufferedWriter bw;
-    File scoreFile = new File("Resources/highscores.txt");
+    private BufferedReader br;
+    private BufferedWriter bw;
+    private File scoreFile = new File("Resources/highscores.txt");
 
     /**
      * creates file reader and buffered reader
      */
     public ScoreManager() {
         try {
-            fr = new FileReader(scoreFile);
+            FileReader fr = new FileReader(scoreFile);
             br = new BufferedReader(fr);
         } catch (Exception e) {
             System.out.println(e);
@@ -90,7 +86,7 @@ public class ScoreManager {
         profiles.forEach(scoreProfile -> {
             if (scoreProfile.playerName.equals(accountCheckName)) {
                 found.set(true);
-                activeProfile = scoreProfile; //find a way to break
+                activeProfile = scoreProfile;
             }
         });
         if (found.get()) {
@@ -101,15 +97,12 @@ public class ScoreManager {
         }
     }
 
-    private void sortScores() {
-    }
-
     /**
      * saves all profiles if they were updated
      */
     public void storeProfiles() {
         try {
-            fw = new FileWriter(scoreFile, false);
+            FileWriter fw = new FileWriter(scoreFile, false);
             bw = new BufferedWriter(fw);
             profiles.forEach(scoreProfile -> {
                 try {
@@ -147,10 +140,5 @@ public class ScoreManager {
         }catch (Exception e){
             System.out.println(e);
         }
-
-
-    }
-
-    private void printScores() {
     }
 }

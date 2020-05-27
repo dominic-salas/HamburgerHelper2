@@ -4,11 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-
-import java.awt.*;
-import java.util.Optional;
 
 public class Grenade extends Projectile implements Spawnable {
 

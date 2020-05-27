@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class ElectroGun extends Weapon {
     public ImageView sprite;
-    public double spawnChance;
     public double bulletSpeed = 0;
     static Image boltImage = new Image("blueBolt.png");
     private pathFinder pf = new pathFinder();

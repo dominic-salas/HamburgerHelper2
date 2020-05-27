@@ -18,8 +18,8 @@ import javafx.util.Duration;
 public abstract class Projectile implements Spawnable {
     double xpos;
     double ypos;
-    double xSpeed;
-    double ySpeed;
+    private double xSpeed;
+    private double ySpeed;
     public ImageView sprite;
     public int damage;
     protected Timeline timeline;

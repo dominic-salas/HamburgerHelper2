@@ -2,7 +2,6 @@ package sample;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 
 /**
  * semi-auto weapon with slow bullets

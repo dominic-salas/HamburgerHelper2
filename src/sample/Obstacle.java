@@ -6,14 +6,8 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import org.w3c.dom.css.Rect;
-
-import java.awt.*;
 import java.util.Random;
 
 import static sample.GameInitializer.mapMaker;
@@ -29,9 +23,6 @@ public class Obstacle implements Spawnable {
     private double yPos;
     public static double xSpeed;
     public static double ySpeed;
-    public static boolean collision = false;
-    private double xSize;
-    private double ySize;
     private Random rand = new Random();
     private Timeline timeline;
     private HamburgerHelper handy;

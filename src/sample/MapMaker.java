@@ -20,8 +20,6 @@ public class MapMaker {
     static Image obsImage = new Image("brick_wall.png");
     public double ySpeed;
     public double xSpeed;
-
-    public int obstaclesLength;
     private int xRand;
     private int yRand;
     private Random rand = new Random();
@@ -68,13 +66,6 @@ public class MapMaker {
                         }
                         obstacles.forEach(Obstacle::predictIntersectHandy); //check if inputs will cause collision and set to 0 if they will
                         obstacles.forEach(Obstacle::convertMotion); //implement movement
-                        /*
-                        for (int i = 0; i < obstacles.size(); i++){
-                            for (int e = 0; e < EnemyFactory.enemies.size(); e++){
-                                Obstacle.predictIntersectEnemies(EnemyFactory.enemies.get(e).hitbox,EnemyFactory.enemies.get(e));
-                            }
-                        }
-                        */
 
 
                     }

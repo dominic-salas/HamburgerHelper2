@@ -9,7 +9,6 @@ public class RPG extends Weapon {
     public ImageView sprite;
     public static Image[] images = new Image[12];
     public static Image grenadeImage = new Image("grenade.png");
-    public double spawnChance;
     public double bulletSpeed =3;
 
     public RPG(Group root) {
@@ -36,7 +35,5 @@ public class RPG extends Weapon {
         projectiles.add(grenade);
     }
 
-    public void pickup() {
-    }
 
 }
