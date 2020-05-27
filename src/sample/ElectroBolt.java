@@ -6,6 +6,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.util.Duration;
 
+/**
+ * low damage projectile with no bullet speed
+ * spawned by electroGun
+ * despawns after half a second
+ * By David Rogers
+ */
 public class ElectroBolt extends Projectile implements Spawnable {
     private double timetracker=0;
     public ElectroBolt(double xpos, double ypos, Group root) {
@@ -22,18 +28,17 @@ public class ElectroBolt extends Projectile implements Spawnable {
         KeyFrame action = new KeyFrame(Duration.seconds(.0080),
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent event) {
-                        timetracker+=.008;
+                        timetracker+=.008; //despawn after half a second
                         if (timetracker>.5){
                             removeSelf();
                         }
-
                     }
                 });
         timeline.getKeyFrames().add(action);
         timeline.play();
     }
 
-    private void removeSelf() {
+    private void removeSelf() { //despawns self if half second has elapsed and has not intersected with an enemy yet
         despawn();
         this.timeline.stop();
         Weapon.projectiles.remove(this);

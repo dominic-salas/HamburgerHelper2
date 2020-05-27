@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Creates 2d array to represent map.
+ * take in handy's position, and the clicked position
+ * generates path using BFS to find shortest path, without intersecting obstacle from origin to target
+ * used to generate projectile path for ELectroGun
+ * By David Rogers
+ */
 
 public class pathFinder {
     static Boolean[][] gridMap = new Boolean[62][]; //x, y
@@ -25,6 +32,7 @@ public class pathFinder {
         for (int i = 0; i < 62; i++) {
             gridMap[i] = new Boolean[62];
         }
+        // four types of movement that will move current position to any of the neighbours
         movements[0] = new Point2D(-1,0); //left
         movements[1] = new Point2D(1,0); //right
         movements[2] = new Point2D(0,-1); //up
@@ -32,6 +40,18 @@ public class pathFinder {
 
 
     }
+
+    /**
+     * basic BFS grid search.
+     * Uses gridmap, origin, and target to form shortest path from handy to point clicked, without intersecting any obstacles
+     * Starting point is set as origin
+     * Builds up FIFO queue of neighbouring positions that need to be checked and continues to move/check/add until reaches target position
+     * Determines shortest path because tries every path of certain length, before moving onto next path length. (ex. cannot find path of length 10 before all paths of length 9 are tried)
+     * Worst case efficiency is 14400 loops. (Was tested and still kept up with timeline)
+     *  Determined by N(e), where N is number of positions, and e is number of neighbours per position
+     * @param target
+     * @return
+     */
     public ArrayList<Point2D> findPath2(Point2D target){
         posQueue.clear();
 
@@ -56,9 +76,17 @@ public class pathFinder {
                 currentPos= new Point2D(currentPos.getX()-movements[i].getX(),currentPos.getY()-movements[i].getY()); //put it back where it belongs
             }
         }
-        return (null);
+        return (null); //if no path is found, don't return anything
     }
 
+    /**
+     * builds path of points by backtracking through searcher nodes.
+     * Find the point that is the target, then find the neighbour that moved to it (prev)
+     * do this until you reach the origin, (prev= null).
+     * Called when findpath2 finds the target point.
+     * @param startPos
+     * @return
+     */
     public ArrayList<Point2D> backTrace(SearcherNode startPos){
         ArrayList<Point2D> backTrace = new ArrayList<>();
         SearcherNode current = startPos;
@@ -69,7 +97,13 @@ public class pathFinder {
         return backTrace;
     }
 
-
+    /**
+     * Difficult to create array because obstacles are all random positions and sizes (both doubles as well)
+     * creates the 2D array as a grid to represent the map.
+     * sweeps 10*10 rectangle accross entire map, and for every position that causes an intersection, mark that position in the 2d array as occupied
+     * Also determines the location of both the origin and target positions for the pathfinder to use.
+     * @param target
+     */
     public void checkMap(Point2D target){
         targetBox.setX(target.getX());
         targetBox.setY(target.getY());
@@ -97,7 +131,7 @@ public class pathFinder {
                 }gridMap[i][j]=freePos;
             }
         }
-        for (int i = 0; i < 62; i++) {
+        for (int i = 0; i < 62; i++) { //log the ascii model of map to console
             System.out.println();
             for (int j = 0; j < 62; j++) {
                 if(gridMap[j][i]){

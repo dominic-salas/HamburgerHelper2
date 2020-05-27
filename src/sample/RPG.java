@@ -5,6 +5,13 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Weapon that spawns grenade.
+ * Low bullet speed
+ * Grenade is shot, when grenade collides with enemy, create explosion projectile and despawn grenade
+ * stores grenade images so more efficient spawning of projectiles (dont have to load from disc every time)
+ * By David Rogers
+ */
 public class RPG extends Weapon {
     public ImageView sprite;
     public static Image[] images = new Image[12];
@@ -29,6 +36,10 @@ public class RPG extends Weapon {
     }
 
     @Override
+    /**
+     * create slope and then spawn a grenade along that trajectory
+     * add grenade to projectiles arraylist
+     */
     public void shoot() {
         Point2D slope = super.slopeGenerator(bulletSpeed);
         Grenade grenade = new Grenade(HamburgerHelper.xpos+105,HamburgerHelper.ypos+105,slope.getX(),slope.getY(),root);

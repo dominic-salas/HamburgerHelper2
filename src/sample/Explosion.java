@@ -9,6 +9,13 @@ import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+/**
+ * secondary projectile that is spawned at the location of a grenade being detonated
+ * large hitbox and high damage
+ * no movement
+ * lasts for 2 seconds, while playing gif through animation of explosion frames
+ * By David Rogers
+ */
 public class Explosion extends Projectile implements Spawnable {
     Circle hitbox = new Circle();
     int frameCounter =0;
@@ -30,7 +37,7 @@ public class Explosion extends Projectile implements Spawnable {
         timeline.setCycleCount(Animation.INDEFINITE);
         KeyFrame action = new KeyFrame(Duration.seconds(.05),
                 new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent event) {
+                    public void handle(ActionEvent event) { //cycle through explosion frames until there are no frames left, then despawn
                         frameCounter++;
                         sprite.setImage(RPG.images[frameCounter]);
                         if(frameCounter>=11){
