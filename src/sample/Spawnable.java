@@ -15,5 +15,5 @@ public interface Spawnable {
     default void despawn(ImageView sprite, Group root) {
         root.getChildren().remove(sprite);
     }
-
 }
+
