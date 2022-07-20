@@ -132,12 +132,12 @@ public class pathFinder {
             }
         }
         for (int i = 0; i < 62; i++) { //log the ascii model of map to console
-            //System.out.println();
+            System.out.println();
             for (int j = 0; j < 62; j++) {
                 if(gridMap[j][i]){
-                    //System.out.print("- ");
+                    System.out.print("- ");
                 }else {
-                    //System.out.print("+ ");
+                    System.out.print("+ ");
                 }
             }
         }
